@@ -59,9 +59,11 @@ export default function MusicPage() {
                   <h2 className="mt-3 text-xl font-black text-foreground sm:text-2xl">
                     {entry.title}
                   </h2>
-                  <p className="mt-6 text-sm leading-loose text-muted sm:text-base">
-                    {entry.description}
-                  </p>
+                  {entry.description && (
+                    <p className="mt-6 text-sm leading-loose text-muted sm:text-base">
+                      {entry.description}
+                    </p>
+                  )}
                   {entry.videoUrl && (
                     <video
                       src={entry.videoUrl}
