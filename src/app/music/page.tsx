@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { MUSIC_ENTRIES } from "./entries";
 
 export const metadata: Metadata = {
@@ -69,6 +70,22 @@ export default function MusicPage() {
                       preload="metadata"
                       className="mt-6 w-full rounded-xl border border-border"
                     />
+                  )}
+                  {(entry.youtubeId || entry.youtubeShortId) && (
+                    <div className="mt-6 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
+                      {entry.youtubeId && (
+                        <YouTubeEmbed id={entry.youtubeId} label="YOUTUBE" />
+                      )}
+                      {entry.youtubeShortId && (
+                        <div className="sm:w-40">
+                          <YouTubeEmbed
+                            id={entry.youtubeShortId}
+                            label="SHORTS"
+                            vertical
+                          />
+                        </div>
+                      )}
+                    </div>
                   )}
                   {entry.links && entry.links.length > 0 && (
                     <div className="mt-6 flex flex-wrap gap-3">
