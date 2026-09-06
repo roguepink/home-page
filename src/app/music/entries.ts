@@ -5,6 +5,10 @@ export type MusicEntry = {
   /** まだ文章が無い曲では空にしておく */
   description?: string;
   videoUrl?: string;
+  /** 大きく出すときの静止画。再生を押すまでこれが見えている */
+  posterUrl?: string;
+  /** ★ 今日だけ、一番上で大きく出す曲。下ろすときはこの1行を消すだけ */
+  featured?: boolean;
   /** YouTube の普通の動画。共有アドレスの、うしろの11桁 */
   youtubeId?: string;
   /** YouTube ショート。同じく、うしろの11桁 */
@@ -28,6 +32,10 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
     videoUrl:
       "https://d2ol7oe51mr4n9.cloudfront.net/user_3HB6SVADKta7xCKiPnLpSPjn1jc/f7519244-2a95-4acb-9374-86dd4bd7dabe.mp4",
+    posterUrl:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3HB6SVADKta7xCKiPnLpSPjn1jc/d3eac5b1-5be2-477a-9bee-3ff2cce3bd36.jpg",
+    // ★ 今日だけの特別扱い。下ろすときは、この1行を消す
+    featured: true,
   },
   {
     slug: "2026-08-12-code-love",
