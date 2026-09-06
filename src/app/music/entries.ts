@@ -22,6 +22,14 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     youtubeShortId: "zTkUrPNrBEo",
   },
   {
+    slug: "2026-09-03-unmei-no-ito",
+    date: "2026-09-03",
+    title: "運命の糸",
+    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
+    videoUrl:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3HB6SVADKta7xCKiPnLpSPjn1jc/f7519244-2a95-4acb-9374-86dd4bd7dabe.mp4",
+  },
+  {
     slug: "2026-08-12-code-love",
     date: "2026-08-12",
     title: "CODE LOVE",
