@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
+import FeaturedRelease from "./FeaturedRelease";
 import { MUSIC_ENTRIES } from "./entries";
 
 export const metadata: Metadata = {
@@ -19,19 +20,31 @@ function formatDate(date: string): string {
 }
 
 export default function MusicPage() {
+  // 今日だけ特別扱いする曲は、一覧から抜いて一番上で大きく出す
+  const featured = MUSIC_ENTRIES.find((entry) => entry.featured);
+  const listed = MUSIC_ENTRIES.filter((entry) => !entry.featured);
+
   return (
     <>
       <BackgroundFX />
       <Header />
-      <main className="mx-auto max-w-3xl px-6 pb-32 pt-40">
-        <SectionHeading eyebrow="MUSIC" title="音楽">
-          <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
-            自分にしか出せない表現で、心を動かす音楽を。
-            できた曲が、ここにどんどん並んでいきます。
-          </p>
-        </SectionHeading>
+      <main
+        className={`mx-auto max-w-3xl px-6 pb-32 ${
+          featured ? "pt-32 sm:pt-36" : "pt-40"
+        }`}
+      >
+        {featured && <FeaturedRelease entry={featured} />}
 
-        {MUSIC_ENTRIES.length === 0 ? (
+        <div className={featured ? "mt-28" : "mt-8"}>
+          <SectionHeading eyebrow="MUSIC" title="音楽">
+            <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
+              自分にしか出せない表現で、心を動かす音楽を。
+              できた曲が、ここにどんどん並んでいきます。
+            </p>
+          </SectionHeading>
+        </div>
+
+        {listed.length === 0 ? (
           <Reveal className="mt-20">
             <div className="rounded-2xl border border-border bg-background-elevated p-10 text-center">
               <p className="text-3xl">🎵</p>
@@ -44,7 +57,7 @@ export default function MusicPage() {
           </Reveal>
         ) : (
           <div className="mt-20 space-y-16">
-            {MUSIC_ENTRIES.map((entry, index) => (
+            {listed.map((entry, index) => (
               <Reveal key={entry.slug} delay={index * 0.1}>
                 <article
                   id={entry.slug}
@@ -69,9 +82,10 @@ export default function MusicPage() {
                       <video
                         src={entry.videoUrl}
                         poster={
-                          entry.youtubeId
+                          entry.posterUrl ??
+                          (entry.youtubeId
                             ? `https://i.ytimg.com/vi/${entry.youtubeId}/hqdefault.jpg`
-                            : undefined
+                            : undefined)
                         }
                         controls
                         playsInline
