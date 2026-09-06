@@ -486,4 +486,5 @@ export const CHECKED_WORDS: string[] = [
   "俺自身",
   "一点集中",
   "全然違",
+  "頑張",
 ];
