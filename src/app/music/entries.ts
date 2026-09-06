@@ -47,4 +47,11 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
       "https://d2ol7oe51mr4n9.cloudfront.net/user_3HB6SVADKta7xCKiPnLpSPjn1jc/3b9a751e-a073-444d-b1cd-c9d887b16852.mp4",
     youtubeId: "Ud0yZ-VS2lU",
   },
+  {
+    slug: "2026-09-05-ganbaranakute-ii",
+    date: "2026-09-05",
+    title: "頑張らなくていい",
+    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
+    youtubeShortId: "CxY3V32idt0",
+  },
 ];
