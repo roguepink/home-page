@@ -17,7 +17,7 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
   {
     slug: "2026-09-04-sena-no-rule",
     date: "2026-09-04",
-    title: "セナのルール",
+    title: "聖奈のルール",
     // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
     youtubeShortId: "zTkUrPNrBEo",
   },
