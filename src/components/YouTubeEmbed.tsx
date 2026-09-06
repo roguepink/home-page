@@ -23,7 +23,7 @@ export default function YouTubeEmbed({
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className={vertical ? "mx-auto w-full max-w-[240px]" : "w-full"}>
+    <div className={vertical ? "mx-auto w-full max-w-[380px]" : "w-full"}>
       <div
         className={`relative overflow-hidden rounded-xl border border-border bg-black ${
           vertical ? "aspect-[9/16]" : "aspect-video"
@@ -31,7 +31,7 @@ export default function YouTubeEmbed({
       >
         {playing ? (
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`}
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&cc_load_policy=0&iv_load_policy=3&modestbranding=1`}
             title={label ?? "YouTube"}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
@@ -49,7 +49,7 @@ export default function YouTubeEmbed({
               src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
               alt=""
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-300 group-hover:opacity-90"
+              className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-300 group-hover:opacity-100"
             />
             <span className="absolute inset-0 flex items-center justify-center">
               <span className="flex h-16 w-16 items-center justify-center rounded-full bg-pink/90 shadow-lg transition-transform duration-300 group-hover:scale-110">
