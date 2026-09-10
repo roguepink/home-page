@@ -55,6 +55,7 @@ for (const [word, reading] of pairs) text = text.split(word).join(reading);
 //    片方だけ直すと、済んでいる言葉をまた報告するようになる。
 text = text.replace(/([ぁ-ん])分(?![かけ])/g, "$1ぶん");
 text = text.replace(/([ただる])方(?![法向面角程式針位])/g, "$1ほう");
+text = text.replace(/([ただ])後(?![ろ日半者方年部輩悔退継])/g, "$1あと");
 
 // 怪しい候補を拾う
 //  1. 漢字が2文字以上つづくもの(熟語・固有名詞)
@@ -71,7 +72,7 @@ for (const m of text.matchAll(/[一-龥]{2,}/g)) add(m[0]);
 //   (例:「正に変わる」を「まさに」と読む)。危ないものだけ名指しで見張る。
 //   前後の漢字とくっついている時は熟語なので数えない。
 // 「分」「方」は上の規則で処理しているので、ここには入れない
-const WATCH = "正誤悪生辛開角間下上際";
+const WATCH = "正誤悪生辛開角間下上際後";
 for (const character of WATCH) {
   const re = new RegExp(`(^|[^一-龥])(${character})([^一-龥]|$)`, "g");
   for (const m of text.matchAll(re)) {
