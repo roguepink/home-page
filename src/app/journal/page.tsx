@@ -7,6 +7,8 @@ import SectionHeading from "@/components/SectionHeading";
 import EntryCard from "./EntryCard";
 import JournalList from "./JournalList";
 import { JOURNAL_ENTRIES } from "./entries";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
+import { FEATURED_VIDEO } from "./featured";
 
 export const metadata: Metadata = {
   title: "制作日誌 | ROGUE PINK",
@@ -35,6 +37,16 @@ export default function JournalPage() {
             できあがっていく過程を、ここに残していきます。
           </p>
         </SectionHeading>
+
+        {/* いまの最新の1本。常に1本だけ。中身は featured.ts で差し替える。
+            押されるまで YouTube を読み込まないので、ページは重くならない */}
+        <Reveal className="mt-16">
+          <YouTubeEmbed
+            id={FEATURED_VIDEO.id}
+            label={FEATURED_VIDEO.label}
+            vertical={FEATURED_VIDEO.vertical}
+          />
+        </Reveal>
 
         {/* 着地点(id)は、動かない外枠に付ける */}
         <div id={FIRST_ENTRY.slug} className="mt-20">
