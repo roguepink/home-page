@@ -11,8 +11,6 @@ import { TRAVEL_ENTRIES } from "./entries";
 export const metadata: Metadata = {
   title: "旅 | ROGUE PINK",
   description: "旅先で撮った写真を、曲にのせて一本の映像に。",
-  // 試し版のあいだは検索に出さない
-  robots: { index: false, follow: false },
 };
 
 export default function TravelPage() {

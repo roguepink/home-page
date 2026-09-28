@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/#vision", label: "世界観" },
   { href: "/journal", label: "制作日誌" },
   { href: "/writing", label: "執筆" },
+  { href: "/travel", label: "旅" },
   { href: "/#contact", label: "連絡先" },
 ];
 
