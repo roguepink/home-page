@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
+// 横並びのメニューは lg(1024px)から。項目が増えて、iPad を縦にした幅では文字が折れて崩れたため
 const NAV_ITEMS = [
   { href: "/#concept", label: "コンセプト" },
   { href: "/#businesses", label: "事業" },
@@ -34,11 +35,11 @@ export default function Header() {
             height={32}
             className="h-8 w-8 rounded-md"
           />
-          <span className="text-sm font-black tracking-[0.2em] text-foreground">
+          <span className="whitespace-nowrap text-sm font-black tracking-[0.2em] text-foreground">
             ROGUE PINK
           </span>
         </Link>
-        <nav className="hidden gap-8 text-sm font-medium text-muted sm:flex">
+        <nav className="hidden gap-8 whitespace-nowrap text-sm font-medium text-muted lg:flex">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
@@ -52,7 +53,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className="hidden rounded-full bg-pink px-4 py-2 text-xs font-bold tracking-wide text-white shadow-[0_0_20px_rgba(255,46,136,0.45)] transition-transform hover:scale-105 sm:inline-block sm:text-sm"
+            className="hidden whitespace-nowrap rounded-full bg-pink px-4 py-2 text-xs font-bold tracking-wide text-white shadow-[0_0_20px_rgba(255,46,136,0.45)] transition-transform hover:scale-105 sm:inline-block sm:text-sm"
           >
             連絡する
           </Link>
@@ -61,7 +62,7 @@ export default function Header() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground sm:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
           >
             <span className="relative block h-3 w-4">
               <motion.span
@@ -84,7 +85,7 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border/60 sm:hidden"
+            className="overflow-hidden border-t border-border/60 lg:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {NAV_ITEMS.map((item) => (
