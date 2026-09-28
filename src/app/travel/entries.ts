@@ -19,13 +19,13 @@ export const TRAVEL_ENTRIES: TravelEntry[] = [
   {
     slug: "solo-camp-bike",
     period: "2021 – 2026",
-    title: "ソロキャン & バイク旅",
-    // ⚠ 動画のアドレスはまだ無い(YouTube などに上げたら youtubeId を入れる)
+    title: "道の先へ ｜ CT125 ソロキャン & バイク旅",
+    youtubeId: "vH6dLSNraGI",
   },
   {
     slug: "2024-kyoto-newyear",
     period: "2024.01.01 – 01.06",
-    title: "京都",
-    // ⚠ 動画のアドレスはまだ無い(YouTube などに上げたら youtubeId を入れる)
+    title: "京都、六日間 ｜ 2024 正月",
+    youtubeId: "IHcICVSYRx0",
   },
 ];
