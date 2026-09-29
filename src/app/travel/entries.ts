@@ -20,12 +20,12 @@ export const TRAVEL_ENTRIES: TravelEntry[] = [
     slug: "solo-camp-bike",
     period: "2021 – 2026",
     title: "道の先へ",
-    youtubeId: "vH6dLSNraGI",
+    youtubeId: "fGDoFby6muI",
   },
   {
     slug: "2024-kyoto-newyear",
     period: "2024.01.01 – 01.06",
     title: "京都、六日間",
-    youtubeId: "IHcICVSYRx0",
+    youtubeId: "QwHOVBxE1U4",
   },
 ];
