@@ -10,6 +10,7 @@ import { WRITING_ENTRIES } from "@/app/writing/entries";
 import { JOURNAL_ENTRIES } from "@/app/journal/entries";
 import { MUSIC_ENTRIES } from "@/app/music/entries";
 import { APP_ENTRIES } from "@/app/apps/entries";
+import { TRAVEL_ENTRIES } from "@/app/travel/entries";
 
 export type Product = {
   label: string;
@@ -64,6 +65,16 @@ const BUSINESSES: Business[] = [
     status: "live",
     stat: { value: MUSIC_ENTRIES.length, unit: "曲 公開中" },
     products: [{ label: "音楽を聴く", url: "/music" }],
+  },
+  {
+    title: "旅",
+    // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
+    description:
+      "旅先で撮った写真を、自分で作った曲にのせて、一本の映像に。行った場所が、ここに増えていきます。",
+    icon: "travel",
+    status: "live",
+    stat: { value: TRAVEL_ENTRIES.length, unit: "本 公開中" },
+    products: [{ label: "旅の映像を見る", url: "/travel" }],
   },
   {
     title: "アプリ開発",
