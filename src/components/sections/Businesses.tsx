@@ -11,6 +11,7 @@ import { JOURNAL_ENTRIES } from "@/app/journal/entries";
 import { MUSIC_ENTRIES } from "@/app/music/entries";
 import { APP_ENTRIES } from "@/app/apps/entries";
 import { TRAVEL_ENTRIES } from "@/app/travel/entries";
+import { GAME_ENTRIES } from "@/app/games/entries";
 
 export type Product = {
   label: string;
@@ -85,6 +86,16 @@ const BUSINESSES: Business[] = [
     stat: { value: APP_ENTRIES.length, unit: "本 公開中" },
     // アプリは名前が似ていて説明が要るので、ボタンを並べずに一覧ページへ送る
     products: [{ label: "アプリを使ってみる", url: "/apps" }],
+  },
+  {
+    title: "ゲーム",
+    // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
+    description:
+      "ブラウザで開けば、すぐ遊べるゲーム。森で毒キノコを退治するアクションと、山道を走るバイクレース。",
+    icon: "game",
+    status: "live",
+    stat: { value: GAME_ENTRIES.length, unit: "本 公開中" },
+    products: [{ label: "ゲームで遊ぶ", url: "/games" }],
   },
   {
     title: "アパレル",
