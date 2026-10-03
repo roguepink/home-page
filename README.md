@@ -27,6 +27,11 @@
 独自ドメインのほうは、契約が続く限り別の場所へ付け替えられる。
 
 - ホスティングは **Vercel**。`main` にプッシュすると自動でデプロイされる
+  - **本番だけ「Production deployment failed」のメールが来たら**(2026-10-03 に一度)、
+    GitHub の squash マージが同じ部分を二重に入れていないか疑う。あのときは
+    `BusinessIcon.tsx` の `game:` が2つになり、TypeScript で止まった。
+    手元で `git fetch origin main && git merge origin/main` → `npm run build` をすると
+    同じ失敗が再現する。直して、もう1回 main へ合体させれば動く
 - 執筆記事の追加は `src/app/writing/entries.ts` の配列の**先頭**に足す。
   公開前に `npm run build` を通すこと
 - **スマホのホーム画面に入れた場合(PWA)は前の画面が復元されるため、
