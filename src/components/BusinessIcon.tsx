@@ -4,6 +4,7 @@ export type BusinessIconName =
   | "film"
   | "pen"
   | "shirt"
+  | "travel"
   | "cycle";
 
 type BusinessIconProps = {
@@ -39,6 +40,13 @@ const PATHS: Record<BusinessIconName, React.ReactNode> = {
     </>
   ),
   shirt: <path d="M9 3.5l3 2 3-2 5.5 3-2 4.2-2-1V21H7.5V9.7l-2 1-2-4.2z" />,
+  // 山並みと、その向こうの太陽
+  travel: (
+    <>
+      <path d="M2.5 19.5l6-9 4 5.5 3-4 6 7.5z" />
+      <circle cx="17" cy="6" r="2.2" />
+    </>
+  ),
   cycle: (
     <>
       <path d="M4.5 13a7.5 7.5 0 0 1 12.4-5.7" />
