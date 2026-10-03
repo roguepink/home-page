@@ -13,6 +13,7 @@ const SOURCES = [
   "src/app/journal/entries.ts",
   "src/app/apps/entries.ts",
   "src/app/music/entries.ts",
+  "src/app/games/entries.ts",
 ];
 
 // 辞書ファイルから、登録済みの言葉と「ふつうに読めるので登録不要」を抜き出す

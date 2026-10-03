@@ -1,0 +1,76 @@
+export type GameEntry = {
+  slug: string;
+  /** カードの上に小さく出る、どんな遊びかの一言 */
+  eyebrow: string;
+  name: string;
+  /** 名前の下に小さく出す、日本語の読み(英語の名前のときだけ) */
+  subName?: string;
+  description: string;
+  /** 3つまで。多いと読まれない */
+  features: string[];
+  /** どの端末で遊べるか */
+  devices: string;
+  /** ゲーム本体のアドレス。public/games/<slug>/ に置いてある */
+  url: string;
+  /** カードの絵(ゲームのタイトル画面を撮ったもの) */
+  cover: string;
+  coverAlt: string;
+};
+
+// ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
+//   どくキノコ大作戦 … roguepink/kinokogame の index.html(main 53f38d6 の時点)
+//   ACORN DIRT GP    … roguepink/game の一式(main ef344e0 の時点)
+//
+//   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
+//   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
+//   (キノコは src/ から作った index.html だけでよい。バイクは icons/ vendor/
+//    manifest.webmanifest sw.js も一緒に)
+//
+// ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
+//
+// 新しいゲームは配列の末尾に追加する
+export const GAME_ENTRIES: GameEntry[] = [
+  {
+    slug: "kinoko",
+    eyebrow: "森の おそうじアクション",
+    name: "どくキノコ大作戦",
+    description:
+      "森にはえた毒キノコを、インクの水鉄砲でうちまくって、きれいにしていくゲームです。制限時間は3分。森の形は、毎日かわります。",
+    features: [
+      "うさぎやリスにさわると、仲間になって一緒に戦ってくれる",
+      "時間がたつと夕方から夜へ。夜は毒キノコが光って見える",
+      "ステージ1でランクB以上を取ると、ステージ2「まち」が遊べる",
+    ],
+    devices: "パソコン・スマホ",
+    url: "/games/kinoko/index.html",
+    cover: "/games/kinoko/cover.jpg",
+    coverAlt:
+      "どくキノコ大作戦のタイトル画面。森の中に、赤やむらさきのキノコがはえている",
+  },
+  {
+    slug: "acorn",
+    eyebrow: "山道の バイクレース",
+    name: "ACORN DIRT GP",
+    subName: "どんぐりダートGP",
+    description:
+      "どうぶつたちがオフロードバイクで山道を走る、3Dのレースゲームです。橋をわたり、ヘアピンを登って、大ジャンプで谷へ。3周でゴールです。",
+    features: [
+      "ドリフトで火花の色が変わったところで離すと、ターボ",
+      "おにぎりターボ、どんぐりショット、どろだんごのアイテム",
+      "開くと、まずコンピューターどうしのレースが流れる。何か押せば自分で走れる",
+    ],
+    devices: "パソコン・スマホ(横向き)",
+    url: "/games/acorn/index.html",
+    cover: "/games/acorn/cover.jpg",
+    coverAlt:
+      "ACORN DIRT GPのスタート地点。ウサギやカエルのライダーが、オフロードバイクで並んでいる",
+  },
+];
+
+// 2本に共通すること。カードごとに書くとうるさいので、ページの下に1回だけ出す
+export const GAME_NOTES: string[] = [
+  "無料です。登録も、ダウンロードも要りません。開けばすぐ遊べます。",
+  "ハイスコアや記録は、その端末の中だけに残ります。外には送られません。",
+  "スマホでは、画面に操作用のボタンやスティックが出ます。",
+  "音が出ます。パソコンでは M キーで消せます。",
+];

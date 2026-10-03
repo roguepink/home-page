@@ -1,5 +1,6 @@
 export type BusinessIconName =
   | "app"
+  | "game"
   | "music"
   | "film"
   | "pen"
@@ -18,6 +19,15 @@ const PATHS: Record<BusinessIconName, React.ReactNode> = {
     <>
       <rect x="6" y="2.5" width="12" height="19" rx="3" />
       <path d="M10 18.5h4" />
+    </>
+  ),
+  // ゲームのコントローラー。左に十字キー、右にボタン2つ
+  game: (
+    <>
+      <rect x="2.5" y="7" width="19" height="11" rx="5.5" />
+      <path d="M8 10.5v4M6 12.5h4" />
+      <circle cx="15.5" cy="11.5" r="0.9" />
+      <circle cx="17.5" cy="13.8" r="0.9" />
     </>
   ),
   music: (
