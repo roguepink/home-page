@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import { motion } from "framer-motion";
+import CountUp from "@/components/CountUp";
 import BusinessIcon, { type BusinessIconName } from "@/components/BusinessIcon";
 import usePointerFine from "@/hooks/usePointerFine";
 import type { Product } from "@/components/sections/Businesses";
@@ -105,6 +107,7 @@ export default function BusinessCard({
       <div className="flex items-center gap-3">
         <BusinessIcon
           name={icon}
+          draw={!isSleeping}
           className={`h-[22px] w-[22px] transition-transform duration-300 motion-reduce:transition-none ${
             isSleeping
               ? "text-muted"
@@ -132,9 +135,7 @@ export default function BusinessCard({
 
       {stat && (
         <div className="mt-4 flex items-baseline gap-2 border-t border-border pt-4 text-xs text-muted">
-          <b className="text-base font-black tabular-nums text-pink-soft">
-            {stat.value}
-          </b>
+          <CountUp value={stat.value} />
           <span>{stat.unit}</span>
         </div>
       )}
@@ -162,14 +163,17 @@ export default function BusinessCard({
   );
 
   return (
-    <div
+    // 指で押すと、カード全体が少し沈む(スマホで「触れた」と分かるように)
+    <motion.div
       ref={cardRef}
       onPointerMove={handlePointerMove}
+      whileTap={isSleeping ? undefined : { scale: 0.985 }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
       className={[
         "group relative isolate overflow-hidden rounded-2xl border border-border bg-background-elevated transition-colors duration-300",
         featured ? "p-8 sm:p-10" : "p-7 sm:p-8",
         // 準備中はまだ中身が少ないので、無理に高さを揃えず静かに短く置く
-        isSleeping ? "opacity-55" : "h-full hover:border-pink-light/40",
+        isSleeping ? "opacity-55" : "h-full hover:border-pink-light/40 active:border-pink/60",
       ].join(" ")}
     >
       {canGlow && (
@@ -193,6 +197,6 @@ export default function BusinessCard({
       ) : (
         body
       )}
-    </div>
+    </motion.div>
   );
 }

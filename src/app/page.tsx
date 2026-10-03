@@ -11,7 +11,7 @@ import Contact from "@/components/sections/Contact";
 export default function Home() {
   return (
     <>
-      <BackgroundFX />
+      <BackgroundFX scrollTint />
       <SparkleTrail />
       <Header />
       <main>
