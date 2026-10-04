@@ -133,9 +133,9 @@ export default function Businesses() {
           // 左の列は左から、右の列は右から。スマホの1列でも左右交互になる
           <Reveal
             key={item.title}
-            x={index % 2 === 0 ? -70 : 70}
+            x={index % 2 === 0 ? -40 : 40}
             y={0}
-            delay={0.05}
+            delay={0.1}
             // 数が奇数のときに最後の1枚が半分だけ残らないようにする
             className={`h-full ${
               BUSINESSES.length % 2 === 1 && index === BUSINESSES.length - 1
