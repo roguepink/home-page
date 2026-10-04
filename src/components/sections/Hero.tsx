@@ -29,9 +29,13 @@ const LOGO_IN = 0.15;
 const LOGO_SHRINK = 0.5;
 const LOGO_LAND = 1.4;
 const TEXT_LAND = 2.1;
-const LINES = 2.2;
-const TAGLINE_AT = 2.65;
-const INTRO_END = 3.6;
+// 下の3行は、1行ずつ順番に、ゆっくり出す(ノブさんの指示 2026-10-04)。
+// 前の行がほぼ出きってから、次の行が動き出す
+const LINE_SLOW = 1.8;
+const LINE_GAP = 1.3;
+const LINES = 2.3;
+const TAGLINE_AT = LINES + LINE_GAP * 2;
+const INTRO_END = TAGLINE_AT + LINE_SLOW + 0.3;
 
 // 強く始まって、最後はふわっと止まる
 const EASE_ZOOM = [0.7, 0, 0.2, 1] as const;
@@ -149,17 +153,17 @@ export default function Hero() {
           <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-pink-light sm:text-2xl">
             <motion.span
               className="block"
-              initial={{ x: "-35vw", opacity: 0, filter: "blur(10px)" }}
+              initial={{ x: "-22vw", opacity: 0, filter: "blur(10px)" }}
               animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.2, delay: LINES, ease: EASE_GLIDE }}
+              transition={{ duration: LINE_SLOW, delay: LINES, ease: EASE_GLIDE }}
             >
               ありがとうと言ってもらいたい。
             </motion.span>
             <motion.span
               className="block"
-              initial={{ x: "35vw", opacity: 0, filter: "blur(10px)" }}
+              initial={{ x: "22vw", opacity: 0, filter: "blur(10px)" }}
               animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.2, delay: LINES + 0.15, ease: EASE_GLIDE }}
+              transition={{ duration: LINE_SLOW, delay: LINES + LINE_GAP, ease: EASE_GLIDE }}
             >
               そして、ありがとうと言いたい。
             </motion.span>
@@ -175,7 +179,7 @@ export default function Hero() {
             }}
             initial={{ maskPosition: "100% 0%", y: 6 }}
             animate={{ maskPosition: "0% 0%", y: 0 }}
-            transition={{ duration: 1.3, delay: TAGLINE_AT, ease: EASE_GLIDE }}
+            transition={{ duration: LINE_SLOW, delay: TAGLINE_AT, ease: EASE_GLIDE }}
           >
             {TAGLINE}
           </motion.p>
@@ -183,7 +187,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: TAGLINE_AT + 0.9 }}
+            transition={{ duration: 1, delay: TAGLINE_AT + 1.2 }}
             className="mt-14"
           >
             <Link

@@ -40,7 +40,7 @@ export default function Reveal({
             hidden: { clipPath: "inset(0px 100% 0px 0px round 16px)" },
             show: { clipPath: "inset(0px 0% 0px 0px round 16px)" },
           }}
-          transition={{ duration: 1.1, delay, ease: [0.77, 0, 0.18, 1] }}
+          transition={{ duration: 1.8, delay, ease: [0.65, 0, 0.25, 1] }}
         >
           {children}
         </motion.div>
@@ -54,7 +54,8 @@ export default function Reveal({
       initial={{ opacity: 0, x, y }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      // ゆっくり。スクロールが速くても、追いつこうとして急がない(ノブさんの指示)
+      transition={{ duration: 1.5, delay, ease: [0.25, 1, 0.5, 1] }}
     >
       {children}
     </motion.div>
