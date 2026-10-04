@@ -3,11 +3,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import Opening from "@/components/Opening";
 
-// 文字はドーン(Opening の BURST_AT = 0.62秒)のあとに浮かび上がる。
-// ロゴは爆発の中心から生まれるように、大きいところから縮んで出る
-const AFTER_BURST = 1.05;
+// 後ろの粒(チラチラ)は、ノブさんの判断で止めた(2026-10-04)。
+// 新しい「ドーン」ができるまでの、つなぎの出方
+const AFTER_BURST = 0.1;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
@@ -28,8 +27,6 @@ export default function Hero() {
       ref={sectionRef}
       className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 text-center"
     >
-      <Opening originRef={logoRef} />
-
       <motion.div
         style={{ opacity: fade, y: lift }}
         className="flex flex-col items-center"
