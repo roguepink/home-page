@@ -117,7 +117,7 @@ const CLOSING: Business = {
 export default function Businesses() {
   return (
     <section id="businesses" className="mx-auto max-w-5xl px-6 py-32 sm:py-40">
-      <SectionHeading eyebrow="BUSINESSES" title="やっていくこと">
+      <SectionHeading backdrop eyebrow="BUSINESSES" title="やっていくこと">
         <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
           一人がひとつの商売しかできない時代は終わりました。
           ひとりで、いくつもの「ありがとう」を生み出していきます。
@@ -125,14 +125,17 @@ export default function Businesses() {
       </SectionHeading>
 
       <div className="mt-16 grid gap-5 sm:grid-cols-2">
-        <Reveal className="h-full sm:col-span-2">
+        <Reveal wipe className="h-full sm:col-span-2">
           <BusinessCard {...FEATURED} featured />
         </Reveal>
 
         {BUSINESSES.map((item, index) => (
+          // 左の列は左から、右の列は右から。スマホの1列でも左右交互になる
           <Reveal
             key={item.title}
-            delay={(index + 1) * 0.08}
+            x={index % 2 === 0 ? -70 : 70}
+            y={0}
+            delay={0.05}
             // 数が奇数のときに最後の1枚が半分だけ残らないようにする
             className={`h-full ${
               BUSINESSES.length % 2 === 1 && index === BUSINESSES.length - 1
@@ -144,10 +147,7 @@ export default function Businesses() {
           </Reveal>
         ))}
 
-        <Reveal
-          delay={(BUSINESSES.length + 1) * 0.08}
-          className="h-full sm:col-span-2"
-        >
+        <Reveal wipe className="h-full sm:col-span-2">
           <BusinessCard {...CLOSING} />
         </Reveal>
       </div>

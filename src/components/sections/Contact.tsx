@@ -12,7 +12,7 @@ export default function Contact() {
       id="contact"
       className="mx-auto max-w-3xl px-6 py-32 sm:py-40"
     >
-      <SectionHeading eyebrow="CONTACT" title="連絡先" />
+      <SectionHeading backdrop eyebrow="CONTACT" title="連絡先" />
 
       <Reveal delay={0.15} className="mt-14">
         <MascotBubble

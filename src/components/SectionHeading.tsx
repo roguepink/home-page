@@ -1,26 +1,94 @@
-import Reveal from "@/components/Reveal";
-import type { ReactNode } from "react";
+"use client";
+
+import { useRef, type ReactNode } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 type SectionHeadingProps = {
   eyebrow: string;
   title: string;
   children?: ReactNode;
+  /**
+   * 見出しの後ろに、画面より大きな薄い英字を置く(トップページだけ)。
+   * スクロールに合わせて横に流れ、指を止めれば止まる。勝手には動かない
+   */
+  backdrop?: boolean;
 };
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+function Backdrop({ word }: { word: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["18%", "-18%"]);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      // 見出し(日本語)の高さに合わせる。下の説明文の後ろには重ねない
+      className="pointer-events-none absolute inset-x-0 top-[3.4rem] -z-10 flex -translate-y-1/2 justify-center sm:top-[3.8rem]"
+    >
+      <motion.span
+        style={{ x, WebkitTextStroke: "1px rgba(255,143,196,0.22)" }}
+        className="whitespace-nowrap text-[28vw] font-black leading-none tracking-tight text-transparent sm:text-[18vw]"
+      >
+        {word}
+      </motion.span>
+    </div>
+  );
+}
 
 export default function SectionHeading({
   eyebrow,
   title,
   children,
+  backdrop = false,
 }: SectionHeadingProps) {
   return (
-    <Reveal>
-      <p className="text-center text-xs font-bold tracking-[0.4em] text-pink-light">
+    <div className="relative isolate">
+      {backdrop && <Backdrop word={eyebrow} />}
+
+      <motion.p
+        className="text-center text-xs font-bold tracking-[0.4em] text-pink-light"
+        initial={{ opacity: 0, x: -40 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.7, ease: EASE }}
+      >
         {eyebrow}
-      </p>
-      <h2 className="mt-4 text-center text-3xl font-black tracking-tight text-foreground sm:text-4xl">
-        {title}
-      </h2>
-      {children}
-    </Reveal>
+      </motion.p>
+
+      {/* 見出しは、幕の裏からせり上がる。下の端で切ってあるので、下から湧いて出るように見える。
+          ⚠ 見えたかどうかは h2(外枠)で判定する。中の文字で判定すると、
+            幕の裏に隠れている間は「画面に無い」扱いになり、いつまでも出てこない */}
+      <motion.h2
+        className="mt-4 overflow-hidden pb-1 text-center text-3xl font-black tracking-tight text-foreground sm:text-4xl"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.6 }}
+      >
+        <motion.span
+          className="block"
+          variants={{ hidden: { y: "110%" }, show: { y: "0%" } }}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+        >
+          {title}
+        </motion.span>
+      </motion.h2>
+
+      {children && (
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </div>
   );
 }

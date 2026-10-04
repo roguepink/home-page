@@ -32,6 +32,12 @@ html {
   scroll-margin-top: 4.5rem;
 }
 
+/* 画面の外から滑り込む文字や、画面より大きい文字で、横にずれないように */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
