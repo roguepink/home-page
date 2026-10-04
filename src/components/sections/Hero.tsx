@@ -8,16 +8,18 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
+import { preload } from "react-dom";
 
 // 開いた瞬間の「ドーン」(2026-10-04 ノブさんの指示で作り直し・2回目)
 //
-//   0.0秒  画面全体がピンク一色
-//   0.15秒 ロゴが画面いっぱいの大きさで現れる
-//   0.5秒  ロゴが縮みながら定位置へ。ピンクはロゴに吸い込まれるように引いていく
-//   1.4秒  ロゴ着地。輪が1回だけ広がる
-//   1.4秒  ロゴの裏から、大きな「ROGUE PINK」が出てきて、縮んでドンと着地。画面が一瞬揺れる
-//   2.2秒  「言ってもらいたい」が左から、「言いたい」が右から、すべるように入る
-//   2.6秒  「ひとりから始まる…」が、左から右へ、なめらかに浮かび上がる
+//   0.0秒  画面全体に、ピンクのリボンが絡み合った「ROGUE PINK」の絵
+//          (2026-10-04 ノブさんの絵。ピンク一色から差し替えた)
+//   0.8秒  ロゴが画面いっぱいの大きさで現れる(それまでは絵だけ)
+//   1.15秒 ロゴが縮みながら定位置へ。絵はロゴに吸い込まれるように引いていく
+//   2.05秒 ロゴ着地。輪が1回だけ広がる
+//   2.05秒 ロゴの裏から、大きな「ROGUE PINK」が出てきて、縮んでドンと着地。画面が一瞬揺れる
+//   2.95秒 「言ってもらいたい」(左から)→「言いたい」(右から)→
+//          「ひとりから始まる…」の順に、1行ずつゆっくり
 //   そのあとは、ぴたっと止まる
 //
 // ★ 決まり: 動くのは「出てくる瞬間」だけ。読んでいる間は何も動かない
@@ -25,15 +27,17 @@ import Link from "next/link";
 // ★ 下の文章は「カクつく」と言われたので、一文字ずつ跳ねる動きはやめた。
 //   行ごとに、ぼかしから澄んでいくように流れ込ませる
 
-const LOGO_IN = 0.15;
-const LOGO_SHRINK = 0.5;
-const LOGO_LAND = 1.4;
-const TEXT_LAND = 2.1;
+// 最初の絵だけを見せる時間。ロゴがすぐ重なると、絵がほとんど見えないので
+const PATTERN_HOLD = 0.8;
+const LOGO_IN = PATTERN_HOLD;
+const LOGO_SHRINK = PATTERN_HOLD + 0.35;
+const LOGO_LAND = PATTERN_HOLD + 1.25;
+const TEXT_LAND = PATTERN_HOLD + 1.95;
 // 下の3行は、1行ずつ順番に、ゆっくり出す(ノブさんの指示 2026-10-04)。
 // 前の行がほぼ出きってから、次の行が動き出す
 const LINE_SLOW = 1.8;
 const LINE_GAP = 1.3;
-const LINES = 2.3;
+const LINES = TEXT_LAND + 0.2;
 const TAGLINE_AT = LINES + LINE_GAP * 2;
 const INTRO_END = TAGLINE_AT + LINE_SLOW + 0.3;
 
@@ -46,7 +50,11 @@ const EASE_GLIDE = [0.22, 1, 0.36, 1] as const;
 
 const TAGLINE = "ひとりから始まる、なんでもありのブランド。";
 
+const PATTERN = "/opening-pattern.jpg";
+
 export default function Hero() {
+  // 最初の絵は、開いた瞬間に出ないと意味がないので、真っ先に読み込ませる
+  preload(PATTERN, { as: "image", fetchPriority: "high" });
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   // 演出の間だけ、中身をピンクの幕より手前に出す。終わったら元に戻す
@@ -74,14 +82,25 @@ export default function Hero() {
     >
       {!reduced && (
         <>
-          {/* 最初のピンク一色。ロゴが縮むのに合わせて、ロゴのあたりへ吸い込まれて消える */}
+          {/* 最初の絵。ロゴが縮むのに合わせて、ロゴのあたりへ吸い込まれて消える。
+              絵が届く前の一瞬は、下に敷いたピンクが見える */}
           <motion.div
             aria-hidden
-            className="pointer-events-none fixed inset-0 z-[60] bg-pink"
+            className="pointer-events-none fixed inset-0 z-[60] overflow-hidden bg-pink"
             initial={{ clipPath: "circle(150% at 50% 40%)" }}
             animate={{ clipPath: "circle(0% at 50% 40%)" }}
             transition={{ duration: 0.9, delay: LOGO_SHRINK, ease: EASE_ZOOM }}
-          />
+          >
+            {/* 絵も一緒に少し縮ませて、吸い込まれていく感じを出す */}
+            <motion.div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${PATTERN})` }}
+              // 1 より小さくすると、絵の端から下地のピンクがのぞくので 1 で止める
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: LOGO_SHRINK + 0.9, ease: [0.4, 0, 0.6, 1] }}
+            />
+          </motion.div>
 
           {/* ロゴ着地の瞬間に、輪が1回だけ広がる。終わったら二度と出ない */}
           <div
