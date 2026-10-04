@@ -2,69 +2,86 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  animate,
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import { preload } from "react-dom";
 
-// 開いた瞬間の「ドーン」(2026-10-04 ノブさんの指示で作り直し・2回目)
+// 開いた瞬間の入り方(2026-10-04 ノブさんの指示・3回目)
 //
-//   0.0秒  画面全体に、ピンクのリボンが絡み合った「ROGUE PINK」の絵
-//          (2026-10-04 ノブさんの絵。ピンク一色から差し替えた)
-//   0.8秒  ロゴが画面いっぱいの大きさで現れる(それまでは絵だけ)
-//   1.15秒 ロゴが縮みながら定位置へ。絵はロゴに吸い込まれるように引いていく
-//   2.05秒 ロゴ着地。輪が1回だけ広がる
-//   2.05秒 ロゴの裏から、大きな「ROGUE PINK」が出てきて、縮んでドンと着地。画面が一瞬揺れる
-//   2.95秒 「言ってもらいたい」(左から)→「言いたい」(右から)→
-//          「ひとりから始まる…」の順に、1行ずつゆっくり
-//   そのあとは、ぴたっと止まる
+//   ロゴの中のピンク(R の縦棒)を、画面いっぱいに超アップにしたところから始まる。
+//   そこから一本の動きで、ゆっくりロゴが引いていき、画面の中に現れる。
+//   何かが別に出てきて消えるのではなく、「ピンクが、だんだんロゴになっていく」だけ。
+//   ロゴが落ち着いたら、文字が順番に、ゆっくり入ってくる。
 //
+//   0.0秒  画面全体がピンク(ロゴの R の縦棒を超アップにしたもの)
+//   0.35秒 ゆっくり引きはじめる
+//   2.85秒 ロゴが定位置に落ち着く
+//   2.4秒  「ROGUE PINK」がぼかしから浮かび上がる(ロゴが落ち着くのと重ねて、流れを切らない)
+//   3.2秒〜 「言ってもらいたい」(左から)→「言いたい」(右から)→「ひとりから始まる…」
+//          の順に、1行ずつゆっくり
+//
+// ★ 前の版にあった「ドン」(文字が叩きつけられる・画面が揺れる・輪や光が広がる)と、
+//   最初の絵は全部やめた。「ドーン、ドーン、ドーン」と3回に感じたため
 // ★ 決まり: 動くのは「出てくる瞬間」だけ。読んでいる間は何も動かない
-// ★ 毎回ドーンする(ノブさんの判断)
-// ★ 下の文章は「カクつく」と言われたので、一文字ずつ跳ねる動きはやめた。
-//   行ごとに、ぼかしから澄んでいくように流れ込ませる
+// ★ 毎回この入り方をする(ノブさんの判断)
 
-// 最初の絵だけを見せる時間。ロゴがすぐ重なると、絵がほとんど見えないので
-const PATTERN_HOLD = 0.8;
-const LOGO_IN = PATTERN_HOLD;
-const LOGO_SHRINK = PATTERN_HOLD + 0.35;
-const LOGO_LAND = PATTERN_HOLD + 1.25;
-const TEXT_LAND = PATTERN_HOLD + 1.95;
-// 下の3行は、1行ずつ順番に、ゆっくり出す(ノブさんの指示 2026-10-04)。
-// 前の行がほぼ出きってから、次の行が動き出す
+// ロゴの画像(public/logo.jpg)の中で、ピンクが一番太いところ。
+// 画像の左から 32%・上から 40%(R の縦棒の真ん中)。ここを中心に拡大する
+const PINK_ORIGIN = "32% 40%";
+// これだけ拡大すると、スマホでもパソコンでも画面がピンクで埋まる
+const START_SCALE = 130;
+
+const HOLD = 0.35;
+const ZOOM = 2.5;
+const TITLE_AT = 2.4;
+// 下の3行は、1行ずつ順番に、ゆっくり出す。前の行がほぼ出きってから次の行
 const LINE_SLOW = 1.8;
 const LINE_GAP = 1.3;
-const LINES = TEXT_LAND + 0.2;
+const LINES = 3.2;
 const TAGLINE_AT = LINES + LINE_GAP * 2;
-const INTRO_END = TAGLINE_AT + LINE_SLOW + 0.3;
+const INTRO_END = HOLD + ZOOM + 0.1;
 
-// 強く始まって、最後はふわっと止まる
-const EASE_ZOOM = [0.7, 0, 0.2, 1] as const;
-// 加速しながら落ちてくる。着地の瞬間がいちばん速いので「ドン」と感じる
-const EASE_SLAM = [0.55, 0, 0.85, 0.35] as const;
+// 引きはじめはそっと、途中はなめらかに、最後はふわっと止まる
+const EASE_PULL = [0.6, 0, 0.2, 1] as const;
 // すべるように入って、なめらかに止まる(行き過ぎない)
 const EASE_GLIDE = [0.22, 1, 0.36, 1] as const;
 
 const TAGLINE = "ひとりから始まる、なんでもありのブランド。";
 
-const PATTERN = "/opening-pattern.jpg";
-
 export default function Hero() {
-  // 最初の絵は、開いた瞬間に出ないと意味がないので、真っ先に読み込ませる
-  preload(PATTERN, { as: "image", fetchPriority: "high" });
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-  // 演出の間だけ、中身をピンクの幕より手前に出す。終わったら元に戻す
+
+  // 引いていく進み具合(0 = 超アップ、1 = 定位置)。
+  // 大きさは「倍率の対数」で動かす。ふつうに数字を減らすと、最初はほとんど動かず、
+  // 最後だけ急に縮んで見える。対数にすると、ずっと同じ調子で引いていくように見える
+  const progress = useMotionValue(0);
+  const logoScale = useTransform(progress, (p) => Math.pow(START_SCALE, 1 - p));
+
+  // 拡大している間だけ、ロゴをヘッダーより手前に出す。終わったら元に戻す
   // (戻さないと、下へ読み進めたときに文字がヘッダーの上に重なる)
   const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIntroDone(true), INTRO_END * 1000);
-    return () => window.clearTimeout(timer);
-  }, []);
+    const controls = animate(progress, 1, {
+      duration: reduced ? 0 : ZOOM,
+      delay: reduced ? 0 : HOLD,
+      ease: EASE_PULL,
+    });
+    const timer = window.setTimeout(
+      () => setIntroDone(true),
+      reduced ? 0 : INTRO_END * 1000,
+    );
+    return () => {
+      controls.stop();
+      window.clearTimeout(timer);
+    };
+  }, [progress, reduced]);
 
   // 下へ読み進めると、最初の画面の文字は上へ流れて薄くなる
   const { scrollYProgress } = useScroll({
@@ -80,147 +97,81 @@ export default function Hero() {
       ref={sectionRef}
       className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-24 text-center"
     >
-      {!reduced && (
-        <>
-          {/* 最初の絵。ロゴが縮むのに合わせて、ロゴのあたりへ吸い込まれて消える。
-              絵が届く前の一瞬は、下に敷いたピンクが見える */}
-          <motion.div
-            aria-hidden
-            className="pointer-events-none fixed inset-0 z-[60] overflow-hidden bg-pink"
-            initial={{ clipPath: "circle(150% at 50% 40%)" }}
-            animate={{ clipPath: "circle(0% at 50% 40%)" }}
-            transition={{ duration: 0.9, delay: LOGO_SHRINK, ease: EASE_ZOOM }}
-          >
-            {/* 絵も一緒に少し縮ませて、吸い込まれていく感じを出す */}
-            <motion.div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${PATTERN})` }}
-              // 1 より小さくすると、絵の端から下地のピンクがのぞくので 1 で止める
-              initial={{ scale: 1.2 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: LOGO_SHRINK + 0.9, ease: [0.4, 0, 0.6, 1] }}
-            />
-          </motion.div>
-
-          {/* ロゴ着地の瞬間に、輪が1回だけ広がる。終わったら二度と出ない */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-[65] flex items-center justify-center"
-          >
-            <motion.div
-              className="absolute h-40 w-40 rounded-full border-2 border-pink-light"
-              initial={{ opacity: 0, scale: 0.3 }}
-              animate={{ opacity: [0, 0.9, 0], scale: [0.3, 3.5, 8] }}
-              transition={{ duration: 1, delay: LOGO_LAND - 0.05, times: [0, 0.2, 1], ease: "easeOut" }}
-            />
-            <motion.div
-              className="absolute h-[60vmax] w-[60vmax] rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255,209,232,0.7) 0%, rgba(255,46,136,0.4) 22%, rgba(255,46,136,0) 62%)",
-              }}
-              initial={{ opacity: 0, scale: 0.2 }}
-              animate={{ opacity: [0, 1, 0], scale: [0.2, 1, 1.4] }}
-              transition={{ duration: 0.8, delay: TEXT_LAND, times: [0, 0.2, 1], ease: "easeOut" }}
-            />
-          </div>
-        </>
-      )}
-
       <motion.div
         style={{ opacity: fade, y: lift }}
-        className={introDone ? "relative" : "relative z-[70]"}
+        className={`flex flex-col items-center ${introDone ? "relative" : "relative z-[70]"}`}
       >
-        {/* 大きな文字の着地の衝撃で、画面全体が一瞬だけ揺れる */}
-        <motion.div
-          className="flex flex-col items-center"
-          animate={{ x: [0, -14, 11, -7, 4, -2, 0], y: [0, 8, -6, 4, -2, 0, 0] }}
-          transition={{ duration: 0.45, delay: TEXT_LAND, ease: "easeOut" }}
+        <motion.img
+          src="/logo.jpg"
+          alt="ROGUE PINK"
+          className="mb-6 h-28 w-28 rounded-2xl shadow-[0_0_60px_rgba(255,46,136,0.35)] sm:mb-8 sm:h-36 sm:w-36"
+          style={{
+            scale: logoScale,
+            transformOrigin: PINK_ORIGIN,
+          }}
+        />
+
+        <motion.h1
+          className="whitespace-nowrap text-5xl font-black tracking-tight text-foreground sm:text-7xl"
+          initial={{ opacity: 0, y: 18, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.5, delay: TITLE_AT, ease: EASE_GLIDE }}
         >
-          {/* ロゴ: 画面いっぱいから、縮んで定位置へ */}
-          <motion.img
-            src="/logo.jpg"
-            alt="ROGUE PINK"
-            className="relative z-20 mb-6 h-28 w-28 rounded-2xl shadow-[0_0_60px_rgba(255,46,136,0.35)] sm:mb-8 sm:h-36 sm:w-36"
-            initial={{ scale: 8, opacity: 0 }}
-            animate={{ scale: [8, 8, 1], opacity: [0, 1, 1] }}
-            transition={{
-              scale: {
-                duration: LOGO_LAND - LOGO_IN,
-                delay: LOGO_IN,
-                times: [0, (LOGO_SHRINK - LOGO_IN) / (LOGO_LAND - LOGO_IN), 1],
-                ease: ["linear", EASE_ZOOM],
-              },
-              opacity: { duration: 0.25, delay: LOGO_IN, times: [0, 1, 1] },
-            }}
-          />
+          ROGUE PINK
+        </motion.h1>
 
-          {/* 大きな文字: ロゴの裏から大きく出てきて、縮んでドンと着地 */}
-          <motion.h1
-            className="relative z-10 whitespace-nowrap text-5xl font-black tracking-tight text-foreground sm:text-7xl"
-            initial={{ scale: 7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{
-              scale: { duration: TEXT_LAND - LOGO_LAND, delay: LOGO_LAND, ease: EASE_SLAM },
-              opacity: { duration: 0.2, delay: LOGO_LAND },
-            }}
+        {/* 左右から、すべるように。ぼかしから澄んでいく */}
+        <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-pink-light sm:text-2xl">
+          <motion.span
+            className="block"
+            initial={{ x: "-22vw", opacity: 0, filter: "blur(10px)" }}
+            animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: LINE_SLOW, delay: LINES, ease: EASE_GLIDE }}
           >
-            ROGUE PINK
-          </motion.h1>
+            ありがとうと言ってもらいたい。
+          </motion.span>
+          <motion.span
+            className="block"
+            initial={{ x: "22vw", opacity: 0, filter: "blur(10px)" }}
+            animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: LINE_SLOW, delay: LINES + LINE_GAP, ease: EASE_GLIDE }}
+          >
+            そして、ありがとうと言いたい。
+          </motion.span>
+        </p>
 
-          {/* 左右から、すべるように。ぼかしから澄んでいく */}
-          <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-pink-light sm:text-2xl">
+        {/* 左から右へ、光が通るように浮かび上がる */}
+        <motion.p
+          className="mt-4 max-w-md text-sm text-muted sm:text-base"
+          style={{
+            maskImage:
+              "linear-gradient(90deg, #000 0%, #000 40%, transparent 60%, transparent 100%)",
+            maskSize: "260% 100%",
+          }}
+          initial={{ maskPosition: "100% 0%", y: 6 }}
+          animate={{ maskPosition: "0% 0%", y: 0 }}
+          transition={{ duration: LINE_SLOW, delay: TAGLINE_AT, ease: EASE_GLIDE }}
+        >
+          {TAGLINE}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: TAGLINE_AT + 1.2 }}
+          className="mt-14"
+        >
+          <Link
+            href="/#concept"
+            className="flex flex-col items-center gap-2 text-xs font-medium text-muted"
+          >
+            <span className="tracking-[0.3em]">SCROLL</span>
             <motion.span
-              className="block"
-              initial={{ x: "-22vw", opacity: 0, filter: "blur(10px)" }}
-              animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: LINE_SLOW, delay: LINES, ease: EASE_GLIDE }}
-            >
-              ありがとうと言ってもらいたい。
-            </motion.span>
-            <motion.span
-              className="block"
-              initial={{ x: "22vw", opacity: 0, filter: "blur(10px)" }}
-              animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: LINE_SLOW, delay: LINES + LINE_GAP, ease: EASE_GLIDE }}
-            >
-              そして、ありがとうと言いたい。
-            </motion.span>
-          </p>
-
-          {/* 左から右へ、光が通るように浮かび上がる(一文字ずつ跳ねさせない) */}
-          <motion.p
-            className="mt-4 max-w-md text-sm text-muted sm:text-base"
-            style={{
-              maskImage:
-                "linear-gradient(90deg, #000 0%, #000 40%, transparent 60%, transparent 100%)",
-              maskSize: "260% 100%",
-            }}
-            initial={{ maskPosition: "100% 0%", y: 6 }}
-            animate={{ maskPosition: "0% 0%", y: 0 }}
-            transition={{ duration: LINE_SLOW, delay: TAGLINE_AT, ease: EASE_GLIDE }}
-          >
-            {TAGLINE}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: TAGLINE_AT + 1.2 }}
-            className="mt-14"
-          >
-            <Link
-              href="/#concept"
-              className="flex flex-col items-center gap-2 text-xs font-medium text-muted"
-            >
-              <span className="tracking-[0.3em]">SCROLL</span>
-              <motion.span
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                className="h-8 w-px bg-gradient-to-b from-pink to-transparent"
-              />
-            </Link>
-          </motion.div>
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="h-8 w-px bg-gradient-to-b from-pink to-transparent"
+            />
+          </Link>
         </motion.div>
       </motion.div>
     </section>
