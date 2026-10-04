@@ -19,13 +19,19 @@ export type TravelEntry = {
 // ★ 2026-10-04 ノブさんが旅の動画を作り直して YouTube に上げ直した。
 //   前の「道の先へ」(fGDoFby6muI)と「京都、六日間」(QwHOVBxE1U4)は
 //   YouTube から2本とも消えていたので外した。
-//   新しい動画(YouTube の題は日付だけ「2026年10月4日」・2分40秒)が
-//   どちらの作り直しなのか分からないので、題は仮、時期は空にしてある。
+//   作り直した動画は2本(YouTube の題はどちらも日付だけ「2026年10月4日」)。
+//   どちらが「道の先へ」「京都、六日間」なのか分からないので、題は仮、時期は空にしてある。
+//   上げた順に並べている(あとから上げたほうを先頭に)。
 //   ⚠ ノブさんから題と時期を聞いたら差し替える
 export const TRAVEL_ENTRIES: TravelEntry[] = [
   {
+    slug: "2026-10-remake-2",
+    title: "旅の映像(その2)",
+    youtubeId: "vVNb-xA1B_4",
+  },
+  {
     slug: "2026-10-remake",
-    title: "旅の映像",
+    title: "旅の映像(その1)",
     youtubeId: "EtXsStSuXY8",
   },
 ];
