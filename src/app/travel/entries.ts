@@ -1,7 +1,7 @@
 export type TravelEntry = {
   slug: string;
-  /** 旅に出た時期(表示用の文字そのまま) */
-  period: string;
+  /** 旅に出た時期(表示用の文字そのまま)。分からないうちは空にしておく */
+  period?: string;
   title: string;
   /** ノブさんの言葉が入るまで空にしておく */
   description?: string;
@@ -15,17 +15,17 @@ export type TravelEntry = {
 
 // 新しい旅は配列の先頭に追加する。
 // ⚠ 動画・写真のファイルはこのリポジトリに入れない(public)。アドレスだけ書く
+//
+// ★ 2026-10-04 ノブさんが旅の動画を作り直して YouTube に上げ直した。
+//   前の「道の先へ」(fGDoFby6muI)と「京都、六日間」(QwHOVBxE1U4)は
+//   YouTube から2本とも消えていたので外した。
+//   新しい動画(YouTube の題は日付だけ「2026年10月4日」・2分40秒)が
+//   どちらの作り直しなのか分からないので、題は仮、時期は空にしてある。
+//   ⚠ ノブさんから題と時期を聞いたら差し替える
 export const TRAVEL_ENTRIES: TravelEntry[] = [
   {
-    slug: "solo-camp-bike",
-    period: "2021 – 2026",
-    title: "道の先へ",
-    youtubeId: "fGDoFby6muI",
-  },
-  {
-    slug: "2024-kyoto-newyear",
-    period: "2024.01.01 – 01.06",
-    title: "京都、六日間",
-    youtubeId: "QwHOVBxE1U4",
+    slug: "2026-10-remake",
+    title: "旅の映像",
+    youtubeId: "EtXsStSuXY8",
   },
 ];
