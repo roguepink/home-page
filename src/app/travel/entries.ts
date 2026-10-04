@@ -16,22 +16,21 @@ export type TravelEntry = {
 // 新しい旅は配列の先頭に追加する。
 // ⚠ 動画・写真のファイルはこのリポジトリに入れない(public)。アドレスだけ書く
 //
-// ★ 2026-10-04 ノブさんが旅の動画を作り直して YouTube に上げ直した。
-//   前の「道の先へ」(fGDoFby6muI)と「京都、六日間」(QwHOVBxE1U4)は
-//   YouTube から2本とも消えていたので外した。
-//   作り直した動画は2本(YouTube の題はどちらも日付だけ「2026年10月4日」)。
-//   どちらが「道の先へ」「京都、六日間」なのか分からないので、題は仮、時期は空にしてある。
-//   上げた順に並べている(あとから上げたほうを先頭に)。
-//   ⚠ ノブさんから題と時期を聞いたら差し替える
+// ★ 2026-10-04 ノブさんが旅の動画を2本とも作り直して、YouTube に上げ直した。
+//   前の動画(道の先へ fGDoFby6muI / 京都 QwHOVBxE1U4)は YouTube から消えている。
+//   先に上げたほう(EtXsStSuXY8)が「道の先へ」(ノブさん確認)。
+//   時期は前と同じ。slug も前と同じにして、前に送ったリンクの着地点が変わらないようにした
 export const TRAVEL_ENTRIES: TravelEntry[] = [
   {
-    slug: "2026-10-remake-2",
-    title: "旅の映像(その2)",
-    youtubeId: "vVNb-xA1B_4",
+    slug: "solo-camp-bike",
+    period: "2021 – 2026",
+    title: "道の先へ",
+    youtubeId: "EtXsStSuXY8",
   },
   {
-    slug: "2026-10-remake",
-    title: "旅の映像(その1)",
-    youtubeId: "EtXsStSuXY8",
+    slug: "2024-kyoto-newyear",
+    period: "2024.01.01 – 01.06",
+    title: "京都、六日間",
+    youtubeId: "vVNb-xA1B_4",
   },
 ];
