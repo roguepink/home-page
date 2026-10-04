@@ -20,11 +20,13 @@ export type GameEntry = {
 // ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
 //   どくキノコ大作戦 … roguepink/kinokogame の index.html(main 53f38d6 の時点)
 //   ACORN DIRT GP    … roguepink/game の一式(main ef344e0 の時点)
+//   ハリセン工場パトロール … roguepink/ijiwarugame の一式(6760d88 の時点・2026-10-04 追加)
+//     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
 //   (キノコは src/ から作った index.html だけでよい。バイクは icons/ vendor/
-//    manifest.webmanifest sw.js も一緒に)
+//    manifest.webmanifest sw.js も一緒に。ハリセンは icons/ manifest.webmanifest sw.js も一緒に)
 //
 // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
 //
@@ -65,9 +67,26 @@ export const GAME_ENTRIES: GameEntry[] = [
     coverAlt:
       "ACORN DIRT GPのスタート地点。ウサギやカエルのライダーが、オフロードバイクで並んでいる",
   },
+  {
+    slug: "harisen",
+    eyebrow: "工場の パトロールアクション",
+    name: "ハリセン工場パトロール",
+    description:
+      "白菜とキャベツの工場で、サボる人・悪口を言う人・じゃまする人を見つけて、ハリセンでたたいて改心させるゲームです。みんなマスクと白い服で、見えるのは目元だけ。最後には、イジワルおばさんがやってきます。",
+    features: [
+      "目つきと動きで、まじめな人と悪い人を見分ける。まじめな人をたたくとマイナス",
+      "ジャンボハリセン、ビリビリハリセンが床に落ちている",
+      "ステージは3つ。進むほど工場が広く、おばさんも強くなる",
+    ],
+    devices: "パソコン・スマホ(横向き)",
+    url: "/games/harisen/index.html",
+    cover: "/games/harisen/cover.jpg",
+    coverAlt:
+      "ハリセン工場パトロールのタイトル画面。マスク姿の、まじめな人・わるい人・おばさんの顔が並んでいる",
+  },
 ];
 
-// 2本に共通すること。カードごとに書くとうるさいので、ページの下に1回だけ出す
+// どのゲームにも共通すること。カードごとに書くとうるさいので、ページの下に1回だけ出す
 export const GAME_NOTES: string[] = [
   "無料です。登録も、ダウンロードも要りません。開けばすぐ遊べます。",
   "ハイスコアや記録は、その端末の中だけに残ります。外には送られません。",
