@@ -32,9 +32,11 @@ export default function TravelPage() {
                 id={entry.slug}
                 className="rounded-2xl border border-border bg-background-elevated p-6 sm:p-10"
               >
-                <p className="text-xs font-bold tracking-[0.3em] text-pink">
-                  {entry.period}
-                </p>
+                {entry.period && (
+                  <p className="text-xs font-bold tracking-[0.3em] text-pink">
+                    {entry.period}
+                  </p>
+                )}
                 <h2 className="mt-3 text-xl font-black text-foreground sm:text-2xl">
                   {entry.title}
                 </h2>
