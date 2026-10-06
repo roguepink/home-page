@@ -22,7 +22,7 @@ export type GameEntry = {
 //   ACORN DIRT GP    … roguepink/game の一式(main ef344e0 の時点)
 //   ハリセン工場パトロール … roguepink/ijiwarugame の一式(8d3fab9 の時点・2026-10-04 追加、10-06 「おばさんたたき」入りに更新)
 //     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
-//   TETORISU     … roguepink/TETORISU の一式(main 08772dd の時点・2026-10-06 追加、同日 最初のタップで全画面になる版に更新)
+//   TETORISU     … roguepink/TETORISU の一式(main c7a1b36 の時点・2026-10-06 追加、同日 最初のタップで全画面になる版・iPhone 向けの案内を入れた版に更新)
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
