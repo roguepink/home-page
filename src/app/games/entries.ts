@@ -20,7 +20,7 @@ export type GameEntry = {
 // ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
 //   どくキノコ大作戦 … roguepink/kinokogame の index.html(main 53f38d6 の時点)
 //   ACORN DIRT GP    … roguepink/game の一式(main ef344e0 の時点)
-//   ハリセン工場パトロール … roguepink/ijiwarugame の一式(1d2b3e9 の時点・2026-10-04 追加、同日 画面のはしの操作の直しを入れて更新)
+//   ハリセン工場パトロール … roguepink/ijiwarugame の一式(8d3fab9 の時点・2026-10-04 追加、10-06 「おばさんたたき」入りに更新)
 //     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
