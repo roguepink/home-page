@@ -40,6 +40,8 @@ export const READING_DICTIONARY: [string, string][] = [
   ["入れる", "いれる"],
   // ゲーム(2026-10-03)。英語の名前と、数え方
   ["ACORN DIRT GP", "エイコーン ダート ジーピー"],
+  // TETORISU(2026-10-06)。英字のままだと一字ずつ読まれるので
+  ["TETORISU", "テトリス"],
   ["GP", "ジーピー"],
   ["3D", "スリーディー"],
   ["3周", "さんしゅう"],
@@ -180,6 +182,16 @@ export function toSpeech(text: string): string {
  * 中身に意味はない。増えていくだけ。
  */
 export const CHECKED_WORDS: string[] = [
+  // TETORISU(2026-10-06 確認)
+  "武器",
+  "飛行機",
+  "種類",
+  "10種類",
+  "機体",
+  "菓子",
+  "神社",
+  "火山",
+  "洞窟",
   // ハリセン工場パトロール(2026-10-04 確認)
   "工場",
   "白菜",
