@@ -20,13 +20,14 @@ export type GameEntry = {
 // ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
 //   どくキノコ大作戦 … roguepink/kinokogame の index.html(main 53f38d6 の時点)
 //   ACORN DIRT GP    … roguepink/game の一式(main ef344e0 の時点)
-//   ハリセン工場パトロール … roguepink/ijiwarugame の一式(6760d88 の時点・2026-10-04 追加)
+//   ハリセン工場パトロール … roguepink/ijiwarugame の一式(8d3fab9 の時点・2026-10-04 追加、10-06 「おばさんたたき」入りに更新)
 //     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
+//   TETORISU     … roguepink/TETORISU の一式(main c7a1b36 の時点・2026-10-06 追加、同日 最初のタップで全画面になる版・iPhone 向けの案内を入れた版に更新)
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
 //   (キノコは src/ から作った index.html だけでよい。バイクは icons/ vendor/
-//    manifest.webmanifest sw.js も一緒に。ハリセンは icons/ manifest.webmanifest sw.js も一緒に)
+//    manifest.webmanifest sw.js も一緒に。ハリセンと TETORISU は icons/ manifest.webmanifest sw.js も一緒に)
 //
 // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
 //
@@ -83,6 +84,24 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/harisen/cover.jpg",
     coverAlt:
       "ハリセン工場パトロールのタイトル画面。マスク姿の、まじめな人・わるい人・おばさんの顔が並んでいる",
+  },
+  {
+    slug: "tetorisu",
+    eyebrow: "横スクロールの シューティング",
+    name: "TETORISU",
+    subName: "テトリス",
+    description:
+      "かわいい飛行機に乗って、テトリスのブロックの形をした弾で、ぷよぷよのような敵を打ちぬくシューティングです。同じ色の敵がとなりにいると、まとめてはじけて「れんさ」になります。",
+    features: [
+      "武器はブロックの形で10種類。まっすぐ飛ぶ武器ほど強く、広がる武器や追いかける武器は弱め",
+      "機体のまわりに、小さなお供が4つまでついて、ハートのミサイルで手伝ってくれる",
+      "ステージは8つ。空、お菓子の海、神社、夜の街、火山、洞窟、オーロラ、ブロックの世界",
+    ],
+    devices: "パソコン・スマホ(横向き)",
+    url: "/games/tetorisu/index.html",
+    cover: "/games/tetorisu/cover.jpg",
+    coverAlt:
+      "TETORISUのタイトル画面。カラフルなブロックの文字のまわりに、赤や青や緑のぷよのような敵が浮かんでいる",
   },
 ];
 
