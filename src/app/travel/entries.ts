@@ -20,7 +20,16 @@ export type TravelEntry = {
 //   前の動画(道の先へ fGDoFby6muI / 京都 QwHOVBxE1U4)は YouTube から消えている。
 //   先に上げたほう(EtXsStSuXY8)が「道の先へ」(ノブさん確認)。
 //   時期は前と同じ。slug も前と同じにして、前に送ったリンクの着地点が変わらないようにした
+//
+// ★ 2026-10-07 伊勢神宮巡りを追加(ノブさん「YouTube にあげといたから ホームページにあげといて」)。
+//   動画は ryokoshi の trips/2026-ise で作ったもの。YouTube の題は「2026年10月7日」(スマホから上げたときの名前)
 export const TRAVEL_ENTRIES: TravelEntry[] = [
+  {
+    slug: "2026-ise-newyear",
+    period: "2025.12.31 – 2026.01.03",
+    title: "伊勢神宮巡り",
+    youtubeId: "xgdnkC6Zk7E",
+  },
   {
     slug: "solo-camp-bike",
     period: "2021 – 2026",
