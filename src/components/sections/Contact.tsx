@@ -14,7 +14,7 @@ export default function Contact() {
     >
       <SectionHeading backdrop eyebrow="CONTACT" title="連絡先" />
 
-      <Reveal delay={0.15} className="mt-14">
+      <Reveal delay={0.05} className="mt-14">
         <MascotBubble
           message={
             <>
@@ -27,7 +27,7 @@ export default function Contact() {
       </Reveal>
 
       <Reveal
-        delay={0.3}
+        delay={0.1}
         className="mt-10 flex flex-wrap items-center justify-center gap-3"
       >
         <a
@@ -39,7 +39,7 @@ export default function Contact() {
         <CopyButton value={EMAIL} />
       </Reveal>
 
-      <Reveal delay={0.45} className="mt-10 flex justify-center">
+      <Reveal delay={0.15} className="mt-10 flex justify-center">
         <ThankYouButton />
       </Reveal>
     </section>
