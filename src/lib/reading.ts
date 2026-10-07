@@ -152,6 +152,9 @@ export const READING_DICTIONARY: [string, string][] = [
  */
 const SORTED = [...READING_DICTIONARY].sort((a, b) => b[0].length - a[0].length);
 
+// 「ショット」「カット」の前の数字の読み。toSpeech の規則で使う
+const SHOT_COUNT: Record<string, string> = { "1": "ワン", "2": "ツー", "3": "さん", "4": "よん" };
+
 export function toSpeech(text: string): string {
   let out = text;
   for (const [word, reading] of SORTED) out = out.split(word).join(reading);
@@ -179,6 +182,15 @@ export function toSpeech(text: string): string {
   // ⚠ 規則で決められない形が一つだけ残る:「い」+「方」。
   //    使い方(かた) と 大きい方(ほう) が同じ形なので、機械には分けられない。
   //    「〜い方」が出てきたら、書記が目で見て、必要ならここに一語ずつ足す。
+
+  // 「ショット」の数え方(ノブさんの指定 2026-10-08):
+  //   1・2 は映像の言い方どおり「ワンショット」「ツーショット」、3・4 は日本語読みで「さんショット」「よんショット」。
+  //   「カット」も同じ(ノブさんの指定 2026-10-08)。5 以上は ふつうの日本語読み(ごカット)のまま。
+  //   「21ショット」「100カット」のように桁のある数字には触らない(直前が数字なら対象外)。
+  out = out.replace(
+    /(?<![0-9０-９])([1-4])(ショット|カット)/g,
+    (_, n: string, unit: string) => SHOT_COUNT[n] + unit,
+  );
 
   // 記号は声にならない。読点に変えて「間」にする。
   // そのままだと「——」を無視して詰めて読んでしまう

@@ -57,6 +57,7 @@ for (const [word, reading] of pairs) text = text.split(word).join(reading);
 text = text.replace(/([ぁ-ん])分(?![かけ])/g, "$1ぶん");
 text = text.replace(/([ただる])方(?![法向面角程式針位])/g, "$1ほう");
 text = text.replace(/([ただ])後(?![ろ日半者方年部輩悔退継])/g, "$1あと");
+text = text.replace(/(?<![0-9０-９])([1-4])(ショット|カット)/g, (_, n, unit) => ({ 1: "ワン", 2: "ツー", 3: "さん", 4: "よん" })[n] + unit);
 
 // 怪しい候補を拾う
 //  1. 漢字が2文字以上つづくもの(熟語・固有名詞)
