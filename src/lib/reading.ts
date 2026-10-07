@@ -152,7 +152,7 @@ export const READING_DICTIONARY: [string, string][] = [
  */
 const SORTED = [...READING_DICTIONARY].sort((a, b) => b[0].length - a[0].length);
 
-// 「ショット」の前の数字の読み。toSpeech の規則で使う
+// 「ショット」「カット」の前の数字の読み。toSpeech の規則で使う
 const SHOT_COUNT: Record<string, string> = { "1": "ワン", "2": "ツー", "3": "さん", "4": "よん" };
 
 export function toSpeech(text: string): string {
@@ -185,10 +185,11 @@ export function toSpeech(text: string): string {
 
   // 「ショット」の数え方(ノブさんの指定 2026-10-08):
   //   1・2 は映像の言い方どおり「ワンショット」「ツーショット」、3・4 は日本語読みで「さんショット」「よんショット」。
-  //   「21ショット」「100ショット」のように桁のある数字には触らない(直前が数字なら対象外)。
+  //   「カット」も同じ(ノブさんの指定 2026-10-08)。5 以上は ふつうの日本語読み(ごカット)のまま。
+  //   「21ショット」「100カット」のように桁のある数字には触らない(直前が数字なら対象外)。
   out = out.replace(
-    /(?<![0-9０-９])([1-4])ショット/g,
-    (_, n: string) => SHOT_COUNT[n] + "ショット",
+    /(?<![0-9０-９])([1-4])(ショット|カット)/g,
+    (_, n: string, unit: string) => SHOT_COUNT[n] + unit,
   );
 
   // 記号は声にならない。読点に変えて「間」にする。
