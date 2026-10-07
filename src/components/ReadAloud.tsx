@@ -2,6 +2,21 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toSpeech } from "@/lib/reading";
+import { VOICE_DATA } from "@/lib/voice-data";
+
+// 文章を直すと変わる目印。scripts/make-voice.py の voice_key と同じ計算にしておくこと
+function fnv(text: string, seed: number): string {
+  let h = seed >>> 0;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h.toString(16).padStart(8, "0");
+}
+function voiceKey(title: string, paragraphs: string[]): string {
+  const text = title + "\n" + paragraphs.join("\n");
+  return fnv(text, 0x811c9dc5) + fnv(text, 0x2a5f1b07);
+}
 
 // ページには記事が何本も並んでいる。2本が同時に鳴ったら聞けたものではないので、
 // 新しく再生を始めたら、前に鳴っていたほうを必ず止める
@@ -48,12 +63,30 @@ export default function ReadAloud({ title, paragraphs }: ReadAloudProps) {
   const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
   const speedRef = useRef<Speed>("normal");
   const cleanupRef = useRef<(() => void) | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   speedRef.current = speed;
 
+  // 録音した朗読(Gemini の声)があるときは、それを流す。文章が変わっていたら見つからないので、
+  // その場合はこれまでどおり端末の声で読む
+  const key = voiceKey(title, paragraphs);
+  const recorded = VOICE_DATA[key];
+
+  // 再生中に速さのボタンを押したら、すぐ効かせる
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate =
+        SPEEDS.find(([k]) => k === speed)?.[2] ?? 1;
+    }
+  }, [speed]);
+
   // 声の一覧は、あとから届くことがある。届いたときにもう一度選び直す
   useEffect(() => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    if (typeof window === "undefined") return;
+    if (!("speechSynthesis" in window)) {
+      if (recorded) setSupported(true);
+      return;
+    }
     setSupported(true);
 
     const pickVoice = () => {
@@ -69,13 +102,60 @@ export default function ReadAloud({ title, paragraphs }: ReadAloudProps) {
       window.speechSynthesis.removeEventListener("voiceschanged", pickVoice);
       cleanupRef.current?.();
     };
-  }, []);
+  }, [recorded]);
 
   const stop = useCallback(() => {
     cleanupRef.current?.();
   }, []);
 
+  const playRecorded = useCallback(() => {
+    if (!recorded) return;
+    stopPlaying?.();
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+
+    const audio = new Audio(`/voice/${key}.m4a`);
+    audio.preload = "auto";
+    audio.playbackRate = SPEEDS.find(([k]) => k === speedRef.current)?.[2] ?? 1;
+    audioRef.current = audio;
+
+    let stopped = false;
+    const finish = () => {
+      if (stopped) return;
+      stopped = true;
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+      audioRef.current = null;
+      setPlaying(false);
+      setActive(null);
+      if (stopPlaying === finish) stopPlaying = null;
+      cleanupRef.current = null;
+    };
+
+    // いま読んでいる段落(題名は -1)。開始時刻の表から探す
+    audio.addEventListener("timeupdate", () => {
+      const t = audio.currentTime;
+      let index = -1;
+      for (let i = 0; i < recorded.s.length; i++) {
+        if (t >= recorded.s[i]) index = i;
+      }
+      setActive(index);
+    });
+    audio.addEventListener("ended", finish);
+    audio.addEventListener("error", finish);
+
+    stopPlaying = finish;
+    cleanupRef.current = finish;
+    setPlaying(true);
+    setActive(-1);
+    audio.play().catch(finish);
+  }, [recorded, key]);
+
   const play = useCallback(() => {
+    if (recorded) {
+      playRecorded();
+      return;
+    }
     const synth = window.speechSynthesis;
     stopPlaying?.();
     synth.cancel();
@@ -137,7 +217,7 @@ export default function ReadAloud({ title, paragraphs }: ReadAloudProps) {
     cleanupRef.current = finish;
     setPlaying(true);
     speakNext();
-  }, [paragraphs, title]);
+  }, [paragraphs, title, recorded, playRecorded]);
 
   return (
     <>
