@@ -19,6 +19,7 @@
 """
 import base64
 import difflib
+import hashlib
 import json
 import os
 import re
@@ -216,7 +217,10 @@ def main():
             continue
         parts = [to_speech(e["title"], pairs)] + [to_speech(p, pairs) for p in e["paragraphs"]]
         text = "\n\n".join(parts)
-        wav = CACHE / f"{key}.wav"
+        # 下書きの音声は「読ませた文字」で区別する。辞書を直すと文章が同じでも読ませる文字が変わるので、
+        # 前の(読み違えた)音声を使い回さずに作り直す
+        said = hashlib.sha1(text.encode("utf8")).hexdigest()[:8]
+        wav = CACHE / f"{key}-{said}.wav"
         if not wav.exists():
             print(label, f"作る({len(text)}文字)", flush=True)
             tts(text, wav)
