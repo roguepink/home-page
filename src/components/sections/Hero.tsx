@@ -29,6 +29,8 @@ import Link from "next/link";
 //   最初の絵は全部やめた。「ドーン、ドーン、ドーン」と3回に感じたため
 // ★ 決まり: 動くのは「出てくる瞬間」だけ。読んでいる間は何も動かない
 // ★ 毎回この入り方をする(ノブさんの判断)
+// ★ 2026-10-08 ノブさんと相談して変更: その日の2回目からは、同じ入り方を短く(約2.5秒)する。
+//   初めての人には全部見せる。何度も来てくれる人を、毎回7秒待たせない
 
 // ロゴの画像(public/logo.jpg)の中で、ピンクが一番太いところ。
 // 画像の左から 32%・上から 40%(R の縦棒の真ん中)。ここを中心に拡大する
@@ -36,15 +38,29 @@ const PINK_ORIGIN = "32% 40%";
 // これだけ拡大すると、スマホでもパソコンでも画面がピンクで埋まる
 const START_SCALE = 130;
 
-const HOLD = 0.35;
-const ZOOM = 2.5;
-const TITLE_AT = 2.4;
-// 下の3行は、1行ずつ順番に、ゆっくり出す。前の行がほぼ出きってから次の行
-const LINE_SLOW = 1.8;
-const LINE_GAP = 1.3;
-const LINES = 3.2;
-const TAGLINE_AT = LINES + LINE_GAP * 2;
-const INTRO_END = HOLD + ZOOM + 0.1;
+// 下の3行は、1行ずつ順番に出す。前の行がほぼ出きってから次の行
+function timing(short: boolean) {
+  const t = short
+    ? { hold: 0.1, zoom: 1.2, titleAt: 0.9, lineSlow: 0.8, lineGap: 0.3, lines: 1.1, title: 0.8 }
+    : { hold: 0.35, zoom: 2.5, titleAt: 2.4, lineSlow: 1.8, lineGap: 1.3, lines: 3.2, title: 1.5 };
+  return { ...t, taglineAt: t.lines + t.lineGap * 2, introEnd: t.hold + t.zoom + 0.1 };
+}
+
+// 「今日もう見た」の印。端末の中にだけ残る(だれが来たかは分からない)
+const SEEN_KEY = "rp-intro-seen";
+
+function today() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function seenToday() {
+  try {
+    return typeof window !== "undefined" && window.localStorage.getItem(SEEN_KEY) === today();
+  } catch {
+    return false;
+  }
+}
 
 // 引きはじめはそっと、途中はなめらかに、最後はふわっと止まる
 const EASE_PULL = [0.6, 0, 0.2, 1] as const;
@@ -56,6 +72,8 @@ const TAGLINE = "ひとりから始まる、なんでもありのブランド。
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  // 開いた時に一度だけ決める(途中で長さが変わらないように)
+  const [t] = useState(() => timing(seenToday()));
 
   // 引いていく進み具合(0 = 超アップ、1 = 定位置)。
   // 大きさは「倍率の対数」で動かす。ふつうに数字を減らすと、最初はほとんど動かず、
@@ -68,20 +86,25 @@ export default function Hero() {
   const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
+    try {
+      window.localStorage.setItem(SEEN_KEY, today());
+    } catch {
+      // 保存できない端末では、毎回いちばん長い入り方になるだけ
+    }
     const controls = animate(progress, 1, {
-      duration: reduced ? 0 : ZOOM,
-      delay: reduced ? 0 : HOLD,
+      duration: reduced ? 0 : t.zoom,
+      delay: reduced ? 0 : t.hold,
       ease: EASE_PULL,
     });
     const timer = window.setTimeout(
       () => setIntroDone(true),
-      reduced ? 0 : INTRO_END * 1000,
+      reduced ? 0 : t.introEnd * 1000,
     );
     return () => {
       controls.stop();
       window.clearTimeout(timer);
     };
-  }, [progress, reduced]);
+  }, [progress, reduced, t]);
 
   // 下へ読み進めると、最初の画面の文字は上へ流れて薄くなる
   const { scrollYProgress } = useScroll({
@@ -115,7 +138,7 @@ export default function Hero() {
           className="whitespace-nowrap text-5xl font-black tracking-tight text-foreground sm:text-7xl"
           initial={{ opacity: 0, y: 18, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.5, delay: TITLE_AT, ease: EASE_GLIDE }}
+          transition={{ duration: t.title, delay: t.titleAt, ease: EASE_GLIDE }}
         >
           ROGUE PINK
         </motion.h1>
@@ -126,7 +149,7 @@ export default function Hero() {
             className="block"
             initial={{ x: "-22vw", opacity: 0, filter: "blur(10px)" }}
             animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: LINE_SLOW, delay: LINES, ease: EASE_GLIDE }}
+            transition={{ duration: t.lineSlow, delay: t.lines, ease: EASE_GLIDE }}
           >
             ありがとうと言ってもらいたい。
           </motion.span>
@@ -134,7 +157,7 @@ export default function Hero() {
             className="block"
             initial={{ x: "22vw", opacity: 0, filter: "blur(10px)" }}
             animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: LINE_SLOW, delay: LINES + LINE_GAP, ease: EASE_GLIDE }}
+            transition={{ duration: t.lineSlow, delay: t.lines + t.lineGap, ease: EASE_GLIDE }}
           >
             そして、ありがとうと言いたい。
           </motion.span>
@@ -150,7 +173,7 @@ export default function Hero() {
           }}
           initial={{ maskPosition: "100% 0%", y: 6 }}
           animate={{ maskPosition: "0% 0%", y: 0 }}
-          transition={{ duration: LINE_SLOW, delay: TAGLINE_AT, ease: EASE_GLIDE }}
+          transition={{ duration: t.lineSlow, delay: t.taglineAt, ease: EASE_GLIDE }}
         >
           {TAGLINE}
         </motion.p>
@@ -158,7 +181,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: TAGLINE_AT + 1.2 }}
+          transition={{ duration: 1, delay: t.taglineAt + t.lineSlow * 0.6 }}
           className="mt-14"
         >
           <Link

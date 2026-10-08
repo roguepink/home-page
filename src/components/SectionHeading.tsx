@@ -9,12 +9,13 @@ type SectionHeadingProps = {
   children?: ReactNode;
   /**
    * 見出しの後ろに、画面より大きな薄い英字を置く(トップページだけ)。
-   * スクロールに合わせて横に流れ、指を止めれば止まる。勝手には動かない
+   * スクロールに合わせて横に流れ、指を止めれば止まる。勝手には動かない。
+   * 全部の見出しに付けると模様になってうるさいので、1〜2か所だけ(今は CONCEPT と CONTACT)
    */
   backdrop?: boolean;
 };
 
-// ゆっくり、なめらかに止まる。スクロールに追いつこうとして急がない
+// すっと出て、なめらかに止まる
 const EASE = [0.25, 1, 0.5, 1] as const;
 
 function Backdrop({ word }: { word: string }) {
@@ -54,10 +55,10 @@ export default function SectionHeading({
 
       <motion.p
         className="text-center text-xs font-bold tracking-[0.4em] text-pink-light"
-        initial={{ opacity: 0, x: -24 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 1.3, ease: EASE }}
+        transition={{ duration: 0.6, ease: EASE }}
       >
         {eyebrow}
       </motion.p>
@@ -74,7 +75,7 @@ export default function SectionHeading({
         <motion.span
           className="block"
           variants={{ hidden: { y: "110%" }, show: { y: "0%" } }}
-          transition={{ duration: 1.4, delay: 0.25, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
         >
           {title}
         </motion.span>
@@ -82,10 +83,10 @@ export default function SectionHeading({
 
       {children && (
         <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.5, delay: 0.6, ease: EASE }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
         >
           {children}
         </motion.div>

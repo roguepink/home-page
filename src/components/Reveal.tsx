@@ -20,7 +20,7 @@ export default function Reveal({
   children,
   delay = 0,
   className,
-  y = 40,
+  y = 16,
   x = 0,
   wipe = false,
 }: RevealProps) {
@@ -40,7 +40,7 @@ export default function Reveal({
             hidden: { clipPath: "inset(0px 100% 0px 0px round 16px)" },
             show: { clipPath: "inset(0px 0% 0px 0px round 16px)" },
           }}
-          transition={{ duration: 1.8, delay, ease: [0.65, 0, 0.25, 1] }}
+          transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.25, 1] }}
         >
           {children}
         </motion.div>
@@ -53,9 +53,11 @@ export default function Reveal({
       className={className}
       initial={{ opacity: 0, x, y }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      // ゆっくり。スクロールが速くても、追いつこうとして急がない(ノブさんの指示)
-      transition={{ duration: 1.5, delay, ease: [0.25, 1, 0.5, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      // 下から少しだけ浮き上がる。向きはサイト全体でそろえる(左右からは入れない)。
+      // 0.7秒: すっと出て、すぐ読める速さ。遅いと、速く下へ動かしたときに空っぽの画面が見える
+      // (2026-10-08 ノブさんと相談。前は1.5秒で、左右交互から入っていた)
+      transition={{ duration: 0.7, delay, ease: [0.25, 1, 0.5, 1] }}
     >
       {children}
     </motion.div>

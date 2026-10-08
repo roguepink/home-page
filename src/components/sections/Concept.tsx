@@ -11,12 +11,12 @@ export default function Concept() {
       <SectionHeading backdrop eyebrow="CONCEPT" title="コンセプト" />
 
       <div className="mt-12 space-y-6 text-center text-base leading-loose text-muted sm:text-lg">
-        <Reveal x={-32} y={0} delay={0.3}>
+        <Reveal delay={0.05}>
           <p>
             人と人の間をめぐっているのは、いつも「ありがとう」という気持ちだと思っています。
           </p>
         </Reveal>
-        <Reveal x={-32} y={0} delay={0.8}>
+        <Reveal delay={0.15}>
           <p>
             お金の流れも、仕事の流れも、その循環がかたちを変えているだけ。
             それが、私が信じる社会の絶対的な構造です。
@@ -24,7 +24,7 @@ export default function Concept() {
         </Reveal>
       </div>
 
-      <Reveal delay={0.3} className="mt-16">
+      <Reveal delay={0.1} className="mt-16">
         <MascotBubble
           message={
             <>
