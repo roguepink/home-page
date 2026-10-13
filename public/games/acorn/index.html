@@ -2768,7 +2768,7 @@ function setCtrls(mode) {   // 'title' | 'race' | 'off'
 function setPaused(on) {
   if (GAME.paused === on) return;
   GAME.paused = on; els.pause.style.display = on ? 'block' : 'none';
-  if (AU.ctx) { if (on) AU.ctx.suspend(); else AU.ctx.resume(); }
+  if (AU.ctx) { if (on) AU.ctx.suspend(); else if (!document.hidden) AU.ctx.resume(); }
 }
 
 // ---------- race flow ----------
@@ -2871,9 +2871,13 @@ function initInput() {
     if (GAME.state === 'results' && code !== 'Enter' && code !== 'Escape' && GAME.resultsT > 1.2 && code === 'Space') startRace();
   });
   window.addEventListener('keyup', (e) => { KEYS[e.code] = false; });
-  ['pointerup', 'touchend', 'click', 'keydown'].forEach((ev) => window.addEventListener(ev, () => { if (AU.ctx && AU.ctx.state === 'suspended' && !GAME.paused) AU.ctx.resume(); }, { passive: true }));
+  ['pointerup', 'touchend', 'click', 'keydown'].forEach((ev) => window.addEventListener(ev, () => { if (AU.ctx && AU.ctx.state === 'suspended' && !GAME.paused && !document.hidden) AU.ctx.resume(); }, { passive: true }));
   window.addEventListener('blur', () => { for (const k in KEYS) KEYS[k] = false; if (GAME.state === 'race' || GAME.state === 'countdown') setPaused(true); });
-  document.addEventListener('visibilitychange', () => { if (document.hidden && (GAME.state === 'race' || GAME.state === 'countdown')) setPaused(true); });
+  // 画面を離れたら（戻るボタン・アプリ切りかえ・ページ移動）どの画面でも音を止める。もどっても、ポーズ中は鳴らさない
+  const goAway = () => { if (GAME.state === 'race' || GAME.state === 'countdown') setPaused(true); if (AU.ctx && AU.ctx.state === 'running') AU.ctx.suspend(); };
+  document.addEventListener('visibilitychange', () => { if (document.hidden) goAway(); else if (AU.ctx && !GAME.paused) AU.ctx.resume(); });
+  window.addEventListener('pagehide', goAway);
+  window.addEventListener('pageshow', () => { if (AU.ctx && !GAME.paused && !document.hidden) AU.ctx.resume(); });
   const st = els.stage;
   const tdown = (e) => {
     if (e.pointerType === 'touch' || e.type === 'touchstart') { TOUCH.on = true; els.touch.style.display = 'block'; els.stage.classList.add('touch'); }
