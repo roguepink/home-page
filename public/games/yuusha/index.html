@@ -394,6 +394,11 @@ let G=null, party=[], titleT=0, best=0, titleSel=0;
 try{best=parseInt(localStorage.getItem('yt_best')||'0')||0;}catch(e){}
 function saveGame(){ try{ localStorage.setItem('yt_save',JSON.stringify({stage:G.stage,w:G.w,wcur:G.wcur,mageLv:G.mageLv,gold:G.gold,kills:G.kills})); }catch(e){} }
 function loadSave(){ try{ const s=JSON.parse(localStorage.getItem('yt_save')||'null'); if(s&&typeof s.stage==='number'&&s.stage>0&&s.stage<STAGES.length)return s; }catch(e){} return null; }
+function nmUnlocked(){ try{ return localStorage.getItem('yt_nm')==='1'; }catch(e){ return false; } }
+function unlockNm(){ try{ localStorage.setItem('yt_nm','1'); }catch(e){} }
+// タイトルの選択肢：うらに着いたことがあれば「うらから」、セーブがあれば「つづきから」
+function titleOpts(){ const o=[{k:'new',label:nmUnlocked()?'おもてから はじめる':'はじめから'}]; if(nmUnlocked())o.push({k:'nm',label:'うらから はじめる'}); const sv=loadSave(); if(sv)o.push({k:'cont',label:'つづきから（'+stageLabel(sv.stage)+'）'}); return o; }
+const TITLE_Y0=500, TITLE_DY=28;
 function clearSave(){ try{ localStorage.removeItem('yt_save'); }catch(e){} }
 function armHistory(){ try{ history.pushState({yt:1},''); }catch(e){} }
 addEventListener('popstate',()=>{ if(G&&G.state==='play'){ G.paused=true; armHistory(); } else if(G){ G=null; toTitle(); armHistory(); } });
@@ -406,10 +411,11 @@ function newGame(save){
   for(let y=G.head.y+150;y>=G.head.y;y-=4)G.trail.push({x:G.head.x,y});
   party=[makeMember(ROLES[0])]; party[0].y=G.head.y;
   let st=0;
-  if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mp=20; G.mpMax=mpMaxFor(st); G.mp=Math.min(G.mpMax,Math.max(20,Math.floor(G.mpMax/3)));
+  if(save&&save.nmStart){ st=10; for(let i=1;i<ROLES.length;i++)party.push(makeMember(ROLES[i])); }
+  else if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mp=20; G.mpMax=mpMaxFor(st); G.mp=Math.min(G.mpMax,Math.max(20,Math.floor(G.mpMax/3)));
     for(let i=1;i<Math.min(st,ROLES.length);i++)party.push(makeMember(ROLES[i])); }
   startStage(st);
-  if(save)addMsg('つづきから はじめた！');
+  if(save)addMsg(save.nmStart?'うらのせかいから はじめた……':'つづきから はじめた！');
 }
 function curW(){ return WTYPES[G.wcur]; }
 function curWLv(){ return G.w[curW().key]; }
@@ -424,6 +430,7 @@ function startStage(i){
   G.stage=i; G.stageT=0; G.phase='intro'; G.phaseT=0; G.spawnT=1.5; G.boss=null;
   const dead=party.filter(m=>!m.alive);
   if(dead.length){ for(const m of dead){ m.alive=true; m.hp=m.maxHp; m.inv=2; } addMsg(dead.map(m=>m.name).join('と ')+'が いきかえった！'); SFX.revive(); ring(G.head.x,G.head.y,'#fff0a0',70,0.5); }
+  if(i>=10)unlockNm();
   const nmx=mpMaxFor(i); if(nmx>G.mpMax){ G.mpMax=nmx; G.mp=Math.min(G.mpMax,G.mp+10); addMsg('MPの さいだいちが '+G.mpMax+'に あがった！'); }
   addMsg(stageLabel(i)+' 「'+STAGES[i].name+'」');
   if(i===10){ addMsg('まものたちが けだものの ように……'); G.flash={col:'rgba(120,0,20,0.8)',t:1.2}; }
@@ -468,8 +475,10 @@ function onPress(code){
   if(code==='KeyM'){AU.toggle();return;}
   if(code==='KeyF'){toggleFS();return;}
   if(!G||G.state==='title'){
-    if(code==='ArrowUp'||code==='ArrowDown'||code==='KeyW'||code==='KeyS'){ if(loadSave()){titleSel=1-titleSel;SFX.cursor();} return; }
-    if(['KeyZ','Enter','Space','KeyX'].includes(code))startGame(titleSel===1); return; }
+    const n=titleOpts().length;
+    if(code==='ArrowUp'||code==='KeyW'){ if(n>1){titleSel=(titleSel+n-1)%n;SFX.cursor();} return; }
+    if(code==='ArrowDown'||code==='KeyS'){ if(n>1){titleSel=(titleSel+1)%n;SFX.cursor();} return; }
+    if(['KeyZ','Enter','Space','KeyX'].includes(code))startGame(titleOpts()[Math.min(titleSel,n-1)].k); return; }
   if(G.paused){ if(['KeyZ','Enter','Space','KeyP'].includes(code)){G.paused=false;SFX.ok();} else if(code==='KeyX'||code==='Escape'){G=null;toTitle();} return; }
   if(code==='KeyP'&&G.state==='play'){G.paused=true;return;}
   if((code==='KeyC'||code==='Tab')&&G.state==='play'&&!G.menu.open&&!G.dead){switchWeapon();return;}
@@ -488,7 +497,7 @@ function canvasPos(e){ const r=cv.getBoundingClientRect(); return {x:(e.clientX-
 cv.addEventListener('pointerdown',e=>{
   e.preventDefault(); wake(); const p=canvasPos(e);
   const ic=topIconHit(p); if(ic==='audio'){AU.toggle();return;} if(ic==='fs'){toggleFS();return;}
-  if(!G||G.state==='title'){ const sv=loadSave(); if(sv){ if(p.y>=506&&p.y<536)titleSel=0; else if(p.y>=536&&p.y<566)titleSel=1; } startGame(sv&&titleSel===1); return; }
+  if(!G||G.state==='title'){ const o=titleOpts(); if(o.length>1){ const r=Math.floor((p.y-TITLE_Y0+6)/TITLE_DY); if(r>=0&&r<o.length)titleSel=r; } startGame(o[Math.min(titleSel,o.length-1)].k); return; }
   if(G.paused){ if(p.y>H/2+16&&p.y<H/2+46){G=null;toTitle();} else if(p.y>H/2-24&&p.y<H/2+12){G.paused=false;SFX.ok();} return; }
   if(G.state==='over'||G.state==='clear'){ if((G.state==='over'?G.overT:G.clearT)>1.5){G=null;toTitle();} return; }
   if(G.state!=='play')return;
@@ -509,8 +518,8 @@ const endPtr=e=>{if(ptr&&ptr.id===e.pointerId)ptr=null;};
 cv.addEventListener('pointerup',endPtr); cv.addEventListener('pointercancel',endPtr);
 cv.addEventListener('contextmenu',e=>e.preventDefault());
 
-function toTitle(){ G=null; titleT=0; titleSel=loadSave()?1:0; SEQ.play('title'); }
-function startGame(cont){ newGame(cont?loadSave():null); if(!cont)clearSave(); SFX.ok(); armHistory(); }
+function toTitle(){ G=null; titleT=0; const o=titleOpts(); titleSel=Math.max(0,o.findIndex(x=>x.k==='cont')); SEQ.play('title'); }
+function startGame(kind){ kind=kind||'new'; if(kind==='cont'&&!loadSave())kind='new'; newGame(kind==='cont'?loadSave():kind==='nm'?{nmStart:true}:null); if(kind==='new')clearSave(); SFX.ok(); armHistory(); }
 function openMenu(){ if(G.dead||G.phase==='clear')return; G.menu.open=true; SFX.ok(); }
 function closeMenu(){ G.menu.open=false; SFX.cancel(); }
 function menuRowAt(p){ const x0=36,y0=200,w=W-72; if(p.x<x0||p.x>x0+w)return -1; for(let i=0;i<SPELLS.length;i++){const y=y0+46+i*30; if(p.y>=y-4&&p.y<y+26)return i;} return -1; }
@@ -1343,11 +1352,12 @@ function drawTitle(){
   win(20,292,W-40,196,0.85);
   const lines=['いどう： ほうこうキー / WASD / ドラッグ','じゅもん： X / ボタン   ぶき： C / ボタン','こうげきは オートで おこなわれる','しょうを すすむごとに なかまが ふえる','なかまが たおれると ひつぎになる','C： ぶき きりかえ  M： おと  P： ポーズ'];
   lines.forEach((s,i)=>txt(s,36,308+i*27,12,i===3||i===4?'#c8d8ff':'#fff'));
-  const sv=loadSave();
-  if(sv){ const bl=Math.floor(titleT*3)%2===0; otxt('はじめから',W/2,512,14,titleSel===0?'#fff':'#9898b0','center'); otxt('つづきから（'+stageLabel(sv.stage)+'）',W/2,542,14,titleSel===1?'#ffe9a0':'#9898b0','center');
-    if(bl)otxt('▶',W/2-(titleSel===0?52:112),512+titleSel*30,14,'#fff','center'); }
+  const o=titleOpts();
+  if(o.length>1){ const bl=Math.floor(titleT*3)%2===0; ctx.font='14px '+FONT;
+    o.forEach((op,i)=>{ const y=TITLE_Y0+i*TITLE_DY, sel=i===titleSel; const col=op.k==='nm'?(sel?'#ff7070':'#a06070'):op.k==='cont'?(sel?'#ffe9a0':'#9898b0'):(sel?'#fff':'#9898b0');
+      otxt(op.label,W/2,y,14,col,'center'); if(sel&&bl){ const w=ctx.measureText(op.label).width; otxt('▶',W/2-w/2-14,y,14,op.k==='nm'?'#ff5050':'#fff','center'); } }); }
   else if(Math.floor(titleT*2)%2===0)otxt('▶ Z / Enter / タップ で はじめる',W/2,522,14,'#fff','center');
-  txt('さいこうきろく： '+best+'G',W/2,572,12,'#ffe060','center',true);
+  txt('さいこうきろく： '+best+'G',W/2,582,12,'#ffe060','center',true);
   txt('♪ BGM・こうかおんは すべて オリジナル',W/2,606,10,'#b0b0c8','center',true);
   drawTopIcons();
 }
