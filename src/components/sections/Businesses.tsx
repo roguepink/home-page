@@ -9,7 +9,7 @@ import type { BusinessIconName } from "@/components/BusinessIcon";
 import { WRITING_ENTRIES } from "@/app/writing/entries";
 import { JOURNAL_ENTRIES } from "@/app/journal/entries";
 import { MUSIC_ENTRIES } from "@/app/music/entries";
-import { APP_ENTRIES } from "@/app/apps/entries";
+import { APP_ENTRIES, TOOL_ENTRIES } from "@/app/apps/entries";
 import { TRAVEL_ENTRIES } from "@/app/travel/entries";
 import { GAME_ENTRIES } from "@/app/games/entries";
 
@@ -83,7 +83,8 @@ const BUSINESSES: Business[] = [
       "誰でも自由に、簡単に使えるアプリを。社会に本当に役立つプロダクトをつくります。",
     icon: "app",
     status: "live",
-    stat: { value: APP_ENTRIES.length, unit: "本 公開中" },
+    // 「やめる・減らす」の4本 + 便利な道具
+    stat: { value: APP_ENTRIES.length + TOOL_ENTRIES.length, unit: "本 公開中" },
     // アプリは名前が似ていて説明が要るので、ボタンを並べずに一覧ページへ送る
     products: [{ label: "アプリを使ってみる", url: "/apps" }],
   },
