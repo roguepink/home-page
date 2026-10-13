@@ -641,6 +641,7 @@ function updateParty(d){
     if(keys.ArrowUp||keys.KeyW)dy-=1; if(keys.ArrowDown||keys.KeyS)dy+=1;
     if(dx||dy){ const sp=(keys.ShiftLeft||keys.ShiftRight)?110:220; const l=hyp(dx,dy); h.x=clamp(h.x+dx/l*sp*d,18,W-18); h.y=clamp(h.y+dy/l*sp*d,112,H-100); G.lastMove=G.t; }
   }
+  const bl=bossLine(); if(bl!=null&&h.y<bl){ h.y=bl; G.barrierT=0.4; }
   const last=G.trail[G.trail.length-1];
   if(!last||hyp(last.x-h.x,last.y-h.y)>=2.5){ G.trail.push({x:h.x,y:h.y}); if(G.trail.length>400)G.trail.shift(); }
   const order=party.filter(m=>m.alive).concat(party.filter(m=>!m.alive));
@@ -729,6 +730,9 @@ function aimAt(e,tx,ty,sp,spread,col,r,dmg,extra){
   G.eb.push(Object.assign({x:e.x,y:e.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:r||4,col:col||'#ff8080',dmg:EDMG(dmg||3),life:7},extra||{}));
 }
 function ringShot(e,n,sp,col,r,dmg,off){ sp*=SM()*(e.spd||1); for(let i=0;i<n;i++){const a=i/n*TAU+(off||0); G.eb.push({x:e.x,y:e.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:r||4,col:col||'#ff8080',dmg:EDMG(dmg||3),life:8});} }
+// ボス戦：ボスの体より上（裏側）には回り込めない。ボスの下端から少し空けた線より上へは進めない
+function bossLine(){ const b=G.boss; if(!b||b.entering||G.bossDying)return null; return clamp(b.y+70*(b.def.scale||1)+24,112,H-140); }
+function bossTouchR(b){ return b.r*1.35+16; }
 function headPos(){ const m=party.find(x=>x.alive)||party[0]; return {x:m.x,y:m.y}; }
 function updateEnemies(d){
   const hp=headPos();
@@ -958,7 +962,7 @@ function collisions(){
   for(const m of party){ if(!m.alive)continue;
     for(const b of G.eb.slice()){ if(b.delay>0)continue; if(hyp(m.x-b.x,m.y-b.y)<10+b.r){ G.eb.splice(G.eb.indexOf(b),1); hurtMember(m,b.dmg); if(!m.alive)break; } }
     if(!m.alive)continue;
-    for(const e of G.enemies.slice()){ if(e.entering)continue; if(hyp(m.x-e.x,m.y-e.y)<10+e.r*0.8){ if(e.boss){hurtMember(m,cd+1);} else { hurtMember(m,e.type==='mimikka'?cd+2:cd); damageEnemy(e,99); } if(!m.alive)break; } }
+    for(const e of G.enemies.slice()){ if(e.entering)continue; if(hyp(m.x-e.x,m.y-e.y)<(e.boss?bossTouchR(e):10+e.r*0.8)){ if(e.boss){ if(m.inv<=0){ hurtMember(m,cd+2); addMsg(e.def.name+'に はじきとばされた！'); G.head.y=Math.min(H-100,G.head.y+60); burst(m.x,m.y,'#ffffff',8,140); } } else { hurtMember(m,e.type==='mimikka'?cd+2:cd); damageEnemy(e,99); } if(!m.alive)break; } }
   }
 }
 
@@ -1195,6 +1199,12 @@ function drawBossFiltered(e,def,x,y,filter){
 }
 
 // ---------------------------------------------------------------- Draw
+function drawBarrier(){
+  const bl=bossLine(); if(bl==null)return; if(G.barrierT>0)G.barrierT-=1/60;
+  const near=G.head.y-bl<70||G.barrierT>0; const a=near?0.55+0.25*Math.sin(G.t*12):0.12;
+  ctx.save(); const g=ctx.createLinearGradient(0,bl-30,0,bl+4); g.addColorStop(0,'rgba(255,40,60,0)'); g.addColorStop(1,'rgba(255,40,60,'+(a*0.5)+')'); ctx.fillStyle=g; ctx.fillRect(0,bl-30,W,34);
+  ctx.strokeStyle='rgba(255,90,110,'+a+')'; ctx.lineWidth=2; ctx.setLineDash([8,6]); ctx.lineDashOffset=-G.t*30; ctx.beginPath(); ctx.moveTo(0,bl); ctx.lineTo(W,bl); ctx.stroke(); ctx.restore();
+}
 function drawParty(){
   const order=party.slice().reverse();
   for(const m of order)shadow(m.x,m.y+19,12,4,0.35);
@@ -1397,6 +1407,7 @@ function draw(){
   if(G.shake>0)ctx.translate(rnd(-G.shake,G.shake)*0.5,rnd(-G.shake,G.shake)*0.5);
   drawBg(THEMES[STAGES[G.stage].theme],G.bgY,G.t);
   if(NM())drawNightmare(G.bgY,G.t);
+  drawBarrier();
   drawDrops(); drawEnemies(); drawParty(); drawBullets(); drawSpellFx(); drawFx();
   drawVignette();
   if(G.flash){ ctx.fillStyle=G.flash.col; ctx.globalAlpha=clamp(G.flash.t*2,0,1); ctx.fillRect(-20,-20,W+40,H+40); ctx.globalAlpha=1; }
