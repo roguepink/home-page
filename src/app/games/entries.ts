@@ -23,6 +23,8 @@ export type GameEntry = {
 //   ハリセン工場パトロール … roguepink/ijiwarugame の一式(8d3fab9 の時点・2026-10-04 追加、10-06 「おばさんたたき」入りに更新)
 //     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
 //   TETORISU     … roguepink/TETORISU の一式(main e19fe01 の時点・2026-10-06 追加、その後 iPhone の案内・敵の弾の調整・テトロミノの機体とぷよらしい敵に更新)
+//   ゆうしゃの たいれつ … roguepink/dorakue の index.html(main 889b03c の時点・2026-10-13 追加)
+//     ※ 1ファイルで完結。BGM・効果音もファイルの中で作っている。向こうは https://roguepink.github.io/dorakue/ でも遊べる
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
@@ -102,6 +104,23 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/tetorisu/cover.jpg",
     coverAlt:
       "TETORISUのタイトル画面。カラフルなブロックの文字のまわりに、赤や青や緑のぷよのような敵が浮かんでいる",
+  },
+  {
+    slug: "yuusha",
+    eyebrow: "昔のRPGふうの 縦スクロールシューティング",
+    name: "ゆうしゃの たいれつ",
+    description:
+      "勇者がひとりで旅に出て、章を進むごとに戦士・魔法使い・僧侶が仲間になり、一列にならんで進むシューティングです。攻撃は自動。じゅもんのボタンを押すと時間がゆっくりになり、炎や氷の魔法で画面の敵をまとめて倒せます。全部で20の章。",
+    features: [
+      "武器は「けん」「ゆみ」「ブーメラン」の3つ。ボタンで持ちかえて、拾ったアイテムで強くなる",
+      "仲間が倒れると「ひつぎ」になって後ろをついてくる。僧侶が生きていれば、生き返ることもある",
+      "魔王を倒すと「うらのせかい」が始まる。血と闇に染まった、怖い魔物たちの10章",
+    ],
+    devices: "パソコン・スマホ(縦向き)",
+    url: "/games/yuusha/index.html",
+    cover: "/games/yuusha/cover.jpg",
+    coverAlt:
+      "ゆうしゃの たいれつの画面。まん中にタイトル画面、両わきに緑のドラゴンと戦う場面と、大きな爆発の魔法を使う場面",
   },
 ];
 
