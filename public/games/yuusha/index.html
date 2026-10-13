@@ -320,7 +320,8 @@ const SPELLS=[
   {n:'ブレイズ',mp:10,need:'mage',desc:'よこいちれつの ほのおの かべで なぎはらう',col:'#ffb040'},
   {n:'フロスト',mp:12,need:'mage',desc:'てきを すべて こおらせ うごきを とめる',col:'#80e0ff'},
   {n:'ヒーリア',mp:14,need:'priest',desc:'なかま ぜんいんの HPを かいふく',col:'#80ff80'},
-  {n:'エクスプロ',mp:20,need:'mage',desc:'だいばくはつで がめんぜんたいを こうげき',col:'#ffe080'}
+  {n:'エクスプロ',mp:20,need:'mage',desc:'だいばくはつで がめんぜんたいを こうげき',col:'#ffe080'},
+  {n:'リザレク',mp:16,need:'priest',desc:'たおれた なかまを ぜんいん いきかえらせる',col:'#fff0a0'}
 ];
 const ENEMY={
   purun:{hp:3,r:13,sc:4,spr:'purun',name:'プルン',nm:'くさったプルン',col:'#78a8ff'},
@@ -349,7 +350,7 @@ const NM_BOSS=[
   ['じごくのドラゴ','ほのおに やかれた りゅう'],['こごえるしかばね','こおりづけの きょじん'],['やみのヘルバード','くろい ほのおの とり'],['しのブラックドラゴ','ほねと やみの りゅう'],
   ['くびなしのきし','くびを もとめる よろい'],['しんのまおうゾルガ','すべてを のみこむ やみ']];
 function bossDefFor(stage){ const d=BOSSES[stage%10]; if(stage<10)return d; const n=stage-10;
-  return Object.assign({},d,{name:NM_BOSS[n][0],sub:NM_BOSS[n][1],hp:Math.ceil(d.hp*(1.6+0.12*n)),scale:d.scale*1.08,r:d.r*1.08,ty:d.ty+40,sc:d.sc*3,nightmare:true}); }
+  return Object.assign({},d,{name:NM_BOSS[n][0],sub:NM_BOSS[n][1],hp:Math.ceil(d.hp*(1.35+0.08*n)),scale:d.scale*1.08,r:d.r*1.08,ty:d.ty+40,sc:d.sc*3,nightmare:true}); }
 const STAGES=[
   {name:'そうげん',theme:'grass',dur:30,pool:[['purun',6],['basakey',2]],song:'field'},
   {name:'もり',theme:'forest',dur:32,pool:[['purun',4],['basakey',4],['kozuchi',1]],song:'field'},
@@ -405,7 +406,7 @@ function newGame(save){
   for(let y=G.head.y+150;y>=G.head.y;y-=4)G.trail.push({x:G.head.x,y});
   party=[makeMember(ROLES[0])]; party[0].y=G.head.y;
   let st=0;
-  if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mp=20;
+  if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mp=20; G.mpMax=mpMaxFor(st); G.mp=Math.min(G.mpMax,Math.max(20,Math.floor(G.mpMax/3)));
     for(let i=1;i<Math.min(st,ROLES.length);i++)party.push(makeMember(ROLES[i])); }
   startStage(st);
   if(save)addMsg('つづきから はじめた！');
@@ -418,8 +419,12 @@ function text(x,y,s,col,size){ G.texts.push({x,y,s,col:col||'#fff',size:size||12
 function burst(x,y,col,n,sp){ for(let i=0;i<(n||8);i++){const a=rnd(0,TAU),v=rnd(20,sp||120); G.parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rnd(.3,.7),col,sz:rnd(2,5)});} }
 function ring(x,y,col,r,life){ G.rings.push({x,y,col,r:r||40,life:life||0.35,t:0}); }
 function fx(o){ o.t=0; G.fx.push(o); }
+function mpMaxFor(i){ return 60+10*Math.max(0,i-10); }
 function startStage(i){
   G.stage=i; G.stageT=0; G.phase='intro'; G.phaseT=0; G.spawnT=1.5; G.boss=null;
+  const dead=party.filter(m=>!m.alive);
+  if(dead.length){ for(const m of dead){ m.alive=true; m.hp=m.maxHp; m.inv=2; } addMsg(dead.map(m=>m.name).join('と ')+'が いきかえった！'); SFX.revive(); ring(G.head.x,G.head.y,'#fff0a0',70,0.5); }
+  const nmx=mpMaxFor(i); if(nmx>G.mpMax){ G.mpMax=nmx; G.mp=Math.min(G.mpMax,G.mp+10); addMsg('MPの さいだいちが '+G.mpMax+'に あがった！'); }
   addMsg(stageLabel(i)+' 「'+STAGES[i].name+'」');
   if(i===10){ addMsg('まものたちが けだものの ように……'); G.flash={col:'rgba(120,0,20,0.8)',t:1.2}; }
   if(i>0&&i<ROLES.length&&!member(ROLES[i].key)){ const m=makeMember(ROLES[i]); party.push(m); addMsg(m.name+'（'+m.job+'）が なかまに くわわった！'); SFX.revive(); ring(G.head.x,G.head.y,'#fff0a0',60); G.joined={name:m.name,job:m.job,t:3}; }
@@ -429,7 +434,7 @@ function startStage(i){
 }
 const L=()=>G?G.stage:0;                      // 章インデックス（難易度係数）
 const SM=()=>Math.min(1.5,1+0.05*L());        // 敵弾スピード倍率（上限あり）
-const EDMG=b=>b+(L()>=3?1:0)+(L()>=6?1:0)+(L()>=8?1:0)+(L()>=10?1:0)+(L()>=15?1:0); // 敵弾ダメージ
+const EDMG=b=>b+(L()>=3?1:0)+(L()>=6?1:0)+(L()>=8?1:0)+(L()>=10?1:0); // 敵弾ダメージ
 const FINAL=()=>L()%10===9;               // 各せかいの最終章：弾数をひかえめに
 
 // ---------------------------------------------------------------- Input
@@ -534,6 +539,10 @@ function castSelected(){
     case 'ヒーリア': SFX.heal(); G.flash={col:'rgba(120,255,160,0.3)',t:0.35};
       for(const m of party)if(m.alive){ m.hp=m.maxHp; fx({k:'heal',x:m.x,y:m.y,life:1.0}); for(let i=0;i<10;i++)G.parts.push({x:m.x+rnd(-14,14),y:m.y+rnd(-10,20),vx:0,vy:rnd(-90,-40),life:rnd(0.5,1),col:pick(['#a0ffa0','#ffffff','#d0ffd0']),sz:3}); }
       addMsg('なかまの きずが すべて なおった！'); break;
+    case 'リザレク':{ const dead=party.filter(m=>!m.alive); if(!dead.length){ addMsg('…しかし だれも たおれていない'); break; }
+      SFX.revive(); G.flash={col:'rgba(255,240,180,0.45)',t:0.4};
+      for(const m of dead){ m.alive=true; m.hp=Math.ceil(m.maxHp*0.6); m.inv=1.5; fx({k:'heal',x:m.x,y:m.y,life:1.0}); ring(m.x,m.y,'#fff0a0',50); burst(m.x,m.y,'#ffffa0',16,100); addMsg(m.name+'は いきかえった！'); }
+      break; }
     case 'エクスプロ':
       SFX.boom(); G.flash={col:'rgba(255,255,255,0.95)',t:0.6}; G.shake=22; G.eb.length=0;
       fx({k:'nuke',x:W/2,y:H/2-80,life:1.2,n:14,nt:0});
@@ -544,7 +553,7 @@ function castSelected(){
 
 // ---------------------------------------------------------------- Spawning
 function spawnEnemy(type,x,y,p){
-  const def=typeof type==='string'?ENEMY[type]:type; const mul=def.boss?1.45:1.2*(1+0.32*Math.min(L(),9))*(L()>=10?1.5+0.12*(L()-10):1);
+  const def=typeof type==='string'?ENEMY[type]:type; const mul=def.boss?1.45:1.2*(1+0.32*Math.min(L(),9))*(L()>=10?1.25+0.07*(L()-10):1);
   const e={type:def.key||type,def,x,y,hp:Math.ceil(def.hp*mul),maxHp:Math.ceil(def.hp*mul),r:def.r,t:0,p:p||{},flash:0,frozen:0,shootT:rnd(0.5,1.5),phase:0,entering:!!def.boss,boss:!!def.boss,alpha:1,vx:0,vy:0};
   G.enemies.push(e); return e;
 }
@@ -649,7 +658,7 @@ function updateParty(d){
         for(const ox of xs)G.pb.push({x:m.x+ox,y:m.y-18,vx:0,vy:-560,r:4,dmg,kind:'arrow',pierce,hit:new Set(),col,life:1.5});
         SFX.shoot();
       } else {
-        m.cd=0.8-0.07*g; const dmg=2+0.7*g; const n=g>=5?3:g>=3?2:1;
+        m.cd=0.8-0.07*g; const dmg=(2+0.7*g)*(NM()?2:1); const n=g>=5?3:g>=3?2:1;
         for(let i=0;i<n;i++){ const a=n===1?0:(i-(n-1)/2)*0.7; const tg=nearestEnemy(m.x,m.y,false); G.pb.push({x:m.x,y:m.y-10,vx:Math.sin(a)*300,vy:-Math.cos(a)*300,r:11,dmg,kind:'boom',home:4+0.6*g,tg,col,life:3,rot:0}); }
         SFX.slash();
       }
