@@ -175,6 +175,7 @@ const SONGS={
 };
 const at=dt=>AU.now()+dt;
 const SFX={
+  thunder(){AU.noise({d:0.9,v:0.45,f:3000});AU.noise({d:0.3,v:0.35,f:8000,hp:true});AU.tone({f:70,f2:30,d:0.9,v:0.3,type:'sawtooth'});},
   shoot(){AU.tone({f:900,f2:450,d:.05,v:.04});},
   bolt(){AU.tone({f:300,f2:1200,d:.1,v:.05,type:'triangle'});},
   slash(){AU.noise({d:.08,v:.1,f:3000,hp:true});AU.tone({f:700,f2:200,d:.08,v:.05});},
@@ -677,7 +678,9 @@ function updateParty(d){
         let near=null; for(const e of G.enemies){ if(e.entering)continue; if(hyp(e.x-m.x,e.y-m.y)<80+e.r){near=e;break;} }
         if(near){ m.cd=0.55; SFX.slash(); G.beams.push({slash:true,x:m.x,y:m.y,life:0.2});
           for(const e of G.enemies.slice()){ if(e.entering)continue; if(hyp(e.x-m.x,e.y-m.y)<82+e.r)damageEnemy(e,6,Math.random()<0.12); } } }
-      if(m.t>=m.nextSp){ // 必殺：かいてんぎり
+      if(NM()&&m.t>=m.nextSp){ // うらのせかいの必殺：いなずまぎり（画面全体）
+        if(G.enemies.some(e=>!e.entering)||G.eb.length){ m.t=0; m.nextSp=rnd(7,11); inazuma(m); } }
+      else if(m.t>=m.nextSp){ // 必殺：かいてんぎり
         const any=G.enemies.some(e=>!e.entering&&hyp(e.x-m.x,e.y-m.y)<150+e.r);
         if(any){ m.t=0; m.nextSp=rnd(6,10); addMsg(m.name+'の かいてんぎり！'); SFX.crit(); G.shake=6; G.spellBanner={n:'かいてんぎり',col:'#d0e0ff',t:1.0};
           ring(m.x,m.y,'#ffffff',150,0.5); ring(m.x,m.y,'#a0c0ff',120,0.4); G.beams.push({slash:true,x:m.x,y:m.y,life:0.35,big:true}); burst(m.x,m.y,'#d0e0ff',20,200);
@@ -923,6 +926,18 @@ function hurtMember(m,dmg){
   m.hp-=dmg; m.inv=1.1; SFX.hurt(); G.shake=Math.max(G.shake,5); burst(m.x,m.y,'#ff6060',6,80); text(m.x,m.y-14,String(dmg),'#ff8080',13); G.flash={col:'rgba(255,40,40,0.25)',t:0.15};
   if(m.hp<=0){ m.hp=0; m.alive=false; addMsg(m.name+'は ちからつきた…'); SFX.coffin();
     if(!party.some(x=>x.alive)){ G.dead=true; G.state='over'; G.overT=0; addMsg('アレンたちは ぜんめつした…'); SEQ.play('over'); saveBest(); } }
+}
+// いなずまぎり：画面じゅうに稲妻を落とし、敵の弾をすべて消し、雑魚はすべて倒す。ボスには大ダメージ
+function inazuma(m){
+  addMsg(m.name+'の いなずまぎり！'); SFX.thunder(); G.shake=18; G.flash={col:'rgba(220,235,255,0.95)',t:0.45};
+  G.spellBanner={n:'いなずまぎり',col:'#a8d8ff',t:1.2};
+  const xs=[]; for(let i=0;i<7;i++)xs.push(30+i*50+rnd(-14,14));
+  for(const e of G.enemies)if(!e.entering)xs.push(e.x);
+  for(const x0 of xs){ const pts=[]; let x=x0+rnd(-20,20); for(let y=-10;y<=H+10;y+=rnd(22,40)){ pts.push([x,y]); x+=rnd(-22,22); } fx({k:'zap',pts,life:rnd(0.45,0.7)}); }
+  G.beams.push({slash:true,x:m.x,y:m.y,life:0.35,big:true});
+  for(const b of G.eb){ burst(b.x,b.y,'#c8e8ff',2,60); } G.eb.length=0;
+  for(const e of G.enemies.slice()){ if(e.entering)continue; burst(e.x,e.y,'#ffffff',10,160); fx({k:'boom',x:e.x,y:e.y,r:40,life:0.4});
+    if(e.boss)damageEnemy(e,60,false,'#a8d8ff'); else damageEnemy(e,9999,false,null); }
 }
 function explodeFire(b){
   fx({k:'boom',x:b.x,y:b.y,r:46,life:0.45}); ring(b.x,b.y,'#ffb060',60,0.4); burst(b.x,b.y,'#ff9a30',14,160); SFX.explode(); G.shake=Math.max(G.shake,4);
@@ -1239,6 +1254,9 @@ function drawSpellFx(){
     if(f.k==='boom'){ ctx.save(); ctx.globalCompositeOperation='lighter'; const r=f.r*(0.3+0.7*Math.sqrt(p)); const g=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,r); g.addColorStop(0,'rgba(255,255,230,'+(1-p)+')'); g.addColorStop(0.4,'rgba(255,180,60,'+(0.9-p*0.9)+')'); g.addColorStop(1,'rgba(255,60,0,0)'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(f.x,f.y,r,0,TAU); ctx.fill(); ctx.restore(); }
     else if(f.k==='ice'){ ctx.save(); ctx.globalAlpha=1-p; ctx.strokeStyle='#d8f8ff'; ctx.lineWidth=3; for(let i=0;i<6;i++){ const a=i/6*TAU; const len=(f.r+30)*p; ctx.beginPath(); ctx.moveTo(f.x+Math.cos(a)*6,f.y+Math.sin(a)*6); ctx.lineTo(f.x+Math.cos(a)*len,f.y+Math.sin(a)*len); ctx.stroke(); } ctx.restore(); iceCrystal(f.x,f.y,(f.r+8)*Math.min(1,p*2),0.7*(1-p*0.5)); }
     else if(f.k==='heal'){ ctx.save(); ctx.globalCompositeOperation='lighter'; const a=p<0.3?p/0.3:1-(p-0.3)/0.7; const h=110; const g=ctx.createLinearGradient(0,f.y+20,0,f.y+20-h); g.addColorStop(0,'rgba(120,255,160,'+(0.8*a)+')'); g.addColorStop(1,'rgba(120,255,160,0)'); ctx.fillStyle=g; ctx.fillRect(f.x-14,f.y+20-h,28,h); ctx.fillStyle='rgba(255,255,255,'+(0.6*a)+')'; ctx.fillRect(f.x-4,f.y+20-h,8,h); ctx.restore(); }
+    else if(f.k==='zap'){ ctx.save(); ctx.globalCompositeOperation='lighter'; const a=(1-p)*(0.6+0.4*Math.sin(f.t*60)); ctx.lineJoin='round';
+      for(const [w,c] of [[10,'rgba(80,140,255,'+(a*0.5)+')'],[4,'rgba(180,220,255,'+a+')'],[1.5,'rgba(255,255,255,'+a+')']]){ ctx.strokeStyle=c; ctx.lineWidth=w; ctx.beginPath(); f.pts.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y)); ctx.stroke(); }
+      ctx.restore(); }
     else if(f.k==='cast'){ ctx.save(); ctx.globalAlpha=1-p; ctx.strokeStyle=f.col; ctx.lineWidth=2; ctx.translate(f.x,f.y); ctx.rotate(f.t*4); const r=26+p*20; ctx.beginPath(); for(let i=0;i<5;i++){ const a=i*4*TAU/5-Math.PI/2; ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r); } ctx.closePath(); ctx.stroke(); ctx.beginPath(); ctx.arc(0,0,r,0,TAU); ctx.stroke(); ctx.restore(); }
     else if(f.k==='nuke'){ ctx.save(); ctx.globalCompositeOperation='lighter'; for(let k=0;k<3;k++){ const pp=clamp(p*1.4-k*0.15,0,1); const r=pp*420; ctx.globalAlpha=(1-pp)*0.9; ctx.strokeStyle=k===0?'#ffffff':'#ffc040'; ctx.lineWidth=14*(1-pp)+2; ctx.beginPath(); ctx.arc(f.x,f.y,r,0,TAU); ctx.stroke(); } ctx.restore(); }
   }
