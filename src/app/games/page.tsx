@@ -11,7 +11,7 @@ import { GAME_ENTRIES, GAME_NOTES } from "./entries";
 export const metadata: Metadata = {
   title: "ゲーム | ROGUE PINK",
   description:
-    "登録なし、ダウンロードなしで遊べるゲーム。毒キノコ退治のアクション、山道を走るオフロードバイクのレース、工場でイジワルおばさんをこらしめるハリセンのアクション、ブロックの弾でぷよを打ちぬくシューティング。",
+    "登録なし、ダウンロードなしで遊べるゲーム。毒キノコ退治のアクション、山道を走るオフロードバイクのレース、工場でイジワルおばさんをこらしめるハリセンのアクション、ブロックの弾でぷよを打ちぬくシューティング、勇者の一行が魔王に挑む昔のRPGふうのシューティング。",
 };
 
 export default function GamesPage() {
