@@ -26,6 +26,8 @@ export type GameEntry = {
 //   TETORISU     … roguepink/TETORISU の一式(main e19fe01 の時点・2026-10-06 追加、その後 iPhone の案内・敵の弾の調整・テトロミノの機体とぷよらしい敵に更新、10-13 81828a0 の「画面を離れたら音を止める」版に更新)
 //   ゆうしゃの たいれつ … roguepink/dorakue の index.html(main d39b574 の時点・2026-10-13 追加、同日 章クリアで生き返る・蘇生呪文・裏の調整、タイトルで表と裏を選べる、裏の「いなずまぎり」、MP上限とボスHPの調整、ボスの裏側に回り込めない仕組み、画面を離れたら音を止めるに更新)
 //     ※ 1ファイルで完結。BGM・効果音もファイルの中で作っている。向こうは https://roguepink.github.io/dorakue/ でも遊べる
+//   たたいて かぶって ジャンケンポン! … roguepink/janken の index.html(claude/rock-paper-scissors-battle-game-198dic 205f8d0 の時点・2026-10-13 追加)
+//     ※ 1ファイルで完結。src/ から scripts/build.js で作った index.html だけでよい
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
@@ -122,6 +124,23 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/yuusha/cover.jpg",
     coverAlt:
       "ゆうしゃの たいれつの画面。まん中にタイトル画面、両わきに緑のドラゴンと戦う場面と、大きな爆発の魔法を使う場面",
+  },
+  {
+    slug: "janken",
+    eyebrow: "リングの上の じゃんけん対決",
+    name: "たたいて かぶって ジャンケンポン!",
+    description:
+      "じゃんけんに勝ったら右のボタンでピコピコハンマーやハリセンで相手の頭をたたき、負けたら左のボタンでヘルメットをかぶって守ります。先にHPがなくなったほうの負け。ステージが進むほど相手は悪者になり、会場のお客さんも増えていきます。",
+    features: [
+      "武器と防具は5種類ずつ。重い武器ほど強いけれど遅く、ガードの上からもダメージが通る",
+      "相手は10人。いたずらっ子から始まり、ヤンキー、覆面レスラー、最後は大魔王",
+      "むずかしさは3段階。男性か女性を選ぶと、相手も同じになる",
+    ],
+    devices: "パソコン・スマホ(縦向き)",
+    url: "/games/janken/index.html",
+    cover: "/games/janken/cover.jpg",
+    coverAlt:
+      "たたいて かぶって ジャンケンポン!の画面。まん中にタイトル画面、左に満員の会場とリング、右にフライパンで大魔王をたたいた場面",
   },
 ];
 
