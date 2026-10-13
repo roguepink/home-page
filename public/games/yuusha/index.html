@@ -407,13 +407,13 @@ function saveBest(){ if(G.gold>best){best=G.gold; try{localStorage.setItem('yt_b
 function makeMember(r){ return {...r,maxHp:r.hp,alive:true,x:G.head.x,y:G.head.y+40,cd:rnd(0,.5),inv:1,t:0,t2:0,bob:0,nextSp:rnd(4,7)}; }
 function newGame(save){
   G={state:'play',t:0,stage:0,w:{sword:1,bow:1,boom:1},wcur:0,mageLv:1,stageT:0,phase:'intro',phaseT:0,enemies:[],pb:[],eb:[],drops:[],parts:[],texts:[],beams:[],rings:[],fx:[],msgs:[],
-    head:{x:W/2,y:H-200},trail:[],mp:20,mpMax:60,weapon:0,gold:0,kills:0,spawnT:2,boss:null,bossDying:null,shake:0,flash:null,banner:null,spellBanner:null,
+    head:{x:W/2,y:H-200},trail:[],mp:15,mpMax:30,weapon:0,gold:0,kills:0,spawnT:2,boss:null,bossDying:null,shake:0,flash:null,banner:null,spellBanner:null,
     menu:{open:false,sel:0},bgY:0,dead:false,overT:0,clearT:0,lastKillMsg:-9,paused:false,lastMove:0};
   for(let y=G.head.y+150;y>=G.head.y;y-=4)G.trail.push({x:G.head.x,y});
   party=[makeMember(ROLES[0])]; party[0].y=G.head.y;
   let st=0;
   if(save&&save.nmStart){ st=10; for(let i=1;i<ROLES.length;i++)party.push(makeMember(ROLES[i])); }
-  else if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mp=20; G.mpMax=mpMaxFor(st); G.mp=Math.min(G.mpMax,Math.max(20,Math.floor(G.mpMax/3)));
+  else if(save){ st=save.stage; G.w=Object.assign({sword:1,bow:1,boom:1},save.w||{}); G.wcur=save.wcur||0; G.mageLv=save.mageLv||1; G.gold=save.gold||0; G.kills=save.kills||0; G.mpMax=mpMaxFor(st); G.mp=Math.min(G.mpMax,Math.max(15,Math.floor(G.mpMax/3)));
     for(let i=1;i<Math.min(st,ROLES.length);i++)party.push(makeMember(ROLES[i])); }
   startStage(st);
   if(save)addMsg(save.nmStart?'うらのせかいから はじめた……':'つづきから はじめた！');
@@ -426,13 +426,13 @@ function text(x,y,s,col,size){ G.texts.push({x,y,s,col:col||'#fff',size:size||12
 function burst(x,y,col,n,sp){ for(let i=0;i<(n||8);i++){const a=rnd(0,TAU),v=rnd(20,sp||120); G.parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rnd(.3,.7),col,sz:rnd(2,5)});} }
 function ring(x,y,col,r,life){ G.rings.push({x,y,col,r:r||40,life:life||0.35,t:0}); }
 function fx(o){ o.t=0; G.fx.push(o); }
-function mpMaxFor(i){ return 60+10*Math.max(0,i-10); }
+function mpMaxFor(i){ return i<10?30:50+5*(i-10); }  // おもて30、うらは50から1章ごとに+5
 function startStage(i){
   G.stage=i; G.stageT=0; G.phase='intro'; G.phaseT=0; G.spawnT=1.5; G.boss=null;
   const dead=party.filter(m=>!m.alive);
   if(dead.length){ for(const m of dead){ m.alive=true; m.hp=m.maxHp; m.inv=2; } addMsg(dead.map(m=>m.name).join('と ')+'が いきかえった！'); SFX.revive(); ring(G.head.x,G.head.y,'#fff0a0',70,0.5); }
   if(i>=10)unlockNm();
-  const nmx=mpMaxFor(i); if(nmx>G.mpMax){ G.mpMax=nmx; G.mp=Math.min(G.mpMax,G.mp+10); addMsg('MPの さいだいちが '+G.mpMax+'に あがった！'); }
+  const nmx=mpMaxFor(i); if(nmx>G.mpMax){ G.mp=Math.min(nmx,G.mp+(nmx-G.mpMax)); G.mpMax=nmx; addMsg('MPの さいだいちが '+G.mpMax+'に あがった！'); } else if(nmx<G.mpMax){ G.mpMax=nmx; G.mp=Math.min(G.mp,nmx); }
   addMsg(stageLabel(i)+' 「'+STAGES[i].name+'」');
   if(i===10){ addMsg('まものたちが けだものの ように……'); G.flash={col:'rgba(120,0,20,0.8)',t:1.2}; }
   if(i>0&&i<ROLES.length&&!member(ROLES[i].key)){ const m=makeMember(ROLES[i]); party.push(m); addMsg(m.name+'（'+m.job+'）が なかまに くわわった！'); SFX.revive(); ring(G.head.x,G.head.y,'#fff0a0',60); G.joined={name:m.name,job:m.job,t:3}; }
@@ -563,7 +563,7 @@ function castSelected(){
 
 // ---------------------------------------------------------------- Spawning
 function spawnEnemy(type,x,y,p){
-  const def=typeof type==='string'?ENEMY[type]:type; const mul=def.boss?1.45:1.2*(1+0.32*Math.min(L(),9))*(L()>=10?1.25+0.07*(L()-10):1);
+  const def=typeof type==='string'?ENEMY[type]:type; const mul=def.boss?1.45*(L()>=10?1.7:1.2):1.2*(1+0.32*Math.min(L(),9))*(L()>=10?1.25+0.07*(L()-10):1);
   const e={type:def.key||type,def,x,y,hp:Math.ceil(def.hp*mul),maxHp:Math.ceil(def.hp*mul),r:def.r,t:0,p:p||{},flash:0,frozen:0,shootT:rnd(0.5,1.5),phase:0,entering:!!def.boss,boss:!!def.boss,alpha:1,vx:0,vy:0};
   G.enemies.push(e); return e;
 }
