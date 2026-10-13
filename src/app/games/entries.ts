@@ -23,7 +23,7 @@ export type GameEntry = {
 //   ハリセン工場パトロール … roguepink/ijiwarugame の一式(8d3fab9 の時点・2026-10-04 追加、10-06 「おばさんたたき」入りに更新)
 //     ※ このリポジトリには main が無く、作業ブランチ ccr-c2fbf1da-40k3tk だけ
 //   TETORISU     … roguepink/TETORISU の一式(main e19fe01 の時点・2026-10-06 追加、その後 iPhone の案内・敵の弾の調整・テトロミノの機体とぷよらしい敵に更新)
-//   ゆうしゃの たいれつ … roguepink/dorakue の index.html(main 889b03c の時点・2026-10-13 追加)
+//   ゆうしゃの たいれつ … roguepink/dorakue の index.html(main de831d5 の時点・2026-10-13 追加、同日 章クリアで生き返る・蘇生呪文・裏の調整に更新)
 //     ※ 1ファイルで完結。BGM・効果音もファイルの中で作っている。向こうは https://roguepink.github.io/dorakue/ でも遊べる
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
