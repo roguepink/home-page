@@ -61,6 +61,8 @@ export default function LyricPlayer({ song }: { song: Song }) {
     }
 
     let current = -2;
+    // 曲の長さ。ページが動き出す前に読み終えていると知らせが来ないので、ここで見る
+    let shownDuration = 0;
     let raf = 0;
     const frame = () => {
       const t = audio.currentTime;
@@ -101,6 +103,10 @@ export default function LyricPlayer({ song }: { song: Song }) {
         });
       }
 
+      if (audio.duration && audio.duration !== shownDuration) {
+        shownDuration = audio.duration;
+        setDuration(audio.duration);
+      }
       if (audio.duration && seekRef.current && timeRef.current) {
         seekRef.current.value = String((t / audio.duration) * 1000);
         timeRef.current.textContent = formatTime(t);
@@ -120,10 +126,10 @@ export default function LyricPlayer({ song }: { song: Song }) {
       {/* 同じ絵をぼかして背景に敷く */}
       <div
         aria-hidden
-        className="fixed inset-0 -z-10 scale-125 bg-cover bg-center opacity-40 blur-3xl transition-[background-image] duration-700"
+        className="fixed inset-0 -z-10 scale-125 bg-cover bg-center opacity-80 blur-2xl transition-[background-image] duration-700"
         style={{ backgroundImage: `url(${version.poster})` }}
       />
-      <div aria-hidden className="fixed inset-0 -z-10 bg-background/70" />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-background/55" />
 
       <div className="flex items-center gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -247,7 +253,6 @@ export default function LyricPlayer({ song }: { song: Song }) {
         playsInline
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
       />
     </div>
   );
