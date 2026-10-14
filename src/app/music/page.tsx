@@ -5,8 +5,10 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
+import Link from "next/link";
 import FeaturedRelease from "./FeaturedRelease";
 import { MUSIC_ENTRIES } from "./entries";
+import { SONGS } from "./songs";
 
 export const metadata: Metadata = {
   title: "音楽 | ROGUE PINK",
@@ -23,6 +25,8 @@ export default function MusicPage() {
   // 今日だけ特別扱いする曲は、一覧から抜いて一番上で大きく出す
   const featured = MUSIC_ENTRIES.find((entry) => entry.featured);
   const listed = MUSIC_ENTRIES.filter((entry) => !entry.featured);
+  // 聞ける曲(音楽カード)。試作の曲は一覧に出さない
+  const songs = SONGS.filter((song) => !song.draft);
 
   return (
     <>
@@ -44,7 +48,61 @@ export default function MusicPage() {
           </SectionHeading>
         </div>
 
-        {listed.length === 0 ? (
+        {songs.length > 0 && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="text-xs font-bold tracking-[0.3em] text-pink">
+                音楽
+              </h2>
+              <p className="mt-2 text-sm text-muted">
+                歌詞を見ながら聞けて、ダウンロードもできます。
+              </p>
+            </Reveal>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {songs.map((song, index) => (
+                <Reveal key={song.slug} delay={index * 0.1}>
+                  <Link
+                    href={`/music/${song.slug}`}
+                    className="flex items-center gap-4 rounded-2xl border border-border bg-background-elevated p-4 transition-colors hover:border-pink/50"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={song.versions[0].cover}
+                      alt={`${song.title}のジャケット`}
+                      width={88}
+                      height={88}
+                      loading="lazy"
+                      className="h-[88px] w-[88px] flex-none rounded-xl object-cover"
+                    />
+                    <div className="min-w-0">
+                      <p className="truncate text-lg font-black text-foreground">
+                        {song.title}
+                      </p>
+                      <p className="mt-1 text-xs text-muted">
+                        {song.versions.map((v) => v.label).join("・")}
+                      </p>
+                      <p
+                        className="mt-2 text-sm font-bold"
+                        style={{ color: song.color }}
+                      >
+                        ▶ 歌詞つきで聞く
+                      </p>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {listed.length > 0 && songs.length > 0 && (
+          <Reveal className="mt-24">
+            <h2 className="text-xs font-bold tracking-[0.3em] text-pink">MV</h2>
+            <p className="mt-2 text-sm text-muted">曲に映像をつけたものです。</p>
+          </Reveal>
+        )}
+
+        {listed.length === 0 && songs.length === 0 ? (
           <Reveal className="mt-20">
             <div className="rounded-2xl border border-border bg-background-elevated p-10 text-center">
               <p className="text-3xl">🎵</p>
@@ -56,7 +114,7 @@ export default function MusicPage() {
             </div>
           </Reveal>
         ) : (
-          <div className="mt-20 space-y-16">
+          <div className={songs.length > 0 ? "mt-6 space-y-16" : "mt-20 space-y-16"}>
             {listed.map((entry, index) => (
               <Reveal key={entry.slug} delay={index * 0.1}>
                 <article
