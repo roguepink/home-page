@@ -48,3 +48,31 @@ body {
   background: var(--pink);
   color: #ffffff;
 }
+
+/* 音楽: 歌詞をなぞる(src/app/music/[slug]/LyricPlayer.tsx) */
+.lyrics {
+  -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  scrollbar-width: none;
+}
+.lyrics::-webkit-scrollbar {
+  display: none;
+}
+.lyric-line {
+  color: rgba(245, 243, 247, 0.32);
+  transform-origin: left center;
+  transition: color 0.3s, transform 0.3s;
+}
+.lyric-line[data-state="past"] {
+  color: rgba(245, 243, 247, 0.5);
+}
+.lyric-line[data-state="now"] {
+  color: rgba(245, 243, 247, 0.95);
+  transform: scale(1.06);
+}
+.lyric-line[data-state="now"] span {
+  background-image: linear-gradient(90deg, var(--accent) var(--p, 0%), rgba(245, 243, 247, 0.95) var(--p, 0%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
