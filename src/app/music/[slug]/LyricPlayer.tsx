@@ -147,6 +147,16 @@ export default function LyricPlayer({ song }: { song: Song }) {
           <p className="mt-1 text-xs text-muted sm:text-sm">
             {song.artist} ・ Suno AI で制作
           </p>
+          <a
+            href={version.mp3}
+            download={`${song.title}(${version.label}).mp3`}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/5 px-4 py-1.5 text-xs font-bold text-foreground transition-colors hover:border-[var(--accent)]"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-current">
+              <path d="M11 3h2v10.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6zM4 19h16v2H4z" />
+            </svg>
+            ダウンロード({version.size})
+          </a>
         </div>
       </div>
 
