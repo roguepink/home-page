@@ -4,60 +4,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { APP_ENTRIES, APP_NOTES, APP_DISCLAIMERS, TOOL_ENTRIES, type AppEntry } from "./entries";
+import StoreList from "@/components/StoreList";
+import { APP_ENTRIES, APP_NOTES, APP_DISCLAIMERS, TOOL_ENTRIES } from "./entries";
 
 export const metadata: Metadata = {
   title: "アプリ | ROGUE PINK",
   description:
     "登録なし、ダウンロードなしで使えるアプリ。禁酒・節酒・禁煙・ギャンブル断ちの記録を、その端末の中だけに残します。写真や動画を軽くする道具もあります。",
 };
-
-// アプリ1本ぶんのカード。「やめる・減らす」の4本と「便利な道具」で同じ形を使う
-function AppCard({ app, index }: { app: AppEntry; index: number }) {
-  return (
-    // 着地点(id)は、動かない外枠に付ける。
-    // Reveal の中に付けると、飛んだ直後に中身がずり上がってヘッダーに潜る
-    <div id={app.slug}>
-      <Reveal delay={index * 0.1}>
-        <article className="rounded-2xl border border-border bg-background-elevated p-8 sm:p-10">
-          <p className="text-xs font-black tracking-[0.2em] text-pink">
-            {app.eyebrow}
-          </p>
-          <h2 className="mt-3 text-xl font-black text-foreground sm:text-2xl">
-            {app.name}
-          </h2>
-          <p className="mt-4 text-sm leading-loose text-muted sm:text-base">
-            {app.description}
-          </p>
-
-          <ul className="mt-6 space-y-2.5 border-t border-border pt-6">
-            {app.features.map((feature) => (
-              <li
-                key={feature}
-                className="flex gap-3 text-sm leading-relaxed text-muted"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-pink"
-                />
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <a
-            href={app.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-7 inline-block rounded-full bg-pink/10 px-6 py-3 text-sm font-bold text-pink-light transition-colors hover:bg-pink hover:text-white focus-visible:bg-pink focus-visible:text-white"
-          >
-            使ってみる →
-          </a>
-        </article>
-      </Reveal>
-    </div>
-  );
-}
 
 export default function AppsPage() {
   return (
@@ -72,14 +26,13 @@ export default function AppsPage() {
           </p>
         </SectionHeading>
 
-        <div className="mt-20 space-y-8">
-          {APP_ENTRIES.map((app, index) => (
-            <AppCard key={app.slug} app={app} index={index} />
-          ))}
-        </div>
+        {/* Google Play のように、アイコンと名前の一覧。押すと説明が下から出る */}
+        <Reveal className="mt-16">
+          <StoreList items={APP_ENTRIES} action="使ってみる" />
+        </Reveal>
 
         {/* 4本に共通すること。カードの中で4回くり返さず、ここで1回だけ言う */}
-        <Reveal delay={0.1} className="mt-16">
+        <Reveal delay={0.1} className="mt-10">
           <div className="rounded-2xl border border-border p-8 sm:p-10">
             <p className="text-xs font-black tracking-[0.2em] text-pink">
               4つに共通すること
@@ -133,11 +86,9 @@ export default function AppsPage() {
               ちょっと困ったときに、すぐ使える道具です。
             </p>
           </SectionHeading>
-          <div className="mt-16 space-y-8">
-            {TOOL_ENTRIES.map((app, index) => (
-              <AppCard key={app.slug} app={app} index={index} />
-            ))}
-          </div>
+          <Reveal className="mt-12">
+            <StoreList items={TOOL_ENTRIES} action="使ってみる" />
+          </Reveal>
         </div>
 
         <Reveal className="mt-20 text-center">

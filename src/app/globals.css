@@ -76,3 +76,15 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* アプリ・ゲームの説明。スマホでは下から、パソコンでは少し浮き上がって出る(StoreList) */
+@keyframes store-sheet-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.store-sheet[open] {
+  animation: store-sheet-up 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .store-sheet[open] { animation: none; }
+}

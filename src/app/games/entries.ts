@@ -15,6 +15,9 @@ export type GameEntry = {
   /** カードの絵(ゲームのタイトル画面を撮ったもの) */
   cover: string;
   coverAlt: string;
+  /** 一覧に出すアイコン。ゲームに付いているものを使う。
+   *  ⚠ キノコ・ゆうしゃ・ジャンケンには無かったので、こちらで描いた仮のもの(icon.svg) */
+  icon: string;
 };
 
 // ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
@@ -40,6 +43,7 @@ export type GameEntry = {
 export const GAME_ENTRIES: GameEntry[] = [
   {
     slug: "kinoko",
+    icon: "/games/kinoko/icon.svg",
     eyebrow: "森の おそうじアクション",
     name: "どくキノコ大作戦",
     description:
@@ -57,6 +61,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "acorn",
+    icon: "/games/acorn/icons/icon-192.png",
     eyebrow: "山道の バイクレース",
     name: "ACORN DIRT GP",
     subName: "どんぐりダートGP",
@@ -75,6 +80,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "harisen",
+    icon: "/games/harisen/icons/icon-192.png",
     eyebrow: "工場の パトロールアクション",
     name: "ハリセン工場パトロール",
     description:
@@ -92,6 +98,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "tetorisu",
+    icon: "/games/tetorisu/icons/icon-192.png",
     eyebrow: "横スクロールの シューティング",
     name: "TETORISU",
     subName: "テトリス",
@@ -110,6 +117,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "yuusha",
+    icon: "/games/yuusha/icon.svg",
     eyebrow: "昔のRPGふうの 縦スクロールシューティング",
     name: "ゆうしゃの たいれつ",
     description:
@@ -127,6 +135,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "janken",
+    icon: "/games/janken/icon.svg",
     eyebrow: "リングの上の じゃんけん対決",
     name: "たたいて かぶって ジャンケンポン!",
     description:
