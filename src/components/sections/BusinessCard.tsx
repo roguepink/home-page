@@ -14,6 +14,8 @@ export type BusinessStat = {
   value: number;
   /** 「本 公開中」「曲 公開中」など、数のうしろに続く言葉 */
   unit: string;
+  /** 数の前に付ける小さな見出し(「旅」「PV」など。1枚のカードに2つ並べるとき) */
+  label?: string;
 };
 
 export type BusinessLatest = {
@@ -27,6 +29,8 @@ type BusinessCardProps = {
   icon: BusinessIconName;
   status: BusinessStatus;
   stat?: BusinessStat;
+  /** stat の右に「／」で並べる2つ目の数(旅のカードの PV など) */
+  stat2?: BusinessStat;
   latest?: BusinessLatest;
   products?: Product[];
   /** 主役の1枚。横いっぱいで、最新の1件を並べて出す */
@@ -84,6 +88,7 @@ export default function BusinessCard({
   icon,
   status,
   stat,
+  stat2,
   latest,
   products,
   featured = false,
@@ -134,9 +139,18 @@ export default function BusinessCard({
       </p>
 
       {stat && (
-        <div className="mt-4 flex items-baseline gap-2 border-t border-border pt-4 text-xs text-muted">
+        <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-border pt-4 text-xs text-muted">
+          {stat.label && <span className="font-bold text-pink-light">{stat.label}</span>}
           <CountUp value={stat.value} />
           <span>{stat.unit}</span>
+          {stat2 && (
+            <>
+              <span aria-hidden className="px-1 opacity-60">／</span>
+              {stat2.label && <span className="font-bold text-pink-light">{stat2.label}</span>}
+              <CountUp value={stat2.value} />
+              <span>{stat2.unit}</span>
+            </>
+          )}
         </div>
       )}
 
