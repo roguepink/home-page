@@ -1,17 +1,39 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import BackgroundFX from "@/components/BackgroundFX";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import StoreList from "@/components/StoreList";
-import { APP_ENTRIES, APP_NOTES, APP_DISCLAIMERS, TOOL_ENTRIES } from "./entries";
+import {
+  ALL_APP_NOTES,
+  APP_DISCLAIMERS,
+  APP_ENTRIES,
+  APP_NOTES,
+  TOOL_ENTRIES,
+} from "./entries";
+
+// 5本を続けて1つの一覧に(2026-10-19 ノブさんの指示)。「やめる・減らす」の4本が先、道具が後
+const ALL_APPS = [...APP_ENTRIES, ...TOOL_ENTRIES];
 
 export const metadata: Metadata = {
   title: "アプリ | ROGUE PINK",
   description:
     "登録なし、ダウンロードなしで使えるアプリ。禁酒・節酒・禁煙・ギャンブル断ちの記録を、その端末の中だけに残します。写真や動画を軽くする道具もあります。",
 };
+
+function Note({ children }: { children: ReactNode }) {
+  return (
+    <li className="flex gap-3 text-sm leading-loose text-muted">
+      <span
+        aria-hidden="true"
+        className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-border"
+      />
+      {children}
+    </li>
+  );
+}
 
 export default function AppsPage() {
   return (
@@ -28,27 +50,28 @@ export default function AppsPage() {
 
         {/* Google Play のように、アイコンと名前の一覧。押すと説明が下から出る */}
         <Reveal className="mt-16">
-          <StoreList items={APP_ENTRIES} action="使ってみる" />
+          <StoreList items={ALL_APPS} action="使ってみる" />
         </Reveal>
 
-        {/* 4本に共通すること。カードの中で4回くり返さず、ここで1回だけ言う */}
-        <Reveal delay={0.1} className="mt-10">
+        {/* 説明は一番下に1回だけ。全部に当てはまることと、「やめる・減らす」の4つだけのことを分けて書く
+            (分けないと、リサイズにも相談窓口やバックアップがあるように読めてしまう) */}
+        <Reveal delay={0.1} className="mt-16">
           <div className="rounded-2xl border border-border p-8 sm:p-10">
             <p className="text-xs font-black tracking-[0.2em] text-pink">
-              4つに共通すること
+              どのアプリも
+            </p>
+            <ul className="mt-6 space-y-3">
+              {ALL_APP_NOTES.map((note) => (
+                <Note key={note}>{note}</Note>
+              ))}
+            </ul>
+
+            <p className="mt-10 border-t border-border pt-8 text-xs font-black tracking-[0.1em] text-pink">
+              禁酒・節酒・禁煙・ギャンブル断ちの4つは
             </p>
             <ul className="mt-6 space-y-3">
               {APP_NOTES.map((note) => (
-                <li
-                  key={note}
-                  className="flex gap-3 text-sm leading-loose text-muted"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-border"
-                  />
-                  {note}
-                </li>
+                <Note key={note}>{note}</Note>
               ))}
             </ul>
             <div className="mt-6 space-y-3 border-t border-border pt-6">
@@ -78,18 +101,6 @@ export default function AppsPage() {
             </div>
           </div>
         </Reveal>
-
-        {/* 便利な道具。上の4本とは性格が違うので、節を分ける(上の「4つに共通すること」は、こちらには当てはまらない) */}
-        <div className="mt-32">
-          <SectionHeading eyebrow="TOOLS" title="便利な道具">
-            <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
-              ちょっと困ったときに、すぐ使える道具です。
-            </p>
-          </SectionHeading>
-          <Reveal className="mt-12">
-            <StoreList items={TOOL_ENTRIES} action="使ってみる" />
-          </Reveal>
-        </div>
 
         <Reveal className="mt-20 text-center">
           <a
