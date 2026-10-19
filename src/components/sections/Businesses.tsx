@@ -11,6 +11,7 @@ import { JOURNAL_ENTRIES } from "@/app/journal/entries";
 import { MUSIC_ENTRIES } from "@/app/music/entries";
 import { APP_ENTRIES, TOOL_ENTRIES } from "@/app/apps/entries";
 import { TRAVEL_ENTRIES } from "@/app/travel/entries";
+import { PV_ENTRIES } from "@/app/pv/entries";
 import { GAME_ENTRIES } from "@/app/games/entries";
 
 export type Product = {
@@ -24,6 +25,7 @@ type Business = {
   icon: BusinessIconName;
   status: BusinessStatus;
   stat?: BusinessStat;
+  stat2?: BusinessStat;
   latest?: BusinessLatest;
   products?: Product[];
 };
@@ -68,14 +70,24 @@ const BUSINESSES: Business[] = [
     products: [{ label: "音楽を聴く", url: "/music" }],
   },
   {
-    title: "旅",
+    // 2026-10-19 ノブさん: 旅の隣に「ハンターカブ PV」。数が少ないうちはカードは1枚のまま、ボタンで別々のページへ
+    title: "旅 ／ ハンターカブ PV",
     // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
     description:
-      "旅先で撮った写真を、自分で作った曲にのせて、一本の映像に。行った場所が、ここに増えていきます。",
+      "旅先で撮った写真を、自分で作った曲にのせて、一本の映像に。行った場所が、ここに増えていきます。愛車のハンターカブで作った PV も。",
     icon: "travel",
     status: "live",
-    stat: { value: TRAVEL_ENTRIES.length, unit: "本 公開中" },
-    products: [{ label: "旅の映像を見る", url: "/travel" }],
+    // 2026-10-19 ノブさん: 「旅 3本 公開中 ／ PV 2本 公開中」と右に並べる。PV は本編とショートで2本と数える
+    stat: { label: "旅", value: TRAVEL_ENTRIES.length, unit: "本 公開中" },
+    stat2: {
+      label: "PV",
+      value: PV_ENTRIES.reduce((n, e) => n + 1 + (e.shortsId ? 1 : 0), 0),
+      unit: "本 公開中",
+    },
+    products: [
+      { label: "旅の映像を見る", url: "/travel" },
+      { label: "ハンターカブ PV を見る", url: "/pv" },
+    ],
   },
   {
     title: "アプリ開発",

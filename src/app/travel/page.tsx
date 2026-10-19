@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
-import { PV_ENTRIES, TRAVEL_ENTRIES } from "./entries";
+import { TRAVEL_ENTRIES } from "./entries";
 
 export const metadata: Metadata = {
   title: "旅 | ROGUE PINK",
@@ -69,49 +69,6 @@ export default function TravelPage() {
             </Reveal>
           ))}
         </div>
-
-        {PV_ENTRIES.length > 0 && (
-          <section className="mt-32">
-            <SectionHeading eyebrow="PROMOTION VIDEO" title="PV" />
-
-            <div className="mt-20 space-y-16">
-              {PV_ENTRIES.map((entry, index) => (
-                <Reveal key={entry.slug} delay={index * 0.1}>
-                  <article
-                    id={entry.slug}
-                    className="rounded-2xl border border-border bg-background-elevated p-6 sm:p-10"
-                  >
-                    {entry.period && (
-                      <p className="text-xs font-bold tracking-[0.3em] text-pink">
-                        {entry.period}
-                      </p>
-                    )}
-                    <h2 className="mt-3 text-xl font-black text-foreground sm:text-2xl">
-                      {entry.title}
-                    </h2>
-                    {entry.description && (
-                      <p className="mt-6 text-sm leading-loose text-muted sm:text-base">
-                        {entry.description}
-                      </p>
-                    )}
-                    <div className="mt-6">
-                      <YouTubeEmbed id={entry.youtubeId} label="本編" />
-                    </div>
-                    {entry.shortsId && (
-                      <div className="mt-10">
-                        <YouTubeEmbed
-                          id={entry.shortsId}
-                          label="ショート"
-                          vertical
-                        />
-                      </div>
-                    )}
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </section>
-        )}
 
         <Reveal className="mt-20 text-center">
           <Link

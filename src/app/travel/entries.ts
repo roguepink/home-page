@@ -43,28 +43,3 @@ export const TRAVEL_ENTRIES: TravelEntry[] = [
     youtubeId: "vVNb-xA1B_4",
   },
 ];
-
-// ---------------------------------------------------------------- PV(旅とは別の枠)
-// ★ 2026-10-19 ノブさん「ショートと横長の動画をホームページにあげといて。ハンターカブの PV として。動画のところでいい」
-//   動画は ct125-pv で作ったもの。旅の本数(トップの「本 公開中」)には数えない
-export type PvEntry = {
-  slug: string;
-  period?: string;
-  title: string;
-  /** ノブさんの言葉が入るまで空にしておく */
-  description?: string;
-  /** 横長の本編(YouTube の11桁) */
-  youtubeId: string;
-  /** 縦長のショート(YouTube の11桁) */
-  shortsId?: string;
-};
-
-export const PV_ENTRIES: PvEntry[] = [
-  {
-    slug: "ct125-are-you-a-hunter",
-    period: "2026.10",
-    title: "ハンターカブ PV「ARE YOU A HUNTER?」",
-    youtubeId: "6-EKdZDA0-Q",
-    shortsId: "ykRnLK5t4J8",
-  },
-];
