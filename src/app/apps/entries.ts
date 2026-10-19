@@ -7,6 +7,8 @@ export type AppEntry = {
   /** 3つまで。多いと読まれない */
   features: string[];
   url: string;
+  /** 一覧に出すアイコン。⚠ 今はこちらで描いた仮のもの(public/apps/)。アプリ本物のアイコンが来たら差し替える */
+  icon: string;
 };
 
 // ★ ここに載せるのは「やめる・減らす」の4本だけ(2026-09-02 ノブさんの判断)
@@ -20,6 +22,7 @@ export type AppEntry = {
 export const APP_ENTRIES: AppEntry[] = [
   {
     slug: "kinnsyu",
+    icon: "/apps/kinshu.svg",
     eyebrow: "お酒を「やめる」",
     name: "禁酒トラッカー",
     description:
@@ -33,6 +36,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "sesshu",
+    icon: "/apps/sesshu.svg",
     eyebrow: "お酒を「減らす」",
     name: "節酒サポート",
     description:
@@ -46,6 +50,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "kinnenn",
+    icon: "/apps/kinen.svg",
     eyebrow: "たばこを「やめる」",
     name: "禁煙トラッカー",
     description:
@@ -59,6 +64,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "dangyanburu",
+    icon: "/apps/dangamble.svg",
     eyebrow: "ギャンブルを「やめる」",
     name: "ギャンブル断ちトラッカー",
     description:
@@ -80,6 +86,7 @@ export const APP_ENTRIES: AppEntry[] = [
 export const TOOL_ENTRIES: AppEntry[] = [
   {
     slug: "resize",
+    icon: "/apps/resize.svg",
     eyebrow: "写真・動画を「軽くする」",
     name: "写真・動画リサイズ",
     description:
