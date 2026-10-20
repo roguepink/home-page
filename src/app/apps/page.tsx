@@ -20,7 +20,7 @@ const ALL_APPS = [...APP_ENTRIES, ...TOOL_ENTRIES];
 export const metadata: Metadata = {
   title: "アプリ | ROGUE PINK",
   description:
-    "登録なし、ダウンロードなしで使えるアプリ。禁酒・節酒・禁煙・ギャンブル断ちの記録を、その端末の中だけに残します。写真や動画を軽くする道具もあります。",
+    "登録なし、ダウンロードなしで使えるアプリ。禁酒・節酒・禁煙・ギャンブル断ちの記録を、その端末の中だけに残します。写真や動画を軽くする道具や、小さい字を大きく見るルーペもあります。",
 };
 
 function Note({ children }: { children: ReactNode }) {
