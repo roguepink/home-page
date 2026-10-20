@@ -99,6 +99,20 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/resize/",
   },
+  {
+    slug: "rupe",
+    icon: "/apps/rupe.svg",
+    eyebrow: "小さい字を「大きく見る」",
+    name: "やさしいルーペ",
+    description:
+      "スマホのカメラで、小さい字を大きく見るルーペです。お薬の説明や賞味期限、新聞、お店の値札に。ボタンは大きく、少なくしてあります。",
+    features: [
+      "大きく・小さくは、ボタンを押すだけ。1倍から8倍まで",
+      "手がふるえても、画面を止めて、ゆっくり読める",
+      "暗い所はライト。黒地に白など、見やすい色にもかえられる",
+    ],
+    url: "https://roguepink.github.io/rupe/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
