@@ -31,6 +31,8 @@ export type GameEntry = {
 //     ※ 1ファイルで完結。BGM・効果音もファイルの中で作っている。向こうは https://roguepink.github.io/dorakue/ でも遊べる
 //   たたいて かぶって ジャンケンポン! … roguepink/janken の index.html(claude/rock-paper-scissors-battle-game-198dic 205f8d0 の時点・2026-10-13 追加)
 //     ※ 1ファイルで完結。src/ から scripts/build.js で作った index.html だけでよい
+//   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
+//     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
 //   ここにあるのは「写し」。向こうで直しても、ここは自動では変わらない。
 //   向こうを更新したら、public/games/<slug>/ に同じファイルを置き直す。
@@ -150,6 +152,24 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/janken/cover.jpg",
     coverAlt:
       "たたいて かぶって ジャンケンポン!の画面。まん中にタイトル画面、左に満員の会場とリング、右にフライパンで大魔王をたたいた場面",
+  },
+  {
+    slug: "nanpure",
+    icon: "/games/nanpure/icon-192.png",
+    eyebrow: "ねこと いっしょの 数字パズル",
+    name: "やさしいナンプレ",
+    description:
+      "たて・よこ・太い線の四角に、1〜9の数字を1つずつ入れていく、定番のナンプレ(数独)です。スマホに慣れていない方でも、説明なしですぐ遊べるように作りました。大きなボタンを押すだけで始まり、ステージ1はとても簡単。少しずつ難しくなっていきます。",
+    features: [
+      "まちがえても赤く出てすぐ消えるだけ。こまったら、ヒントが理由つきで1マス教えてくれる",
+      "ステージに終わりはなく、同じ問題は二度と出ない。数字の並びは、左右や点対称のきれいな形",
+      "ねこが応援してくれて、3面クリアするごとに動物の「なかま」がふえる",
+    ],
+    devices: "スマホ・タブレット・パソコン",
+    url: "/games/nanpure/index.html",
+    cover: "/games/nanpure/cover.jpg",
+    coverAlt:
+      "やさしいナンプレの画面。まん中にねこのいるタイトル画面、左にヒントで数字が入った盤面、右に星2つのクリア画面",
   },
 ];
 
