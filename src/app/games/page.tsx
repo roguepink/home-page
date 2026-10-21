@@ -6,12 +6,12 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import StoreList from "@/components/StoreList";
-import { GAME_ENTRIES, GAME_NOTES } from "./entries";
+import { GAME_CAUTION, GAME_ENTRIES, GAME_NOTES } from "./entries";
 
 export const metadata: Metadata = {
   title: "ゲーム | ROGUE PINK",
   description:
-    "登録なし、ダウンロードなしで遊べるゲーム。毒キノコ退治のアクション、山道を走るオフロードバイクのレース、工場でイジワルおばさんをこらしめるハリセンのアクション、ブロックの弾でぷよを打ちぬくシューティング、勇者の一行が魔王に挑む昔のRPGふうのシューティング、じゃんけんに勝ったらたたき負けたらかぶるリングの対決。",
+    "登録なし、ダウンロードなしで遊べるゲーム。毒キノコ退治のアクション、山道を走るオフロードバイクのレース、工場でイジワルおばさんをこらしめるハリセンのアクション、ブロックの弾でぷよを打ちぬくシューティング、勇者の一行が魔王に挑む昔のRPGふうのシューティング、じゃんけんに勝ったらたたき負けたらかぶるリングの対決、ねこと一緒に1面ずつ解くナンプレ。",
 };
 
 export default function GamesPage() {
@@ -51,6 +51,16 @@ export default function GamesPage() {
                 </li>
               ))}
             </ul>
+            {/* 音の注意。急に鳴ってびっくりしないよう、マークつきで目立たせる */}
+            <p className="mt-6 flex items-start gap-3 rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-3 text-sm font-bold leading-loose text-amber-200">
+              <span aria-hidden="true" className="shrink-0 text-base leading-loose">
+                ⚠️
+              </span>
+              <span>
+                <span className="sr-only">注意:</span>
+                {GAME_CAUTION}
+              </span>
+            </p>
           </div>
         </Reveal>
 
