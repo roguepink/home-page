@@ -113,6 +113,20 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/rupe/",
   },
+  {
+    slug: "itto",
+    icon: "/apps/itto.png",
+    eyebrow: "ろうそくを「ながめる」",
+    name: "一灯",
+    description:
+      "電気を消して、ろうそくを一本だけ。和ろうそくや行灯、竹あかりなど、20の灯りをただ眺めるためのアプリです。静かな音楽つき。広告はありません。",
+    features: [
+      "和ろうそく・絵ろうそく・行灯・竹あかりなど20の灯り",
+      "炎のゆれ・大きさ・明るさ・色あいを、えらぶだけ",
+      "おやすみタイマーで、ろうそくが短くなって静かに消える",
+    ],
+    url: "https://roguepink.github.io/rosoku/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
