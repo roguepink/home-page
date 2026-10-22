@@ -1,9 +1,10 @@
-// Offline cache: app shell is precached, three.js (CDN) is cached on first successful load.
-const VER = 'acorn-gp-v2';
+// Offline cache for GRIT TRAIL: app shell is precached, three.js (CDN) is cached on first successful load.
+// The site hosts several games, so only this game's own old caches are removed.
+const VER = 'grit-trail-hp-v1';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './vendor/three.min.js'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(VER).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => {
-  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VER).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VER && (k.startsWith('grit-trail') || k.startsWith('acorn-gp'))).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', (e) => {
   const req = e.request;
