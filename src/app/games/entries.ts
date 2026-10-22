@@ -31,6 +31,8 @@ export type GameEntry = {
 //     ※ 1ファイルで完結。BGM・効果音もファイルの中で作っている。向こうは https://roguepink.github.io/dorakue/ でも遊べる
 //   たたいて かぶって ジャンケンポン! … roguepink/janken の index.html(claude/rock-paper-scissors-battle-game-198dic 205f8d0 の時点・2026-10-13 追加)
 //     ※ 1ファイルで完結。src/ から scripts/build.js で作った index.html だけでよい
+//   爽快ゾンビ無双 … roguepink/sokai(2026-10-22 追加)。ファイルが多く(three.js 同梱・60本近い js)よく更新するので、
+//     写しは置かず https://roguepink.github.io/sokai/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -178,6 +180,24 @@ export const GAME_NOTES: string[] = [
   "無料です。広告も入りません。登録も、ダウンロードも要りません。開けばすぐ遊べます。",
   "ハイスコアや記録は、その端末の中だけに残ります。外には送られません。",
   "スマホでは、画面に操作用のボタンやスティックが出ます。",
+  {
+    slug: "sokai",
+    icon: "/games/sokai/icon-192.png",
+    eyebrow: "3Dの ゾンビ無双アクション",
+    name: "爽快ゾンビ無双",
+    description:
+      "最初から最強で、絶対に死なない主人公になって、押しよせるゾンビの大群をなぎ倒し続ける3Dアクションです。近くの敵は自動で剣が斬り、撃つボタンを押している間は、どの武器も撃ちっぱなし。終わりはなく、飽きるまで遊べます。",
+    features: [
+      "マシンガン・ロケット・チェーンソー・空爆・隕石など、31種類の武器が最初から全部使える",
+      "町・森・港・遊園地・空港まで広がるマップ。建物の中でも戦え、昼と夜・天気も移り変わる",
+      "見下ろし・肩越し・一人称の3つの視点。倒すほどたまる「無双モード」とボス戦",
+    ],
+    devices: "スマホ(横向き)・パソコン",
+    url: "https://roguepink.github.io/sokai/",
+    cover: "/games/sokai/cover.jpg",
+    coverAlt:
+      "爽快ゾンビ無双のタイトル画面。夕暮れの町で、爆発の光の中にゾンビの群れと倒れたゾンビが見える",
+  },
 ];
 
 // 急に音が出て びっくりしないように、ふつうの説明とは分けて「注意」として目立たせる(2026-10-21 ノブさんの指示)
