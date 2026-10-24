@@ -127,6 +127,20 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/rosoku/",
   },
+  {
+    slug: "onecandle",
+    icon: "/apps/onecandle.png",
+    eyebrow: "キャンドルを「ながめる」",
+    name: "one candle",
+    description:
+      "電気を消して、キャンドルをひとつ。デンマークやパリ、モロッコなど、世界の部屋に灯したキャンドルを、ただ眺めるためのアプリです。炎は本物のようにゆらぎます。国ごとの癒しの歌つき。広告はありません。",
+    features: [
+      "ピラーや真鍮の燭台、ランタン、貝がらなど21のキャンドル",
+      "国ごとの言葉で歌う、10曲の癒しの音楽",
+      "おやすみタイマーで、炎が静かに消える",
+    ],
+    url: "https://roguepink.github.io/kyandoru/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
