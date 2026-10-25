@@ -141,6 +141,20 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/kyandoru/",
   },
+  {
+    slug: "hitokube",
+    icon: "/apps/hitokube.png",
+    eyebrow: "焚き火を「ながめる」",
+    name: "ひとくべ",
+    description:
+      "夜、焚き火をただ眺めるためのアプリです。山の焚き火と、海の焚き火。短い映像をそのつどランダムにつなぐので、同じ燃え方がくり返しにくく、ずっと見ていられます。音は本物の焚き火の録音です。広告はありません。",
+    features: [
+      "天の川の山と、月の砂浜。2つの焚き火",
+      "焚き火の音と、森や波の音を、別々の大きさで",
+      "おやすみタイマーで、火が熾火になって静かに消える",
+    ],
+    url: "https://roguepink.github.io/takibi/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
