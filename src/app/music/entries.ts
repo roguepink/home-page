@@ -19,12 +19,11 @@ export type MusicEntry = {
 // 新しい曲は配列の先頭に追加する
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
-    slug: "2026-10-26-himitsu-no-omochabako",
-    date: "2026-10-26",
+    slug: "2026-10-27-himitsu-no-omochabako",
+    date: "2026-10-27",
     title: "ひみつのおもちゃ箱",
     // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
-    // ⚠ youtubeId は YouTube に上がってから入れる(ROGUE PINK のアカウントから投稿)
-    youtubeId: "XXXXXXXXXXX",
+    youtubeId: "9gTNoVWstSk",
   },
   {
     slug: "2026-09-04-sena-no-rule",
