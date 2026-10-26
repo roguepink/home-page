@@ -22,7 +22,7 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     slug: "2026-10-27-himitsu-no-omochabako",
     date: "2026-10-27",
     title: "ひみつのおもちゃ箱",
-    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
+    description: "ハロウィンですよ。",
     youtubeId: "9gTNoVWstSk",
   },
   {
