@@ -11,6 +11,8 @@ export type MusicEntry = {
   featured?: boolean;
   /** YouTube の普通の動画。共有アドレスの、うしろの11桁 */
   youtubeId?: string;
+  /** youtubeId が横長の動画のとき true(MV など)。無いときは今まで通り縦長の枠 */
+  youtubeWide?: boolean;
   /** YouTube ショート。同じく、うしろの11桁 */
   youtubeShortId?: string;
   links?: { label: string; url: string }[];
@@ -18,6 +20,14 @@ export type MusicEntry = {
 
 // 新しい曲は配列の先頭に追加する
 export const MUSIC_ENTRIES: MusicEntry[] = [
+  {
+    slug: "2026-10-27-himitsu-no-omochabako",
+    date: "2026-10-27",
+    title: "ひみつのおもちゃ箱",
+    description: "ハロウィンですよ。",
+    youtubeId: "9gTNoVWstSk",
+    youtubeWide: true,
+  },
   {
     slug: "2026-09-04-sena-no-rule",
     date: "2026-09-04",
