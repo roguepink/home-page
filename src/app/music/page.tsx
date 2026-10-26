@@ -159,11 +159,17 @@ export default function MusicPage() {
                     (entry.youtubeId && !entry.videoUrl)) && (
                     <div className="mt-6 flex flex-wrap justify-center gap-6">
                       {entry.youtubeId && !entry.videoUrl && (
-                        <YouTubeEmbed
-                          id={entry.youtubeId}
-                          label="YOUTUBE"
-                          vertical
-                        />
+                        <div
+                          className={
+                            entry.youtubeWide ? "w-full" : undefined
+                          }
+                        >
+                          <YouTubeEmbed
+                            id={entry.youtubeId}
+                            label="YOUTUBE"
+                            vertical={!entry.youtubeWide}
+                          />
+                        </div>
                       )}
                       {entry.youtubeShortId && (
                         <YouTubeEmbed

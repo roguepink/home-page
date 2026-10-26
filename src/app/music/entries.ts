@@ -11,6 +11,8 @@ export type MusicEntry = {
   featured?: boolean;
   /** YouTube の普通の動画。共有アドレスの、うしろの11桁 */
   youtubeId?: string;
+  /** youtubeId が横長の動画のとき true(MV など)。無いときは今まで通り縦長の枠 */
+  youtubeWide?: boolean;
   /** YouTube ショート。同じく、うしろの11桁 */
   youtubeShortId?: string;
   links?: { label: string; url: string }[];
@@ -24,6 +26,7 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     title: "ひみつのおもちゃ箱",
     description: "ハロウィンですよ。",
     youtubeId: "9gTNoVWstSk",
+    youtubeWide: true,
   },
   {
     slug: "2026-09-04-sena-no-rule",
