@@ -18,7 +18,7 @@ export type MusicEntry = {
   links?: { label: string; url: string }[];
 };
 
-// 新しい曲は配列の先頭に追加する
+// 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
     slug: "2026-10-27-himitsu-no-omochabako",

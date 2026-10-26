@@ -24,7 +24,18 @@ function formatDate(date: string): string {
 export default function MusicPage() {
   // 今日だけ特別扱いする曲は、一覧から抜いて一番上で大きく出す
   const featured = MUSIC_ENTRIES.find((entry) => entry.featured);
-  const listed = MUSIC_ENTRIES.filter((entry) => !entry.featured);
+  // 日付の新しいものを、いつも一番上にする。
+  // 配列のどこに書いても、並びは自動で決まる(同じ日なら、書いた順)。
+  const listed = MUSIC_ENTRIES.filter((entry) => !entry.featured)
+    .map((entry, order) => ({ entry, order }))
+    .sort((a, b) =>
+      a.entry.date === b.entry.date
+        ? a.order - b.order
+        : a.entry.date < b.entry.date
+          ? 1
+          : -1,
+    )
+    .map(({ entry }) => entry);
   // 聞ける曲(音楽カード)。試作の曲は一覧に出さない
   const songs = SONGS.filter((song) => !song.draft);
 
