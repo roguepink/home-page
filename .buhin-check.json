@@ -1,0 +1,7 @@
+{
+  "_説明": "部品チェック(scripts/buhin_check.py)の設定。入れるときに命令を動かしてよい部品の一覧と、公開から何日たっていればよいか",
+  "allow_install_scripts": [
+    "unrs-resolver"
+  ],
+  "min_days": 7
+}

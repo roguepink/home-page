@@ -84,3 +84,18 @@ python3 scripts/make-voice.py            # まだ音声のない記事だけ作�
   (下書きの音声は読ませた文字ごとに分けて取ってあるので、前の読み違えた音声は使い回さない)
 - API キーは Mac の `~/.config/gemini/api_key`(**リポジトリに入れない**)。料金はノブさんの Google AI Studio(従量課金)にかかる。1本あたり数円
 - こちらは音を聞けない。確認は書き起こしと原稿の照らし合わせ(一致率 0.93 以上を目安)。変な読みはノブさんに教えてもらって辞書に足す
+
+# 部品のチェック(★ 2026-10-27 ノブさん指示「公式の部品でも、すり替えられることがある」)
+
+このサイトは npm の部品(Next.js・React など 約440個)でできている。部品を入れる・変えるときは、毎回これを守る。
+
+- **公開から7日たっていない版は入れない**、**入れるときに部品の命令を動かさない**。`.npmrc` に `min-release-age=7` と `ignore-scripts=true` を入れてある(はずさない)
+- この Mac には node がない。部品を変えるときは nodejs.org の公式を作業用の置き場に落とし、`python3 ~/.claude/skills/buhin-check/check.py sha256 <ファイル> https://nodejs.org/dist/<版>/SHASUMS256.txt` で確かめてから使う。入れるときは必ず `--ignore-scripts`
+- 変えたら、マージの前に必ず:
+```
+python3 scripts/buhin_check.py . --base origin/main     # npm 公式・deps.dev・OSV の3か所で突き合わせ。全部 ○ でないと進まない
+npm audit signatures                                    # npm 公式の署名を暗号で確かめる
+```
+- `scripts/buhin_check.py` の元は `~/.claude/skills/buhin-check/check.py`(直したら写し直す)。`.buhin-check.json` は「入れるときに命令を動かしてよい部品」の一覧(今は unrs-resolver だけ)
+- GitHub の自動の見張り `.github/workflows/buhin-check.yml`(プルリクエスト・main への送信・毎週月曜の朝に走り、失敗したら GitHub からメール)は **まだ入っていない**。gh の鍵に workflow の許可がないため(2026-10-27)。ノブさんが許可したら `~/.claude/skills/buhin-check/buhin-check.yml` を写して送る
+- 2026-10-27: 10月14日の緊急修正のため Next.js 16.2.10 → 16.4.2、React 19.2.4 → 19.2.9、sharp 0.34.5 → 0.35.5 に上げた(16.4.3 は公開から3日だったので見送り)
