@@ -245,6 +245,11 @@ export function toSpeech(text: string): string {
  * 中身に意味はない。増えていくだけ。
  */
 export const CHECKED_WORDS: string[] = [
+  // ドミノ ラッシュ(2026-10-27 確認)
+  "操作",
+  "仕掛",
+  "全部倒",
+  "虹色",
   // GRIT TRAIL(2026-10-22 確認)
   "倒木",
   "位以内",

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import StoreList from "@/components/StoreList";
+import { newestFirst } from "@/lib/newest";
 import {
   ALL_APP_NOTES,
   APP_DISCLAIMERS,
@@ -14,8 +15,9 @@ import {
   TOOL_ENTRIES,
 } from "./entries";
 
-// 5本を続けて1つの一覧に(2026-10-19 ノブさんの指示)。「やめる・減らす」の4本が先、道具が後
-const ALL_APPS = [...APP_ENTRIES, ...TOOL_ENTRIES];
+// 全部を続けて1つの一覧に(2026-10-19 ノブさんの指示)。
+// 並びは、載せた日(published)の新しいものが上(2026-10-27 ノブさんの指示。src/lib/newest.ts)
+const ALL_APPS = newestFirst([...APP_ENTRIES, ...TOOL_ENTRIES]);
 
 export const metadata: Metadata = {
   title: "アプリ | ROGUE PINK",
