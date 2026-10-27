@@ -37,6 +37,8 @@ export type GameEntry = {
 //     写しは置かず https://roguepink.github.io/sokai/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   ドミノ ラッシュ … roguepink/domino(2026-10-27 追加)。ファイルが多い(three.js 同梱)ので、sokai と同じく
 //     写しは置かず https://roguepink.github.io/domino/ を直接開く。ここにあるのはカードの絵とアイコンだけ
+//   最強おばあ … roguepink/obaa(2026-10-28 追加)。よく更新するので sokai と同じく
+//     写しは置かず https://roguepink.github.io/obaa/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -221,6 +223,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/domino/cover.jpg",
     coverAlt:
       "ドミノ ラッシュの画面。まん中にカラフルなドミノの文字のタイトル画面、左にうしろからドミノの波が迫る場面、右に虹色のドミノの列を空から見たリプレイ",
+  },
+  {
+    slug: "obaa",
+    published: "2026-10-28",
+    icon: "/games/obaa/icon-192.png",
+    eyebrow: "おばあの こらしめアクション",
+    name: "最強おばあ 〜杖でこらしめ道中〜",
+    description:
+      "最強のおばあが、まっすぐ続く道を進みながら、歩きスマホや詐欺、あおり運転、そして宇宙人まで、杖でこらしめていくゲームです。悪者にはびくともしないのに、小石や空き缶につまずくと、そこでおしまい。全部で100ステージ。",
+    features: [
+      "杖ボタンを押しっぱなしで、みかんや入れ歯を投げてボスに当てる。投げる物は10種類",
+      "ゲージがたまると必殺技。隕石・お説教ビーム・孫たち大集合など10種類から、何が出るかはお楽しみ",
+      "かんたん・ふつう・むずかしいの3つのモード。行ったステージから続きを遊べる",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/obaa/",
+    cover: "/games/obaa/cover.jpg",
+    coverAlt:
+      "最強おばあの画面3枚。雪の温泉街でボスにみかんを投げる場面、竜宮城で必殺技のお説教ビームを出す場面、宇宙で100面のボス「悪の大黒幕」と戦う場面",
   },
 ];
 
