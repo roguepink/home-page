@@ -18,6 +18,8 @@ export type GameEntry = {
   /** 一覧に出すアイコン。ゲームに付いているものを使う。
    *  ⚠ キノコ・ゆうしゃ・ジャンケンには無かったので、こちらで描いた仮のもの(icon.svg) */
   icon: string;
+  /** ホームページに載せた日(YYYY-MM-DD)。一覧はこの日付の新しい順に自動で並ぶ(src/lib/newest.ts) */
+  published: string;
 };
 
 // ★ ゲーム本体は、別のリポジトリで作っている(2026-10-03 ノブさんの依頼で載せた)
@@ -33,6 +35,8 @@ export type GameEntry = {
 //     ※ 1ファイルで完結。src/ から scripts/build.js で作った index.html だけでよい
 //   爽快ゾンビ無双 … roguepink/sokai(2026-10-22 追加)。ファイルが多く(three.js 同梱・60本近い js)よく更新するので、
 //     写しは置かず https://roguepink.github.io/sokai/ を直接開く。ここにあるのはカードの絵とアイコンだけ
+//   ドミノ ラッシュ … roguepink/domino(2026-10-27 追加)。ファイルが多い(three.js 同梱)ので、sokai と同じく
+//     写しは置かず https://roguepink.github.io/domino/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -43,10 +47,11 @@ export type GameEntry = {
 //
 // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
 //
-// 新しいゲームは配列の末尾に追加する
+// 新しいゲームは配列のどこに足してもよい。published(載せた日)を必ず書く。画面では新しい順に自動で並ぶ
 export const GAME_ENTRIES: GameEntry[] = [
   {
     slug: "kinoko",
+    published: "2026-10-03",
     icon: "/games/kinoko/icon.svg",
     eyebrow: "森の おそうじアクション",
     name: "どくキノコ大作戦",
@@ -65,6 +70,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "acorn",
+    published: "2026-10-03",
     icon: "/games/acorn/icons/icon-192.png",
     eyebrow: "オフロードの バイクレース",
     name: "GRIT TRAIL",
@@ -84,6 +90,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "harisen",
+    published: "2026-10-04",
     icon: "/games/harisen/icons/icon-192.png",
     eyebrow: "工場の パトロールアクション",
     name: "ハリセン工場パトロール",
@@ -102,6 +109,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "tetorisu",
+    published: "2026-10-06",
     icon: "/games/tetorisu/icons/icon-192.png",
     eyebrow: "横スクロールの シューティング",
     name: "TETORISU",
@@ -121,6 +129,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "yuusha",
+    published: "2026-10-13",
     icon: "/games/yuusha/icon.svg",
     eyebrow: "昔のRPGふうの 縦スクロールシューティング",
     name: "ゆうしゃの たいれつ",
@@ -139,6 +148,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "janken",
+    published: "2026-10-13",
     icon: "/games/janken/icon.svg",
     eyebrow: "リングの上の じゃんけん対決",
     name: "たたいて かぶって ジャンケンポン!",
@@ -157,6 +167,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "nanpure",
+    published: "2026-10-20",
     icon: "/games/nanpure/icon-192.png",
     eyebrow: "ねこと いっしょの 数字パズル",
     name: "やさしいナンプレ",
@@ -175,6 +186,7 @@ export const GAME_ENTRIES: GameEntry[] = [
   },
   {
     slug: "sokai",
+    published: "2026-10-22",
     icon: "/games/sokai/icon-192.png",
     eyebrow: "3Dの ゾンビ無双アクション",
     name: "爽快ゾンビ無双",
@@ -190,6 +202,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/sokai/cover.jpg",
     coverAlt:
       "爽快ゾンビ無双のタイトル画面。夕暮れの町で、爆発の光の中にゾンビの群れと倒れたゾンビが見える",
+  },
+  {
+    slug: "domino",
+    published: "2026-10-27",
+    icon: "/games/domino/icon-192.png",
+    eyebrow: "ドミノの にげきりアクション",
+    name: "ドミノ ラッシュ",
+    description:
+      "走ると、うしろにドミノが1枚ずつ並んでいきます。少しすると、そのドミノがパタパタと倒れはじめ、うしろから追いかけてきます。つかまらないように逃げきって、ゴールの大きなドミノを倒すゲームです。全部で100ステージ。",
+    features: [
+      "操作は2つだけ。画面の左をなぞって左右に動き、右のボタンでジャンプ",
+      "10のワールドごとに新しい仕掛け。数がふえる門、スイッチで開く門、穴をこえる橋ドミノ、ばくだん",
+      "波がすぐうしろに迫っても、にげきれば「セーフ!」。クリアすると、空から列が全部倒れていくのを見られる",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/domino/",
+    cover: "/games/domino/cover.jpg",
+    coverAlt:
+      "ドミノ ラッシュの画面。まん中にカラフルなドミノの文字のタイトル画面、左にうしろからドミノの波が迫る場面、右に虹色のドミノの列を空から見たリプレイ",
   },
 ];
 

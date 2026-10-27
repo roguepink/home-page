@@ -9,6 +9,8 @@ export type AppEntry = {
   url: string;
   /** 一覧に出すアイコン。⚠ 今はこちらで描いた仮のもの(public/apps/)。アプリ本物のアイコンが来たら差し替える */
   icon: string;
+  /** ホームページに載せた日(YYYY-MM-DD)。一覧はこの日付の新しい順に自動で並ぶ(src/lib/newest.ts) */
+  published: string;
 };
 
 // ★ ここに載せるのは「やめる・減らす」の4本だけ(2026-09-02 ノブさんの判断)
@@ -17,11 +19,12 @@ export type AppEntry = {
 // 性格が違うアプリを混ぜると、下の「共通すること」がどちらを指すのか
 // 分からなくなる。載せ直すときは、節に分けてから。
 //
-// 新しいアプリは配列の末尾に追加する。
+// 新しいアプリは配列のどこに足してもよい。published(載せた日)を必ず書く。画面では新しい順に自動で並ぶ。
 // 「禁酒」と「節酒」は名前が似ていて間違えやすいので、必ず隣どうしに置く
 export const APP_ENTRIES: AppEntry[] = [
   {
     slug: "kinnsyu",
+    published: "2026-08-27",
     icon: "/apps/kinshu.svg",
     eyebrow: "お酒を「やめる」",
     name: "禁酒トラッカー",
@@ -36,6 +39,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "sesshu",
+    published: "2026-08-27",
     icon: "/apps/sesshu.svg",
     eyebrow: "お酒を「減らす」",
     name: "節酒サポート",
@@ -50,6 +54,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "kinnenn",
+    published: "2026-08-27",
     icon: "/apps/kinen.svg",
     eyebrow: "たばこを「やめる」",
     name: "禁煙トラッカー",
@@ -64,6 +69,7 @@ export const APP_ENTRIES: AppEntry[] = [
   },
   {
     slug: "dangyanburu",
+    published: "2026-08-30",
     icon: "/apps/dangamble.svg",
     eyebrow: "ギャンブルを「やめる」",
     name: "ギャンブル断ちトラッカー",
@@ -83,10 +89,11 @@ export const APP_ENTRIES: AppEntry[] = [
 // 2026-10-19 ノブさんの指示で、一覧は上の4本と続けて1つにした(ページで5本を並べる)。
 // ただし上の4本(やめる・減らす)とは性格が違うので、配列は分けたままにしてある。
 // 下の説明の「4つは」の部分は、上の4本だけの話。こちらには当てはまらない。
-// 新しい道具は配列の末尾に追加する。
+// 新しい道具は配列のどこに足してもよい。published(載せた日)を必ず書く。画面では新しい順に自動で並ぶ。
 export const TOOL_ENTRIES: AppEntry[] = [
   {
     slug: "resize",
+    published: "2026-10-13",
     icon: "/apps/resize.svg",
     eyebrow: "写真・動画を「軽くする」",
     name: "写真・動画リサイズ",
@@ -101,6 +108,7 @@ export const TOOL_ENTRIES: AppEntry[] = [
   },
   {
     slug: "rupe",
+    published: "2026-10-21",
     icon: "/apps/rupe.svg",
     eyebrow: "小さい字を「大きく見る」",
     name: "やさしいルーペ",
@@ -115,6 +123,7 @@ export const TOOL_ENTRIES: AppEntry[] = [
   },
   {
     slug: "itto",
+    published: "2026-10-23",
     icon: "/apps/itto.png",
     eyebrow: "ろうそくを「ながめる」",
     name: "一灯",
@@ -129,6 +138,7 @@ export const TOOL_ENTRIES: AppEntry[] = [
   },
   {
     slug: "onecandle",
+    published: "2026-10-24",
     icon: "/apps/onecandle.png",
     eyebrow: "キャンドルを「ながめる」",
     name: "one candle",
@@ -143,6 +153,7 @@ export const TOOL_ENTRIES: AppEntry[] = [
   },
   {
     slug: "hitokube",
+    published: "2026-10-25",
     icon: "/apps/hitokube.png",
     eyebrow: "焚き火を「ながめる」",
     name: "ひとくべ",
