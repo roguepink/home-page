@@ -21,6 +21,13 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-10-27-mama-e-no-omoi",
+    date: "2026-10-27",
+    title: "ママへの想い",
+    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
+    youtubeId: "EL9wC8z6ERc",
+  },
+  {
     slug: "2026-10-27-himitsu-no-omochabako",
     date: "2026-10-27",
     title: "ひみつのおもちゃ箱",
