@@ -11,7 +11,7 @@ export type MusicEntry = {
   featured?: boolean;
   /** YouTube の普通の動画。共有アドレスの、うしろの11桁 */
   youtubeId?: string;
-  /** youtubeId が横長の動画のとき true(MV など)。無いときは今まで通り縦長の枠 */
+  /** MV は true にする(横長の大きな枠で出す。縦長の動画でも、サムネイルが横長なのでこちら)。無いときは縦長の枠 */
   youtubeWide?: boolean;
   /** YouTube ショート。同じく、うしろの11桁 */
   youtubeShortId?: string;
@@ -26,6 +26,7 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     title: "ママへの想い",
     // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
     youtubeId: "EL9wC8z6ERc",
+    youtubeWide: true,
   },
   {
     slug: "2026-10-27-himitsu-no-omochabako",

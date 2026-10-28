@@ -170,11 +170,7 @@ export default function MusicPage() {
                     (entry.youtubeId && !entry.videoUrl)) && (
                     <div className="mt-6 flex flex-wrap justify-center gap-6">
                       {entry.youtubeId && !entry.videoUrl && (
-                        <div
-                          className={
-                            entry.youtubeWide ? "w-full" : undefined
-                          }
-                        >
+                        <div className="w-full">
                           <YouTubeEmbed
                             id={entry.youtubeId}
                             label="YOUTUBE"
@@ -189,6 +185,19 @@ export default function MusicPage() {
                           vertical
                         />
                       )}
+                    </div>
+                  )}
+                  {/* 大きな枠の MV は、YouTube のページにも飛べるようにする */}
+                  {entry.youtubeId && !entry.videoUrl && entry.youtubeWide && (
+                    <div className="mt-4 flex justify-center">
+                      <a
+                        href={`https://youtu.be/${entry.youtubeId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block rounded-full border border-pink/40 px-5 py-2 text-sm font-bold text-pink-light transition-colors hover:border-pink hover:bg-pink/10"
+                      >
+                        YouTubeで見る →
+                      </a>
                     </div>
                   )}
                   {entry.youtubeId && entry.videoUrl && (
