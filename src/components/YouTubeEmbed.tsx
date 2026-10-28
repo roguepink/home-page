@@ -46,7 +46,14 @@ export default function YouTubeEmbed({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+              src={`https://i.ytimg.com/vi/${id}/${vertical ? "hqdefault" : "maxresdefault"}.jpg`}
+              onError={(e) => {
+                // 大きい画像が無い動画は、いつもの画像にもどす
+                const img = e.currentTarget;
+                if (!img.src.includes("hqdefault")) {
+                  img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+                }
+              }}
               alt=""
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-300 group-hover:opacity-100"
