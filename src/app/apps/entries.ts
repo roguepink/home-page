@@ -166,6 +166,21 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/takibi/",
   },
+  {
+    slug: "oheya3d",
+    published: "2026-10-28",
+    icon: "/apps/oheya3d.png",
+    eyebrow: "部屋を「3Dで見る」",
+    name: "おへや3D",
+    description:
+      "部屋や家を3Dで作って、中を歩いて見られるアプリです。カーテン・照明・壁紙・床・家具を置きかえて、できあがりを先に確かめられます。2階建ての家や階段、クローゼットも作れます。広告はありません。",
+    features: [
+      "間取りを描くと、そのまま3Dに。2階建てや階段も",
+      "カーテン・照明・壁紙・床を、選ぶだけで置きかえ",
+      "見本の家(4LDK)で、すぐに試せる",
+    ],
+    url: "https://roguepink.github.io/3d/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
