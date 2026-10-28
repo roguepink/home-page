@@ -21,6 +21,14 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-10-28-dear-feat-emirin",
+    date: "2026-10-28",
+    title: "dear feat. EMIRIN",
+    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま
+    youtubeId: "pJwx7CJEMoc",
+    youtubeWide: true,
+  },
+  {
     slug: "2026-10-28-dear",
     date: "2026-10-28",
     title: "dear",
