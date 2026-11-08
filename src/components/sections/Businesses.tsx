@@ -61,6 +61,18 @@ const BUSINESSES: Business[] = [
     products: [{ label: "執筆を読む", url: "/writing" }],
   },
   {
+    // 2026-11-08 ノブさん: 小説「クラッシュ 未来への手紙」をホームページに。
+    // 本文・声・曲はここ(公開の箱)に置かない。カードから小説アプリ(crash-novel.pages.dev)へ飛ぶだけ
+    // ⚠ 説明文はこちらで書いた仮のもの。ノブさんの言葉が来たら差し替える
+    title: "小説",
+    description:
+      "「クラッシュ 未来への手紙」。文字で読むことも、声で聞くこともできる小説です。物語の中の曲つき。無料・広告なし・登録なしで、スマホのホーム画面にも入れられます。",
+    icon: "book",
+    status: "live",
+    stat: { value: 1, unit: "作 公開中" },
+    products: [{ label: "小説を読む・聞く", url: "https://crash-novel.pages.dev/" }],
+  },
+  {
     title: "音楽",
     description:
       "自分にしか出せない表現で、心を動かす音楽を届けます。できた曲は、ここにどんどん増えていきます。",
