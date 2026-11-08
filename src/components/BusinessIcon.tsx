@@ -8,6 +8,7 @@ export type BusinessIconName =
   | "music"
   | "film"
   | "pen"
+  | "book"
   | "shirt"
   | "travel"
   | "cycle";
@@ -76,6 +77,13 @@ const PATHS: Record<BusinessIconName, React.ReactNode> = {
     <>
       <P i={0} d="M4 20l3-8 9-9 5 5-9 9-8 3z" />
       <P i={1} d="M13 6l5 5" />
+    </>
+  ),
+  // 開いた本
+  book: (
+    <>
+      <P i={0} d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z" />
+      <P i={1} d="M12 6.5v13" />
     </>
   ),
   shirt: <P i={0} d="M9 3.5l3 2 3-2 5.5 3-2 4.2-2-1V21H7.5V9.7l-2 1-2-4.2z" />,
