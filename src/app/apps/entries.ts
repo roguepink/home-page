@@ -181,6 +181,21 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/3d/",
   },
+  {
+    slug: "shizuka-camera",
+    published: "2026-11-09",
+    icon: "/apps/shizuka.png",
+    eyebrow: "音を立てずに「撮る」",
+    name: "しずかカメラ",
+    description:
+      "シャッターの音が鳴らないカメラです。寝ている赤ちゃんやペット、静かな場所での記録に。撮った写真は、ボタンひとつでスマホの写真アプリに保存できます。広告はありません。",
+    features: [
+      "シャッター音が鳴らない。撮ったしるしは、画面が白く光るだけ",
+      "長押しで連写。セルフタイマーと、止まった瞬間に撮るぶれ防止",
+      "4:3・16:9・正方形・全画面から、写真の形をえらべる",
+    ],
+    url: "https://roguepink.github.io/shizuka-camera/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
