@@ -39,6 +39,8 @@ export type GameEntry = {
 //     写しは置かず https://roguepink.github.io/domino/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   最強おばあ … roguepink/obaa(2026-10-28 追加)。よく更新するので sokai と同じく
 //     写しは置かず https://roguepink.github.io/obaa/ を直接開く。ここにあるのはカードの絵とアイコンだけ
+//   侍無双 … roguepink/musou(2026-11-10 追加)。よく更新するので sokai と同じく
+//     写しは置かず https://roguepink.github.io/musou/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -242,6 +244,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/obaa/cover.jpg",
     coverAlt:
       "最強おばあの画面3枚。雪の温泉街でボスにみかんを投げる場面、竜宮城で必殺技のお説教ビームを出す場面、宇宙で100面のボス「悪の大黒幕」と戦う場面",
+  },
+  {
+    slug: "musou",
+    published: "2026-11-10",
+    icon: "/games/musou/icon-192.png",
+    eyebrow: "合戦の 大軍なぎ倒しアクション",
+    name: "侍無双",
+    description:
+      "奥から押し寄せる敵の大軍を、門をくぐって仲間を増やしながら、なぎ倒していく合戦ゲームです。指で左右に動かすだけ。青い門で仲間が増え、赤い門で減ります。最後には巨大な大将が、じりじりと迫ってきます。",
+    features: [
+      "3つ並んだ門から1つを選ぶ。門を撃つと数字が上がる。金色の門は武器で、爆竹・花火・雷・妖刀など13種類",
+      "騎馬隊の突撃や矢の雨は、赤く光る場所からよける。倒した敵は降参して仲間になる",
+      "大将は赤鬼・がしゃどくろ・八岐大蛇など6体。陣は終わりなく続き、記録は上位10回まで残る",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/musou/",
+    cover: "/games/musou/cover.jpg",
+    coverAlt:
+      "侍無双の画面3枚。夕暮れの桜街道に敵の大軍が押し寄せる場面、大将の鬼武者が突進してくる場面、霧の竹林で武器の門が並ぶ場面",
   },
 ];
 
