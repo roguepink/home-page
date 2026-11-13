@@ -35,16 +35,21 @@ export default function NewSingleSpotlight() {
         />
 
         {/* 上の帯 */}
-        <div className="relative flex items-center justify-center gap-2 bg-gradient-to-r from-[#7a0d0d] via-[#c4161c] to-[#7a0d0d] px-4 py-2.5 text-center text-xs font-black tracking-[0.18em] text-white sm:text-sm">
+        <div className="relative flex items-center justify-center gap-2 bg-gradient-to-r from-[#7a0d0d] via-[#c4161c] to-[#7a0d0d] whitespace-nowrap px-4 py-2.5 text-center text-xs font-black tracking-[0.12em] text-white sm:text-sm sm:tracking-[0.18em]">
           <span className="rounded-full bg-[#ffcf4a] px-2 py-0.5 text-[10px] tracking-[0.2em] text-[#5a0a0a] sm:text-xs">
             NEW
           </span>
           NEW SINGLE RELEASE
         </div>
 
-        <div className="relative flex flex-col items-center gap-9 px-7 py-10 sm:flex-row sm:items-center sm:gap-12 sm:px-14 sm:py-14">
+        <div className="relative flex flex-col items-center gap-8 px-7 py-10 sm:flex-row sm:items-center sm:gap-12 sm:px-14 sm:py-14">
+          {/* スマホでは、題を絵より先に見せる */}
+          <div className="text-center sm:hidden">
+            <Heading />
+          </div>
+
           {/* 左: MV(押すとその場で再生) */}
-          <div className="w-full max-w-[260px] shrink-0 sm:max-w-[280px]">
+          <div className="w-full max-w-[220px] shrink-0 sm:max-w-[280px]">
             <div className="relative aspect-[9/16] overflow-hidden rounded-xl border border-[#ffb43c]/50 bg-black shadow-[0_0_50px_-12px_rgba(255,120,30,0.8)]">
               {playing ? (
                 <iframe
@@ -84,26 +89,15 @@ export default function NewSingleSpotlight() {
 
           {/* 右: 題と気持ち */}
           <div className="w-full min-w-0 text-center sm:text-left">
-            <p className="text-[11px] font-black tracking-[0.4em] text-[#ffb43c] sm:text-xs">
-              DEATH SERIES
-            </p>
-            <p className="mt-3 text-sm font-bold tracking-[0.2em] text-[#ffd9a8] sm:text-base">
-              待望のニューシングル
-            </p>
-            <h3
-              className="mt-1 bg-clip-text text-6xl font-black leading-none tracking-tight text-transparent sm:text-8xl"
-              style={{
-                backgroundImage: GOLD,
-                filter: "drop-shadow(0 0 22px rgba(255,110,20,0.65)) drop-shadow(0 3px 0 #3a0505)",
-              }}
-            >
-              心上等
-            </h3>
+            <div className="hidden sm:block">
+              <Heading />
+            </div>
 
-            <p className="mx-auto mt-7 max-w-md text-sm leading-loose text-[#f2dcc4] sm:mx-0 sm:text-base">
+            <p className="mx-auto mt-0 max-w-md text-sm leading-loose text-[#f2dcc4] sm:mx-0 sm:mt-7 sm:text-base">
               AI を使いはじめたころ、
               <br />
-              はじめて「こいつはすごい」と心が震えた曲。
+              <span className="inline-block">はじめて「こいつはすごい」と</span>
+              <span className="inline-block">心が震えた曲。</span>
               <br />
               ここから、始まりました。
             </p>
@@ -143,5 +137,27 @@ export default function NewSingleSpotlight() {
         </div>
       </article>
     </div>
+  );
+}
+
+function Heading() {
+  return (
+    <>
+      <p className="text-[11px] font-black tracking-[0.4em] text-[#ffb43c] sm:text-xs">
+        DEATH SERIES
+      </p>
+      <p className="mt-3 text-sm font-bold tracking-[0.2em] text-[#ffd9a8] sm:text-base">
+        待望のニューシングル
+      </p>
+      <h3
+        className="mt-1 bg-clip-text text-6xl font-black leading-none tracking-tight text-transparent sm:text-8xl"
+        style={{
+          backgroundImage: GOLD,
+          filter: "drop-shadow(0 0 22px rgba(255,110,20,0.65)) drop-shadow(0 3px 0 #3a0505)",
+        }}
+      >
+        心上等
+      </h3>
+    </>
   );
 }
