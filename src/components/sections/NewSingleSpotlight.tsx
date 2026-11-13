@@ -143,8 +143,8 @@ export default function NewSingleSpotlight() {
 function Heading() {
   return (
     <>
-      <p className="text-[11px] font-black tracking-[0.4em] text-[#ffb43c] sm:text-xs">
-        DEATH SERIES
+      <p className="text-[11px] font-black tracking-[0.3em] text-[#ffb43c] sm:text-xs">
+        DEATH シリーズ
       </p>
       <p className="mt-3 text-sm font-bold tracking-[0.2em] text-[#ffd9a8] sm:text-base">
         待望のニューシングル
