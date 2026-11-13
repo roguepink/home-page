@@ -196,6 +196,21 @@ export const TOOL_ENTRIES: AppEntry[] = [
     ],
     url: "https://roguepink.github.io/shizuka-camera/",
   },
+  {
+    slug: "yomiage",
+    published: "2026-11-13",
+    icon: "/apps/yomiage.png",
+    eyebrow: "文章を「耳で聞く」",
+    name: "よみあげ",
+    description:
+      "文章をはりつけると、スマホの声で読み上げてくれるアプリです。長い文章も、目を休めながら耳で聞けます。文章はスマホの中だけに残り、どこにも送りません。無料で、広告も登録もありません。",
+    features: [
+      "はりつけるか、ファイルをえらぶだけ。ボタンひとつで読み上げ",
+      "読む速さは、ゆっくりから いちばん速いまで、7つから選べる。声もえらべる",
+      "止めたところを覚えていて、次はつづきから読める",
+    ],
+    url: "https://roguepink.github.io/yomiage/",
+  },
 ];
 
 // ページの一番下の説明(2026-10-19 ノブさんの指示で、全部のアプリの説明にして一番下へ)
