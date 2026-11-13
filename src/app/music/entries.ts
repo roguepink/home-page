@@ -21,6 +21,15 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-11-13-kokoro-joto",
+    date: "2026-11-13",
+    title: "心上等",
+    description:
+      "AI を使いはじめたころ、はじめて「こいつはすごい」と心が震えた曲。ここから、始まりました。",
+    youtubeId: "WsvsmZkaC2Q",
+    youtubeWide: true,
+  },
+  {
     slug: "2026-10-28-dear-feat-emirin",
     date: "2026-10-28",
     title: "dear feat. EMIRIN",
