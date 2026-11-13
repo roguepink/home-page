@@ -10,6 +10,7 @@
 export const READING_DICTIONARY: [string, string][] = [
   // --- 名前・サービス名 ---
   ["ROGUE PINK", "ローグピンク"],
+  ["一場面", "ひと場面"],
   ["Higgsfield", "ヒグスフィールド"],
   ["YouTube", "ユーチューブ"],
   ["SNS", "エスエヌエス"],
@@ -818,4 +819,15 @@ export const CHECKED_WORDS: string[] = [
   "階段",
   "家具",
   "間取",
+  "小説",
+  "59点",
+  "新人賞",
+  "選考",
+  "採点",
+  "結果",
+  "点中",
+  "実家",
+  "点数",
+  "100点中",
+  "5秒",
 ];

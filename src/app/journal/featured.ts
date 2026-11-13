@@ -10,7 +10,7 @@
  * vertical … ショートなど縦長の動画のときだけ true にする
  */
 export const FEATURED_VIDEO = {
-  id: "u74qZICmdvs",
-  label: "映画祭に出した版(2026年9月)",
+  id: "btIdhUYpp-Y",
+  label: "制作日誌 #05 の報告(2026年11月・制作途中の試し)",
   vertical: false,
 };
