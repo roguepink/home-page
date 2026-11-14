@@ -270,7 +270,7 @@ export const GAME_ENTRIES: GameEntry[] = [
     slug: "daruma",
     published: "2026-11-14",
     icon: "/games/daruma/icon-192.png",
-    eyebrow: "だるまさんが ころんだ × だるま落とし",
+    eyebrow: "スリル満点の だるま落とし",
     name: "こっち見ないで!だるま落とし",
     description:
       "だるまさんが向こうを向いている間に、木づちで段を何段落とせるかのゲームです。「だるまさんが ころんだ」の赤い字が出たら、手を止めて。こっちを向いている間に叩いたら、そこでおしまい。",
