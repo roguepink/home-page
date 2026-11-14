@@ -2,6 +2,7 @@ import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import NovelSpotlight from "@/components/sections/NovelSpotlight";
 import NewSingleSpotlight from "@/components/sections/NewSingleSpotlight";
+import NewGameSpotlight from "@/components/sections/NewGameSpotlight";
 import BusinessCard, {
   type BusinessLatest,
   type BusinessStat,
@@ -148,6 +149,11 @@ export default function Businesses() {
         {/* 2026-11-13 ノブさん: 小説のすぐ下に、待望のニューシングル「心上等」をドーンと */}
         <Reveal className="sm:col-span-2 mb-6">
           <NewSingleSpotlight />
+        </Reveal>
+
+        {/* 2026-11-14 ノブさん: ニューシングルの1つ下に、ニューゲーム「だるま落とし」を新入荷っぽく */}
+        <Reveal className="sm:col-span-2 mb-6">
+          <NewGameSpotlight />
         </Reveal>
 
         <Reveal className="h-full sm:col-span-2">
