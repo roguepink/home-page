@@ -41,6 +41,8 @@ export type GameEntry = {
 //     写しは置かず https://roguepink.github.io/obaa/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   侍無双 … roguepink/musou(2026-11-10 追加)。よく更新するので sokai と同じく
 //     写しは置かず https://roguepink.github.io/musou/ を直接開く。ここにあるのはカードの絵とアイコンだけ
+//   こっち見ないで!だるま落とし … roguepink/daruma(2026-11-14 追加)。よく更新するので sokai と同じく
+//     写しは置かず https://roguepink.github.io/daruma/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵だけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -263,6 +265,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/musou/cover.jpg",
     coverAlt:
       "侍無双の画面3枚。夕暮れの桜街道に敵の大軍が押し寄せる場面、大将の鬼武者が突進してくる場面、霧の竹林で武器の門が並ぶ場面",
+  },
+  {
+    slug: "daruma",
+    published: "2026-11-14",
+    icon: "/games/daruma/icon-192.png",
+    eyebrow: "だるまさんが ころんだ × だるま落とし",
+    name: "こっち見ないで!だるま落とし",
+    description:
+      "だるまさんが向こうを向いている間に、木づちで段を何段落とせるかのゲームです。「だるまさんが ころんだ」の赤い字が出たら、手を止めて。こっちを向いている間に叩いたら、そこでおしまい。",
+    features: [
+      "段は11種類。1回で落ちる段、連打の段、輪が重なったら叩く段など。色で点数がちがう",
+      "くすぐる・ダジャレ・つんつんで、だるまさんの気分が変わる。表情は100こ。かお図鑑に集まる",
+      "たまに出るゴールデンだるまは、連打で顔がパンパンにふくらみ、くす玉のように弾ける",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/daruma/",
+    cover: "/games/daruma/cover.jpg",
+    coverAlt:
+      "だるま落としの画面3枚。赤い「ころんだ」の字が出てだるまさんがこっちを向いた場面、つんつんされて怒った顔で振り向いた場面、ゴールデンだるまの顔がパンパンにふくらんだ場面",
   },
 ];
 
