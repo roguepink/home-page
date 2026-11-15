@@ -35,7 +35,7 @@ export default function NewWritingNote() {
   return (
     <a
       href={`/writing#${latest.slug}`}
-      className="group relative mx-auto flex w-full max-w-md items-center gap-3 overflow-hidden rounded-2xl border-2 border-[#ffc4dc] bg-gradient-to-r from-[#fff0f6] to-[#ffe3ef] px-4 py-3 text-[#6b2341] shadow-[0_10px_28px_-14px_rgba(255,110,170,0.8)] transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5 motion-reduce:transition-none"
+      className="group relative mx-auto flex w-full max-w-md items-center gap-2.5 overflow-hidden rounded-2xl border-2 border-[#ffc4dc] bg-gradient-to-r from-[#fff0f6] to-[#ffe3ef] px-4 py-3 text-[#6b2341] shadow-[0_10px_28px_-14px_rgba(255,110,170,0.8)] transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5 motion-reduce:transition-none"
     >
       {SPARKLES.map((s, i) => (
         <span
@@ -68,13 +68,13 @@ export default function NewWritingNote() {
         <span className="block whitespace-nowrap text-[11px] font-bold tracking-[0.08em] text-[#d14d85]">
           執筆を書きました<span className="ml-1.5 font-medium text-[#e07aa6]">{shortDate(latest.date)}</span>
         </span>
-        <span className="mt-0.5 line-clamp-2 block text-sm font-black leading-snug sm:text-[15px]">
+        <span className="mt-0.5 line-clamp-2 block text-[13px] font-black leading-snug text-balance sm:text-[15px]">
           {latest.title}
         </span>
       </span>
 
       {/* 右: よむ */}
-      <span className="relative shrink-0 rounded-full bg-[#ff7eb0] px-3 py-1 text-xs font-black text-white transition-colors group-hover:bg-[#ff5c9a]">
+      <span className="relative shrink-0 rounded-full bg-[#ff7eb0] px-2.5 py-1 text-[11px] font-black sm:px-3 sm:text-xs text-white transition-colors group-hover:bg-[#ff5c9a]">
         よむ →
       </span>
     </a>
