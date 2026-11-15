@@ -43,6 +43,8 @@ export type GameEntry = {
 //     写しは置かず https://roguepink.github.io/musou/ を直接開く。ここにあるのはカードの絵とアイコンだけ
 //   こっち見ないで!だるま落とし … roguepink/daruma(2026-11-14 追加)。よく更新するので sokai と同じく
 //     写しは置かず https://roguepink.github.io/daruma/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵だけ
+//   勇者へっぽこの小さな冒険 … roguepink/heppoko(2026-11-15 追加)。よく更新するので daruma と同じく
+//     写しは置かず https://roguepink.github.io/heppoko/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵だけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -284,6 +286,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/daruma/cover.jpg",
     coverAlt:
       "だるま落としの画面3枚。赤い「ころんだ」の字が出てだるまさんがこっちを向いた場面、つんつんされて怒った顔で振り向いた場面、ゴールデンだるまの顔がパンパンにふくらんだ場面",
+  },
+  {
+    slug: "heppoko",
+    published: "2026-11-15",
+    icon: "/games/heppoko/icon-192.png",
+    eyebrow: "お金の力で 大魔王に挑む 小さなRPG",
+    name: "勇者へっぽこの小さな冒険",
+    description:
+      "お金持ちの子・へっぽこが、お金の力で大魔王を倒そうとするRPGです。町でお金にものを言わせて装備をそろえ、仲間を集めて、大魔王と一度きりの決戦へ。ところが仲間は、お金では仲間になってくれません。",
+    features: [
+      "装備は100種類以上。着がえると見た目がまるごと変わり、武器もちゃんと手に持つ",
+      "仲間は30組。お金を見せると断られるので、話しかけて頼みを聞いて仲間にする",
+      "大魔王は、最初はガウン姿のおじさん。体力が減るたびに、本物のモンスターへ変身していく",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/heppoko/",
+    cover: "/games/heppoko/cover.jpg",
+    coverAlt:
+      "勇者へっぽこの小さな冒険の画面3枚。王冠と伝説の剣を装備したへっぽこ、ガウン姿の大魔王との戦い、竜のような本物のモンスターに変身した大魔王との戦い",
   },
 ];
 
