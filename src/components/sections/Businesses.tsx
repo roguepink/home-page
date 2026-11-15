@@ -3,6 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 import NovelSpotlight from "@/components/sections/NovelSpotlight";
 import NewSingleSpotlight from "@/components/sections/NewSingleSpotlight";
 import NewGameSpotlight from "@/components/sections/NewGameSpotlight";
+import NewWritingNote from "@/components/sections/NewWritingNote";
 import BusinessCard, {
   type BusinessLatest,
   type BusinessStat,
@@ -154,6 +155,11 @@ export default function Businesses() {
         {/* 2026-11-14 ノブさん: ニューシングルの1つ下に、ニューゲーム「だるま落とし」を新入荷っぽく */}
         <Reveal className="sm:col-span-2 mb-6">
           <NewGameSpotlight />
+        </Reveal>
+
+        {/* 2026-11-15 ノブさん: ニューゲームの下に、執筆の新しいのを小さく・可愛らしく(いちばん新しい執筆を自動で出す) */}
+        <Reveal className="sm:col-span-2 -mt-4 mb-6">
+          <NewWritingNote />
         </Reveal>
 
         <Reveal className="h-full sm:col-span-2">
