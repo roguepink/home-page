@@ -45,6 +45,8 @@ export type GameEntry = {
 //     写しは置かず https://roguepink.github.io/daruma/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵だけ
 //   勇者へっぽこの小さな冒険 … roguepink/heppoko(2026-11-15 追加)。よく更新するので daruma と同じく
 //     写しは置かず https://roguepink.github.io/heppoko/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵だけ
+//   殴られ屋 … roguepink/nagurare(2026-11-18 追加)。よく更新するので daruma と同じく
+//     写しは置かず https://roguepink.github.io/nagurare/ を直接開く。ここにあるのはカードの絵・アイコン・トップの告知の絵(poster・nobu)だけ
 //   やさしいナンプレ … roguepink/nanpure の一式(main d298891 の時点・2026-10-20 追加)
 //     ※ index.html と engine.js の2つで動く。manifest.webmanifest sw.js アイコン4つも一緒に。向こうは https://roguepink.github.io/nanpure/ でも遊べる
 //
@@ -306,6 +308,25 @@ export const GAME_ENTRIES: GameEntry[] = [
     cover: "/games/heppoko/cover.jpg",
     coverAlt:
       "勇者へっぽこの小さな冒険の画面3枚。王冠と伝説の剣を装備したへっぽこ、ガウン姿の大魔王との戦い、竜のような本物のモンスターに変身した大魔王との戦い",
+  },
+  {
+    slug: "nagurare",
+    published: "2026-11-18",
+    icon: "/games/nagurare/icon-192.png",
+    eyebrow: "1分間 殴りまくる ストレス解消ゲーム",
+    name: "殴られ屋",
+    description:
+      "よけるのがうまい「殴られ屋」を、1分間で何発殴れるかのストレス解消ゲームです。相手は嫌なやつばかりの10人。タップするとグローブが飛び出して、殴るほど顔がはれ、たんこぶが積み上がっていきます。相手はよけるだけで、やり返してはきません。",
+    features: [
+      "ぼったくり店長・いじわる部長・工場の女帝など10人。動き方も、倒れ方も、全員ちがう",
+      "顔に当てると特別に気持ちいい。たまに光る「スキあり」をつくと、必殺の連打",
+      "ボスを倒すと「ひみつの箱」がひらく。作った張本人も殴れる…かも",
+    ],
+    devices: "スマホ(縦向き)・パソコン",
+    url: "https://roguepink.github.io/nagurare/",
+    cover: "/games/nagurare/cover.jpg",
+    coverAlt:
+      "殴られ屋の画面3枚。ラーメン屋の店長にグローブが当たった場面、工場のおばさんに連打している場面、画面いっぱいのおばさんの顔がたんこぶだらけになった場面",
   },
 ];
 

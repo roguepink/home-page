@@ -5,6 +5,10 @@
 //   新しいゲームではなく「アップデートしました」の形で。超巨大ボスを倒せるか、をかっこよく・ゲームっぽいカードで。
 //   → 新入荷(NEW_GAMES・明るい紙のカード)とは別に、UPDATES(黒と赤の ゲームふうのカード)を作った。並びは UPDATES → NEW_GAMES。
 //   UpdateCard の色は style で書いてある(ほかのカードの色の書き方と分けて、1枚で完結させるため)。
+// 2026-11-18 ノブさん: 殴られ屋を ゾンビ無双の下に「新しく入荷しました」で。ストレス解消ゲームとして、見た目も楽しく。
+//   作った張本人(NOBU)も思いっきり殴れるかも、という文も。
+//   ★「本日入荷」は使わない(次の日も残るので)。「新しく入荷しました」「新入荷」にする。(ノブさん指示 2026-11-18)
+//   → 黄色と黒の まんが ふうのカード(StressCard)を作った。並びは UPDATES → STRESS → NEW_GAMES。
 // ゲーム本体は向こうのアドレスをそのまま開く。
 
 type Theme = {
@@ -23,7 +27,7 @@ type Theme = {
   muted: string;
   /** 絵のまわりの枠 */
   frame: string;
-  /** 「本日入荷!」の丸 */
+  /** 「新入荷!」の丸 */
   stamp: string;
   /** うしろで光る色 */
   glow: string;
@@ -102,6 +106,55 @@ const UPDATES: GameUpdate[] = [
   },
 ];
 
+type StressGame = {
+  url: string;
+  poster: string;
+  posterAlt: string;
+  /** 張本人の顔 */
+  face: string;
+  faceAlt: string;
+  kicker: string;
+  title: string;
+  /** 題の下の札 */
+  label: string;
+  /** 本文(1行ずつ。かたまりごとに分ける) */
+  lines: string[][];
+  /** 張本人の箱(かたまりごと) */
+  boss: { head: string; big: string[]; small: string[] };
+  points: string[];
+  playLabel: string;
+  note: string[];
+};
+
+// 新入荷(黄色と黒の まんがふうカード)。ゾンビ無双の すぐ下に出る
+const STRESS: StressGame[] = [
+  // 殴られ屋(roguepink/nagurare) 2026-11-18
+  {
+    url: "https://roguepink.github.io/nagurare/",
+    poster: "/games/nagurare/poster.jpg",
+    posterAlt: "ラーメン屋で、ぼったくり店長の顔にグローブがめりこみ「ガツン!」の字と 46コンボが出ている画面",
+    face: "/games/nagurare/nobu.jpg",
+    faceAlt: "このアプリを作った NOBU の顔。たんこぶが積み上がり、目のまわりが青くはれているのに ニヤニヤしている",
+    kicker: "1分間、殴って殴って 殴りまくれ!",
+    title: "殴られ屋",
+    label: "ストレス解消ゲーム",
+    lines: [
+      ["相手は、嫌なやつばかりの", "「殴られ屋」10人。"],
+      ["タップすると グローブが飛び出して、", "顔に ガツン!"],
+      ["殴るほど 顔がはれて、", "たんこぶが 積み上がっていく。"],
+      ["やり返しては こないので、", "思う存分 どうぞ。"],
+    ],
+    boss: {
+      head: "⚠ ひみつ情報 ⚠",
+      big: ["このアプリを作った 張本人も、", "思いっきり 殴れる…かも!?"],
+      small: ["ただし 作者だけあって、いちばん速い。", "「当てられるもんなら 当ててみな」", "とのこと。"],
+    },
+    points: ["嫌なやつ 10人", "殴るほど たんこぶタワー", "ひみつの部屋 あり"],
+    playLabel: "殴られ屋 を遊ぶ",
+    note: ["無料・広告なし・登録なし", "／ ※ パロディです。本物の人は 殴らないでね"],
+  },
+];
+
 // 紙吹雪(動かさない飾り。位置と色だけ)
 const CONFETTI = [
   { left: "6%", top: "14%", color: "#ff4d6d", rotate: 20 },
@@ -114,12 +167,15 @@ const CONFETTI = [
   { left: "94%", top: "60%", color: "#ffbe2e", rotate: -25 },
 ];
 
-/** 大型アップデート → 新入荷 の順に、上から すべて出す */
+/** 大型アップデート → 新入荷(まんがふう)→ 新入荷 の順に、上から すべて出す */
 export default function NewGameSpotlight() {
   return (
     <div className="flex flex-col gap-10">
       {UPDATES.map((u) => (
         <UpdateCard key={u.url} u={u} />
+      ))}
+      {STRESS.map((g) => (
+        <StressCard key={g.url} g={g} />
       ))}
       {NEW_GAMES.map((game) => (
         <GameCard key={game.url} game={game} />
@@ -158,7 +214,7 @@ function GameCard({ game }: { game: NewGame }) {
           >
             NEW
           </span>
-          NEW GAME 新入荷しました!
+          NEW GAME 新しく入荷しました!
         </div>
 
         <div className="relative flex flex-col items-center gap-8 px-7 py-10 sm:flex-row sm:items-center sm:gap-12 sm:px-14 sm:py-14">
@@ -174,7 +230,7 @@ function GameCard({ game }: { game: NewGame }) {
               aria-hidden
               className={`absolute -right-4 -top-4 z-10 flex h-16 w-16 rotate-12 items-center justify-center rounded-full text-center text-[11px] font-black leading-tight text-white motion-safe:animate-bounce ${t.stamp}`}
             >
-              本日
+              新
               <br />
               入荷!
             </span>
@@ -471,6 +527,213 @@ function UpdateHeading({ u }: { u: GameUpdate }) {
         style={{ color: "#ff5a1f", textShadow: "0 2px 0 #000, 0 0 18px rgba(255,90,31,0.6)" }}
       >
         {u.catchcopy}
+      </p>
+    </>
+  );
+}
+
+// ---------- 新入荷: ストレス解消ゲームのカード(黄色と黒・まんがの「バキッ!」) ----------
+const INK = "#17102b";
+const DOTS = "radial-gradient(rgba(255,170,0,0.45) 1.6px, transparent 1.7px)";
+const BURST = "polygon(50% 0%, 61% 22%, 85% 8%, 78% 34%, 100% 42%, 80% 56%, 94% 80%, 68% 74%, 60% 100%, 47% 78%, 26% 96%, 26% 70%, 0% 72%, 16% 52%, 2% 30%, 26% 30%, 22% 6%, 42% 22%)";
+
+function Burst({ text, className, color, bg, rotate }: { text: string; className: string; color: string; bg: string; rotate: number }) {
+  return (
+    <span aria-hidden className={`pointer-events-none absolute z-10 ${className}`} style={{ transform: `rotate(${rotate}deg)` }}>
+      <span className="relative block h-[84px] w-[110px]">
+        <span className="absolute inset-0" style={{ background: INK, clipPath: BURST }} />
+        <span className="absolute inset-[5px]" style={{ background: bg, clipPath: BURST }} />
+        <span
+          className="absolute inset-0 flex items-center justify-center text-[22px] font-black"
+          style={{ color, textShadow: `2px 2px 0 ${INK}, -2px -2px 0 ${INK}, 2px -2px 0 ${INK}, -2px 2px 0 ${INK}` }}
+        >
+          {text}
+        </span>
+      </span>
+    </span>
+  );
+}
+
+function StressCard({ g }: { g: StressGame }) {
+  return (
+    <div className="relative">
+      {/* うしろで 黄色く光る */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-3 -z-10 rounded-[28px] blur-2xl"
+        style={{ background: "rgba(255,200,40,0.45)" }}
+      />
+
+      <article
+        className="relative overflow-hidden rounded-2xl"
+        style={{ background: "#ffe14a", backgroundImage: DOTS, backgroundSize: "14px 14px", color: INK, boxShadow: `0 0 0 4px ${INK}, 0 10px 0 4px ${INK}` }}
+      >
+        {/* 上の帯: 新しく入荷しました */}
+        <div
+          className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-center text-xs font-black tracking-[0.12em] sm:text-sm sm:tracking-[0.18em]"
+          style={{ background: INK, color: "#ffe14a" }}
+        >
+          <span
+            className="rounded-full px-2 py-0.5 text-[10px] tracking-[0.2em] motion-safe:animate-pulse sm:text-xs"
+            style={{ background: "#ff3b3b", color: "#fff" }}
+          >
+            NEW
+          </span>
+          🥊 NEW GAME 新しく入荷しました! 🥊
+        </div>
+
+        <div className="relative flex flex-col items-center gap-8 px-6 py-10 sm:flex-row sm:items-start sm:gap-12 sm:px-14 sm:py-14">
+          {/* スマホでは、題を絵より先に見せる */}
+          <div className="text-center sm:hidden">
+            <StressHeading g={g} />
+          </div>
+
+          {/* 左: ゲームの画面(押すとそのまま遊べる)+ まんがの字 */}
+          <div className="relative w-full max-w-[210px] shrink-0 sm:max-w-[260px]">
+            <Burst text="バキッ!" className="-left-12 top-6" color="#fff" bg="#ff3b3b" rotate={-14} />
+            <Burst text="ドゴッ!" className="-right-12 bottom-16" color="#ffe14a" bg="#ff7a1a" rotate={12} />
+            <span
+              aria-hidden
+              className="absolute -right-4 -top-4 z-20 flex h-16 w-16 rotate-12 items-center justify-center rounded-full text-center text-[11px] font-black leading-tight text-white motion-safe:animate-bounce"
+              style={{ background: "#ff3b3b", boxShadow: `0 0 0 3px ${INK}` }}
+            >
+              新
+              <br />
+              入荷!
+            </span>
+            <a
+              href={g.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={g.playLabel}
+              className="group relative block aspect-[390/844] -rotate-2 overflow-hidden rounded-xl border-4 transition-transform duration-300 hover:rotate-0"
+              style={{ borderColor: INK, background: INK, boxShadow: `6px 8px 0 ${INK}` }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={g.poster}
+                alt={g.posterAlt}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-center text-xs font-black tracking-[0.15em] text-white">
+                タップで すぐ殴れる
+              </span>
+            </a>
+          </div>
+
+          {/* 右: 題・ひとこと・張本人の箱 */}
+          <div className="w-full min-w-0 text-center sm:text-left">
+            <div className="hidden sm:block">
+              <StressHeading g={g} />
+            </div>
+
+            <p className="mx-auto mt-0 max-w-md text-sm font-bold leading-loose sm:mx-0 sm:mt-6 sm:text-base">
+              {g.lines.map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line.map((part) => (
+                    <span key={part} className="inline-block">
+                      {part}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </p>
+
+            {/* 張本人の箱 */}
+            <div
+              className="relative mx-auto mt-7 flex max-w-md items-center gap-4 rounded-2xl border-[3px] border-dashed bg-white px-4 py-4 text-left sm:mx-0"
+              style={{ borderColor: "#ff3b3b", boxShadow: `4px 5px 0 ${INK}` }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={g.face}
+                alt={g.faceAlt}
+                loading="lazy"
+                className="h-20 w-20 shrink-0 rounded-full border-[3px] object-cover sm:h-24 sm:w-24"
+                style={{ borderColor: INK }}
+              />
+              <div className="min-w-0">
+                <p className="text-[11px] font-black tracking-[0.15em]" style={{ color: "#ff3b3b" }}>
+                  {g.boss.head}
+                </p>
+                <p className="mt-1 text-sm font-black leading-snug sm:text-base">
+                  {g.boss.big.map((part) => (
+                    <span key={part} className="inline-block">
+                      {part}
+                    </span>
+                  ))}
+                </p>
+                <p className="mt-1.5 text-[11px] font-bold leading-relaxed opacity-75 sm:text-xs">
+                  {g.boss.small.map((part) => (
+                    <span key={part} className="inline-block">
+                      {part}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+
+            <ul className="mt-6 flex flex-wrap justify-center gap-2 sm:justify-start">
+              {g.points.map((point) => (
+                <li
+                  key={point}
+                  className="rounded-full border-2 bg-white px-3 py-1 text-xs font-black"
+                  style={{ borderColor: INK }}
+                >
+                  {point}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-3 sm:justify-start">
+              <a
+                href={g.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border-[3px] px-7 py-3.5 text-sm font-black text-white transition-transform hover:scale-[1.04] focus-visible:scale-[1.04] active:scale-[0.98] motion-reduce:transition-none sm:text-base"
+                style={{ background: "#ff3b3b", borderColor: INK, boxShadow: `0 5px 0 ${INK}` }}
+              >
+                🥊 いますぐ殴る →
+              </a>
+              <a
+                href="/games"
+                className="inline-flex items-center gap-2 rounded-full border-[3px] bg-white px-6 py-3.5 text-sm font-black transition-colors hover:bg-white/70 sm:text-base"
+                style={{ borderColor: INK }}
+              >
+                ほかのゲームも見る
+              </a>
+            </div>
+
+            <p className="mt-5 text-[11px] font-bold tracking-[0.1em] opacity-70">
+              {g.note.map((part) => (
+                <span key={part} className="inline-block">
+                  {part}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function StressHeading({ g }: { g: StressGame }) {
+  return (
+    <>
+      <p className="text-sm font-black tracking-[0.12em] sm:text-base" style={{ color: "#e8261c" }}>
+        {g.kicker}
+      </p>
+      <h3
+        className="mt-1 text-6xl font-black leading-tight tracking-tight sm:text-7xl"
+        style={{ color: "#ff3b3b", textShadow: `3px 3px 0 ${INK}, -3px -3px 0 ${INK}, 3px -3px 0 ${INK}, -3px 3px 0 ${INK}, 6px 8px 0 ${INK}` }}
+      >
+        {g.title}
+      </h3>
+      <p className="mt-3 inline-block -rotate-2 rounded-full px-4 py-1.5 text-sm font-black tracking-[0.1em] sm:text-base" style={{ background: INK, color: "#ffe14a" }}>
+        {g.label}
       </p>
     </>
   );
