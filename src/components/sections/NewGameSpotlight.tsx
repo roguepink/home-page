@@ -518,7 +518,7 @@ function UpdateHeading({ u }: { u: GameUpdate }) {
         {u.kicker}
       </p>
       <h3
-        className="mt-1 whitespace-nowrap text-[2.6rem] font-black leading-tight tracking-tight sm:text-7xl"
+        className="mt-1 whitespace-nowrap text-[2.1rem] font-black leading-tight tracking-tight min-[380px]:text-[2.6rem] sm:text-7xl"
         style={{ color: "#fff", textShadow: "0 3px 0 #b3140e, 0 6px 22px rgba(255,60,30,0.55)" }}
       >
         {u.title}
@@ -647,7 +647,7 @@ function StressCard({ g }: { g: StressGame }) {
 
             {/* 張本人の箱 */}
             <div
-              className="relative mx-auto mt-7 flex max-w-md items-center gap-4 rounded-2xl border-[3px] border-dashed bg-white px-4 py-4 text-left sm:mx-0"
+              className="relative mx-auto mt-7 flex max-w-md flex-col items-center gap-3 rounded-2xl border-[3px] border-dashed bg-white px-4 py-4 text-center min-[380px]:flex-row min-[380px]:gap-4 min-[380px]:text-left sm:mx-0"
               style={{ borderColor: "#ff3b3b", boxShadow: `4px 5px 0 ${INK}` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -731,7 +731,7 @@ function StressHeading({ g }: { g: StressGame }) {
         {g.kicker}
       </p>
       <h3
-        className="mt-1 text-6xl font-black leading-tight tracking-tight sm:text-7xl"
+        className="mt-1 whitespace-nowrap text-5xl font-black leading-tight tracking-tight min-[380px]:text-6xl sm:text-7xl"
         style={{ color: "#ff3b3b", textShadow: `3px 3px 0 ${INK}, -3px -3px 0 ${INK}, 3px -3px 0 ${INK}, -3px 3px 0 ${INK}, 6px 8px 0 ${INK}` }}
       >
         {g.title}
