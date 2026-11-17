@@ -210,6 +210,9 @@ export const READING_DICTIONARY: [string, string][] = [
   ["竹林", "ちくりん"],
   ["騎馬隊", "きばたい"],
   ["桜街道", "さくらかいどう"],
+  // GRIT TRAIL の3D化(2026-11-17)
+  ["宙返り", "ちゅうがえり"],
+  ["谷越え", "たにごえ"],
 ];
 
 /**
@@ -305,6 +308,7 @@ export const CHECKED_WORDS: string[] = [
   "全部倒",
   "虹色",
   // GRIT TRAIL(2026-10-22 確認)
+  "立体",
   "倒木",
   "位以内",
   "加速",
