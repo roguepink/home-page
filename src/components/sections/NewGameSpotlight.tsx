@@ -140,7 +140,7 @@ const STRESS: StressGame[] = [
     label: "ストレス解消ゲーム",
     lines: [
       ["相手は、嫌なやつばかりの", "「殴られ屋」10人。"],
-      ["タップすると グローブが飛び出して、", "顔に ガツン!"],
+      ["タップすると", "グローブが飛び出して、", "顔に ガツン!"],
       ["殴るほど 顔がはれて、", "たんこぶが 積み上がっていく。"],
       ["やり返しては こないので、", "思う存分 どうぞ。"],
     ],
@@ -151,7 +151,7 @@ const STRESS: StressGame[] = [
     },
     points: ["嫌なやつ 10人", "殴るほど たんこぶタワー", "ひみつの部屋 あり"],
     playLabel: "殴られ屋 を遊ぶ",
-    note: ["無料・広告なし・登録なし", "／ ※ パロディです。本物の人は 殴らないでね"],
+    note: ["無料・広告なし・登録なし", "／ ※ パロディです。", "本物の人は 殴らないでね"],
   },
 ];
 
@@ -637,7 +637,7 @@ function StressCard({ g }: { g: StressGame }) {
                 <span key={i}>
                   {i > 0 && <br />}
                   {line.map((part) => (
-                    <span key={part} className="inline-block">
+                    <span key={part} className="inline-block max-w-full">
                       {part}
                     </span>
                   ))}
@@ -664,14 +664,14 @@ function StressCard({ g }: { g: StressGame }) {
                 </p>
                 <p className="mt-1 text-sm font-black leading-snug sm:text-base">
                   {g.boss.big.map((part) => (
-                    <span key={part} className="inline-block">
+                    <span key={part} className="inline-block max-w-full">
                       {part}
                     </span>
                   ))}
                 </p>
                 <p className="mt-1.5 text-[11px] font-bold leading-relaxed opacity-75 sm:text-xs">
                   {g.boss.small.map((part) => (
-                    <span key={part} className="inline-block">
+                    <span key={part} className="inline-block max-w-full">
                       {part}
                     </span>
                   ))}
@@ -712,7 +712,7 @@ function StressCard({ g }: { g: StressGame }) {
 
             <p className="mt-5 text-[11px] font-bold tracking-[0.1em] opacity-70">
               {g.note.map((part) => (
-                <span key={part} className="inline-block">
+                <span key={part} className="inline-block max-w-full">
                   {part}
                 </span>
               ))}
