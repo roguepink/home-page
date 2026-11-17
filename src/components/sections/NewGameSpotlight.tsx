@@ -214,7 +214,8 @@ function GameCard({ game }: { game: NewGame }) {
           >
             NEW
           </span>
-          NEW GAME 新しく入荷しました!
+          <span className="hidden min-[380px]:inline">NEW GAME</span>
+          新しく入荷しました!
         </div>
 
         <div className="relative flex flex-col items-center gap-8 px-7 py-10 sm:flex-row sm:items-center sm:gap-12 sm:px-14 sm:py-14">
@@ -556,7 +557,7 @@ function Burst({ text, className, color, bg, rotate }: { text: string; className
 
 function StressCard({ g }: { g: StressGame }) {
   return (
-    <div className="relative">
+    <div className="relative w-full min-w-0">
       {/* うしろで 黄色く光る */}
       <div
         aria-hidden
@@ -579,7 +580,10 @@ function StressCard({ g }: { g: StressGame }) {
           >
             NEW
           </span>
-          🥊 NEW GAME 新しく入荷しました! 🥊
+          <span className="hidden sm:inline">🥊</span>
+          <span className="hidden min-[380px]:inline">NEW GAME</span>
+          新しく入荷しました!
+          <span className="hidden sm:inline">🥊</span>
         </div>
 
         <div className="relative flex flex-col items-center gap-8 px-6 py-10 sm:flex-row sm:items-start sm:gap-12 sm:px-14 sm:py-14">
