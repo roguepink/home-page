@@ -152,7 +152,7 @@ export default function Businesses() {
           <NewSingleSpotlight />
         </Reveal>
 
-        {/* 2026-11-14 ノブさん: ニューシングルの1つ下に、ニューゲーム「だるま落とし」を新入荷っぽく。2026-11-15 そのすぐ下に「勇者へっぽこ」も同じ形で */}
+        {/* 2026-11-14 ノブさん: ニューシングルの1つ下に、ニューゲーム(新入荷)。2026-11-17 いまは爽快ゾンビ無双の「大型アップデート」のカード */}
         <Reveal className="sm:col-span-2 mb-6">
           <NewGameSpotlight />
         </Reveal>
