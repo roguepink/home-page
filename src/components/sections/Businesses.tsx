@@ -141,7 +141,7 @@ export default function Businesses() {
         </p>
       </SectionHeading>
 
-      <div className="mt-16 grid gap-5 sm:grid-cols-2">
+      <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2">
         {/* 2026-11-08 ノブさん: 初めての小説を いちばん上に、ひときわ目立つ形で */}
         <Reveal className="sm:col-span-2 mb-6">
           <NovelSpotlight />
