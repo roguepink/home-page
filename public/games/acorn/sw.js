@@ -1,6 +1,6 @@
 // Offline cache for GRIT TRAIL: app shell is precached, three.js (CDN) is cached on first successful load.
 // The site hosts several games, so only this game's own old caches are removed.
-const VER = 'grit-trail-hp-v1';
+const VER = 'grit-trail-hp-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './vendor/three.min.js'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(VER).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => {
