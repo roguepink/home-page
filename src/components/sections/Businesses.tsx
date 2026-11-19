@@ -134,7 +134,8 @@ const CLOSING: Business = {
 export default function Businesses() {
   return (
     <section id="businesses" className="mx-auto max-w-5xl px-6 py-32 sm:py-40">
-      <SectionHeading eyebrow="BUSINESSES" title="やっていくこと">
+      {/* 2026-11-19 ノブさん: 見出しの英語を BUSINESSES → PROJECTS に */}
+      <SectionHeading eyebrow="PROJECTS" title="やっていくこと">
         <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
           一人がひとつの商売しかできない時代は終わりました。
           ひとりで、いくつもの「ありがとう」を生み出していきます。
