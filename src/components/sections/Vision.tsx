@@ -21,7 +21,7 @@ export default function Vision() {
         </Reveal>
         <Reveal delay={0.25}>
           <p className="font-bold text-foreground">
-            ひとりから始まる事業が、いつか誰かの「ありがとう」に変わる場所を目指します。
+            ひとりから始まるプロジェクトが、いつか誰かの「ありがとう」に変わる場所を目指します。
           </p>
         </Reveal>
       </div>

@@ -137,8 +137,9 @@ export default function Businesses() {
       {/* 2026-11-19 ノブさん: 見出しの英語を BUSINESSES → PROJECTS に */}
       <SectionHeading eyebrow="PROJECTS" title="やっていくこと">
         <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-loose text-muted sm:text-base">
-          一人がひとつの商売しかできない時代は終わりました。
-          ひとりで、いくつもの「ありがとう」を生み出していきます。
+          {/* 2026-11-19 ノブさん: 「商売」→「夢」の文に(A案) */}
+          ひとりが、ひとつの夢しか追えない時代は終わりました。
+          {"ひとりで、いくつもの「ありがとう」を生み出していきます。"}
         </p>
       </SectionHeading>
 

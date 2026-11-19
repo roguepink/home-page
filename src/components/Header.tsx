@@ -8,7 +8,7 @@ import Link from "next/link";
 // 横並びのメニューは lg(1024px)から。項目が増えて、iPad を縦にした幅では文字が折れて崩れたため
 const NAV_ITEMS = [
   { href: "/#concept", label: "コンセプト" },
-  { href: "/#businesses", label: "事業" },
+  { href: "/#businesses", label: "プロジェクト" },
   { href: "/#vision", label: "世界観" },
   { href: "/journal", label: "制作日誌" },
   { href: "/writing", label: "執筆" },
