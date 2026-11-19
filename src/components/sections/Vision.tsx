@@ -13,7 +13,11 @@ export default function Vision() {
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <p>遊んで、話して、買って、聴いて。なんでもあり、だけどちゃんと真面目。</p>
+          <p>
+            遊んで、話して、買って、聴いて。なんでもあり、だけど
+            {/* 2026-11-19 ノブさん: 「ちゃんと真面目」だけ ピンクで強調 */}
+            <span className="text-pink">ちゃんと真面目</span>。
+          </p>
         </Reveal>
         <Reveal delay={0.25}>
           <p className="font-bold text-foreground">
