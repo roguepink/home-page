@@ -9,7 +9,7 @@ import Vision from "@/components/sections/Vision";
 import Contact from "@/components/sections/Contact";
 import FlowingName from "@/components/FlowingName";
 import Reveal from "@/components/Reveal";
-import IzakayaCard from "@/components/sections/IzakayaCard";
+import IzakayaComingSoon from "@/components/sections/IzakayaComingSoon";
 
 export default function Home() {
   return (
@@ -20,10 +20,11 @@ export default function Home() {
       <main>
         {/* 開いた瞬間の入り方は C「一本の糸」(2026-10-22 ノブさんが選んだ) */}
         <HeroIntro scene="thread" />
-        {/* 2026-11-19 ノブさん: 上のほうに「居酒屋のぶ」のカードを1枚。開店のお知らせ・ほかの人がマスターの回・イベント */}
+        {/* 2026-11-19 ノブさん: 上のほうに「居酒屋ノブ」のカード。いまは「ただいま準備中・近日公開予定」。
+            開店するときは IzakayaCard(news.json を読んで 次の開店日・マスターの回を出す)に差しかえる */}
         <section id="izakaya" className="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
           <Reveal>
-            <IzakayaCard />
+            <IzakayaComingSoon />
           </Reveal>
         </section>
         <Concept />
