@@ -135,6 +135,23 @@ export default function IzakayaComingSoon() {
           >
             もちろん、すべて無料です
           </p>
+          {/* 2026-11-21 ノブさん:「覗いてみる ボタンをつけて。準備中のあいだは デモ(お客さん4人・後ろでハンターカブの PV・会話も見える)」
+              → アプリの見本(#demo)を 別のページで開く。このサイトの中では動かさない(読んでいる間は何も動かない、の決まり) */}
+          <div className="mt-5">
+            <a
+              href="https://roguepink.github.io/izakaya/#demo"
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-base font-black sm:text-lg"
+              style={{ background: "#1f2a4a", color: "#f6f1e6", border: "2px solid #e8a33d", boxShadow: "0 4px 0 #0e1428" }}
+            >
+              👀 お店の中を覗いてみる
+            </a>
+            <p className="mt-2 text-xs leading-relaxed" style={{ color: "#c9b38a" }}>
+              <span className="inline-block">見本です。</span>
+              <span className="inline-block">お客さん4人と大将が、中で話しています。</span>
+            </p>
+          </div>
           <p className="mt-4 text-xs leading-relaxed" style={{ color: "#c9b38a" }}>
             <span className="inline-block">開店の日が決まったら、</span>
             <span className="inline-block">ここでお知らせします。</span>
