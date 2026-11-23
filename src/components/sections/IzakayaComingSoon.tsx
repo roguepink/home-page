@@ -143,8 +143,9 @@ export default function IzakayaComingSoon() {
             <p className="text-xs font-bold tracking-[0.25em]" style={{ color: "#e8c89a" }}>
               🎵 NEW
             </p>
-            <p className="mt-1 text-xl font-black tracking-wider sm:text-2xl" style={{ fontFamily: MINCHO, textShadow: "0 2px 0 #000" }}>
-              テーマソングができました
+            <p className="mt-1 text-lg font-black tracking-wide sm:text-2xl" style={{ fontFamily: MINCHO, textShadow: "0 2px 0 #000" }}>
+              <span className="inline-block">テーマソングが</span>
+              <span className="inline-block">できました</span>
             </p>
             <p className="mb-3 mt-1 text-sm" style={{ color: "#f0dcb8" }}>
               「のぶのぶ いざかやのぶ」
