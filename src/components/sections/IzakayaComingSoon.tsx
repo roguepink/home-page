@@ -6,6 +6,8 @@
 //   ★「本日」は使わない。個人の事情は書かない。
 // ここは何も動かさない(読んでいる間は何も動かない、のサイトの決まり)。
 
+import YouTubeEmbed from "@/components/YouTubeEmbed";
+
 const MINCHO = "'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',serif";
 
 function Lantern({ char, className = "" }: { char: string; className?: string }) {
@@ -135,6 +137,20 @@ export default function IzakayaComingSoon() {
           >
             もちろん、すべて無料です
           </p>
+          {/* 2026-11-23 ノブさん:「居酒屋のところに テーマソングできました みたいな形で置いて」「縦長の動画として出して」
+              → 押すまで写真1枚だけ(読んでいる間は何も動かない、の決まり)。押すと YouTube の縦長の動画が再生される */}
+          <div className="mx-auto mt-7 max-w-[300px]">
+            <p className="text-xs font-bold tracking-[0.25em]" style={{ color: "#e8c89a" }}>
+              🎵 NEW
+            </p>
+            <p className="mt-1 text-xl font-black tracking-wider sm:text-2xl" style={{ fontFamily: MINCHO, textShadow: "0 2px 0 #000" }}>
+              テーマソングができました
+            </p>
+            <p className="mb-3 mt-1 text-sm" style={{ color: "#f0dcb8" }}>
+              「のぶのぶ いざかやのぶ」
+            </p>
+            <YouTubeEmbed id="Ago0fmcHVe0" vertical label="THEME SONG" />
+          </div>
           {/* 2026-11-21 ノブさん:「覗いてみる ボタンをつけて。準備中のあいだは デモ(お客さん4人・後ろでハンターカブの PV・会話も見える)」
               → アプリの見本(#demo)を 別のページで開く。このサイトの中では動かさない(読んでいる間は何も動かない、の決まり) */}
           <div className="mt-5">
