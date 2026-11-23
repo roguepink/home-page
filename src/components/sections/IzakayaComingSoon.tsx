@@ -168,6 +168,16 @@ export default function IzakayaComingSoon() {
               <span className="inline-block">見本です。</span>
               <span className="inline-block">お客さん4人と大将が、中で話しています。</span>
             </p>
+            {/* 2026-11-23 ノブさん「よくあるアプリの使い方の説明をボタンで置いて、そこで細かく説明」→ アプリと同じ使い方ページ(1か所で直せる) */}
+            <a
+              href="https://roguepink.github.io/izakaya/guide.html"
+              target="_blank"
+              rel="noopener"
+              className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-black sm:text-base"
+              style={{ background: "rgba(243,230,204,.12)", color: "#f6f1e6", border: "1.5px solid rgba(232,163,61,.7)" }}
+            >
+              📖 使い方を見る
+            </a>
           </div>
           <p className="mt-4 text-xs leading-relaxed" style={{ color: "#c9b38a" }}>
             <span className="inline-block">開店の日が決まったら、</span>
