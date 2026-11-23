@@ -21,6 +21,14 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-11-23-izakaya-nobu",
+    date: "2026-11-23",
+    title: "のぶのぶ いざかやのぶ",
+    description: "居酒屋のぶのテーマソングができました。",
+    youtubeId: "Ago0fmcHVe0",
+    // ノブさん 2026-11-23「縦長の動画として出して」→ この曲は縦長の枠
+  },
+  {
     slug: "2026-11-13-kokoro-joto",
     date: "2026-11-13",
     title: "心上等",
