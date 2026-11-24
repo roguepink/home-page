@@ -99,7 +99,8 @@ export default function ObraShisou() {
         いまの段階の思想
       </h3>
       <p className="mt-2 text-center text-xs tracking-[0.1em]" style={{ fontFamily: MINCHO, color: SOFT }}>
-        ノブの声で読みます({mmss(SHISOU_DURATION)})。文章だけでも読めます。
+        <span className="inline-block">ノブの声で読みます({mmss(SHISOU_DURATION)})。</span>
+        <span className="inline-block">文章だけでも読めます。</span>
       </p>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -205,7 +206,8 @@ export default function ObraShisou() {
         </button>
       </div>
       <p className="mt-5 text-center text-[11px] leading-relaxed" style={{ color: "rgba(191,174,134,.75)" }}>
-        声はノブの声をもとに AI で作りました。思想も建物と同じく、これからも書き足していきます。
+        <span className="inline-block">声はノブの声をもとに AI で作りました。</span>
+        <span className="inline-block">思想も建物と同じく、これからも書き足していきます。</span>
       </p>
     </div>
   );
