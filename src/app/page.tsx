@@ -10,6 +10,7 @@ import Contact from "@/components/sections/Contact";
 import FlowingName from "@/components/FlowingName";
 import Reveal from "@/components/Reveal";
 import IzakayaComingSoon from "@/components/sections/IzakayaComingSoon";
+import ObraEternaCard from "@/components/sections/ObraEternaCard";
 
 export default function Home() {
   return (
@@ -25,6 +26,12 @@ export default function Home() {
         <section id="izakaya" className="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
           <Reveal>
             <IzakayaComingSoon />
+          </Reveal>
+        </section>
+        {/* 2026-11-25 ノブさん:「オブラ・エテルナ 始まります」のカードを 居酒屋のカードの下に */}
+        <section id="obra-eterna" className="mx-auto max-w-3xl px-6 pt-12 sm:pt-16">
+          <Reveal>
+            <ObraEternaCard />
           </Reveal>
         </section>
         <Concept />
