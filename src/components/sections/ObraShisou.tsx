@@ -98,10 +98,6 @@ export default function ObraShisou() {
       <h3 className="mt-3 text-center text-xl tracking-[0.2em] sm:text-2xl" style={{ fontFamily: MINCHO, paddingLeft: "0.2em" }}>
         いまの段階の思想
       </h3>
-      <p className="mt-2 text-center text-xs tracking-[0.1em]" style={{ fontFamily: MINCHO, color: SOFT }}>
-        <span className="inline-block">ノブの声で読みます({mmss(SHISOU_DURATION)})。</span>
-        <span className="inline-block">文章だけでも読めます。</span>
-      </p>
 
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
         <button
