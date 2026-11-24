@@ -11,6 +11,7 @@ import FlowingName from "@/components/FlowingName";
 import Reveal from "@/components/Reveal";
 import IzakayaComingSoon from "@/components/sections/IzakayaComingSoon";
 import ObraEternaCard from "@/components/sections/ObraEternaCard";
+import ObraShisou from "@/components/sections/ObraShisou";
 
 export default function Home() {
   return (
@@ -32,6 +33,10 @@ export default function Home() {
         <section id="obra-eterna" className="mx-auto max-w-3xl px-6 pt-12 sm:pt-16">
           <Reveal>
             <ObraEternaCard />
+          </Reveal>
+          {/* 2026-11-25 ノブさん: カードの下に「いまの段階の思想」。執筆の読み上げと同じ形(文章で読める・ノブの声で聞ける・速さ3段) */}
+          <Reveal>
+            <ObraShisou />
           </Reveal>
         </section>
         <Concept />
