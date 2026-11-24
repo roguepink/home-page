@@ -4,9 +4,9 @@
 //    上の小窓のいろんな色はそのまま」「居酒屋のカードの下に」
 // → 絵は public/obra-eterna/castle.svg(scripts/obra-eterna/make_castle_svg.py で作る。手で直さない)。
 //   文のうち「永遠の作品、永遠の工事。」「完成しない建物を…」「Siempre en obras」は こちらで足した文(ノブさんに伝えて OK をもらった)。
-// ここは何も動かさない(読んでいる間は何も動かない、のサイトの決まり)。工事の日数だけ、開いたときに1回数える。
-
-import ObraDayCount from "@/components/sections/ObraDayCount";
+// 2026-11-25 ノブさん「年内 着工予定に変えて。真ん中の欄もそれに合わせて」→ 左「年内/着工予定」、真ん中「設計中/いまの段階」。
+//   着工したら 真ん中を「工事の日数」に戻す(前の版の ObraDayCount を git の歴史から出す)。
+// ここは何も動かさない(読んでいる間は何も動かない、のサイトの決まり)。
 
 const MINCHO = "'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',serif";
 const DIDOT = "Didot,'Bodoni 72','Bodoni MT','Playfair Display','Times New Roman',serif";
@@ -97,8 +97,8 @@ export default function ObraEternaCard() {
             style={{ border: "1px solid rgba(227,194,122,.35)" }}
           >
             {[
-              { v: "2026.11.24", k: "着工" },
-              { v: <ObraDayCount />, k: "工事の日数" },
+              { v: "年内", k: "着工予定" },
+              { v: "設計中", k: "いまの段階" },
               { v: "∞", k: "完成予定" },
             ].map((s, i) => (
               <div
@@ -109,7 +109,7 @@ export default function ObraEternaCard() {
                 <dt className="mt-1 text-[11px] tracking-[0.15em]" style={{ color: SOFT }}>
                   {s.k}
                 </dt>
-                <dd style={{ fontFamily: DIDOT, fontSize: "clamp(15px,4.4vw,20px)", color: "#fff3d0", letterSpacing: "0.04em" }}>
+                <dd style={{ fontFamily: `Didot,'Bodoni 72','Times New Roman',${MINCHO}`, fontSize: "clamp(15px,4.4vw,20px)", color: "#fff3d0", letterSpacing: "0.04em" }}>
                   {s.v}
                 </dd>
               </div>
