@@ -103,7 +103,7 @@ export default function ObraShisou() {
         <button
           type="button"
           onClick={toggle}
-          aria-label={playing ? "読み上げを止める" : "ノブの声で聞く"}
+          aria-label={playing ? "読み上げを止める" : "NOBU の声で聞く"}
           className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold tracking-[0.1em] transition-colors sm:text-sm"
           style={{
             border: `1px solid ${playing ? GOLD : "rgba(227,194,122,.5)"}`,
