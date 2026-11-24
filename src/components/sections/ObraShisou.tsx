@@ -202,8 +202,7 @@ export default function ObraShisou() {
         </button>
       </div>
       <p className="mt-5 text-center text-[11px] leading-relaxed" style={{ color: "rgba(191,174,134,.75)" }}>
-        <span className="inline-block">声はノブの声をもとに AI で作りました。</span>
-        <span className="inline-block">思想も建物と同じく、これからも書き足していきます。</span>
+        声:NOBU(AI で作りました)
       </p>
     </div>
   );
