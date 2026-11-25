@@ -99,3 +99,4 @@ npm audit signatures                                    # npm 公式の署名を
 - `scripts/buhin_check.py` の元は `~/.claude/skills/buhin-check/check.py`(直したら写し直す)。`.buhin-check.json` は「入れるときに命令を動かしてよい部品」の一覧(今は unrs-resolver だけ)
 - GitHub の自動の見張り `.github/workflows/buhin-check.yml`(プルリクエスト・main への送信・毎週月曜の朝に走り、失敗したら GitHub からメール)は **まだ入っていない**。gh の鍵に workflow の許可がないため(2026-10-27)。ノブさんが許可したら `~/.claude/skills/buhin-check/buhin-check.yml` を写して送る
 - 2026-10-27: 10月14日の緊急修正のため Next.js 16.2.10 → 16.4.2、React 19.2.4 → 19.2.9、sharp 0.34.5 → 0.35.5 に上げた(16.4.3 は公開から3日だったので見送り)
+- 2026-11-25(ノブさん「あげて」): Next.js 16.4.2 → 16.4.6(中くらいの弱点7件の直し・PR #144)。部品チェック全部 ○・署名 ○
