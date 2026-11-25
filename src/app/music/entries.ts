@@ -21,6 +21,14 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-11-25-obra-eterna-obertura",
+    date: "2026-11-25",
+    title: "終わらない工事",
+    // ⚠ 文章はまだ無い。ノブさんの言葉が入るまで空のまま(オブラ・エテルナの序曲・第一楽章)
+    youtubeId: "Y9v7P3XmJ_4",
+    // 縦長の枠(居酒屋と同じ)
+  },
+  {
     slug: "2026-11-23-izakaya-nobu",
     date: "2026-11-23",
     title: "のぶのぶ いざかやのぶ",

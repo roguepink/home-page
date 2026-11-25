@@ -7,6 +7,11 @@
 // 2026-11-25 ノブさん「年内 着工予定に変えて。真ん中の欄もそれに合わせて」→ 左「年内/着工予定」、真ん中「設計中/いまの段階」。
 //   着工したら 真ん中を「工事の日数」に戻す(前の版の ObraDayCount を git の歴史から出す)。
 // ここは何も動かさない(読んでいる間は何も動かない、のサイトの決まり)。
+// 2026-11-25 ノブさん「テーマソングという名前にしたくない。もう少しかっこいい形で」→「オーベルトゥーラ(序曲)で」
+//   「居酒屋のカードと同じように、カードの中に入れこむ」→ いちばん下に OBERTURA(序曲・第一楽章)の縦長 MV。
+//   押すまで写真1枚だけ(YouTubeEmbed)。曲が増えたら「第二楽章」として足していく。
+
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 
 const MINCHO = "'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',serif";
 const DIDOT = "Didot,'Bodoni 72','Bodoni MT','Playfair Display','Times New Roman',serif";
@@ -122,6 +127,26 @@ export default function ObraEternaCard() {
               ── いつまでも工事中
             </span>
           </p>
+
+          <div className="mx-auto mt-9 max-w-[320px]">
+            <div className="mx-auto flex max-w-[240px] items-center justify-center gap-3" style={{ color: GOLD }} aria-hidden="true">
+              <i className="h-px flex-1" style={{ background: `linear-gradient(90deg,transparent,${GOLD},transparent)` }} />✦
+              <i className="h-px flex-1" style={{ background: `linear-gradient(90deg,transparent,${GOLD},transparent)` }} />
+            </div>
+            <p
+              className="mt-5"
+              style={{ fontFamily: DIDOT, fontStyle: "italic", fontSize: "clamp(30px,8vw,40px)", letterSpacing: "0.08em", color: GOLD, lineHeight: 1.1 }}
+            >
+              Obertura
+            </p>
+            <p className="mt-2 text-xs tracking-[0.35em]" style={{ fontFamily: MINCHO, color: SOFT, paddingLeft: "0.35em" }}>
+              序曲 ・ 第一楽章
+            </p>
+            <p className="mb-4 mt-3 text-lg tracking-[0.2em]" style={{ fontFamily: MINCHO, color: "#f4ecd8", paddingLeft: "0.2em" }}>
+              「終わらない工事」
+            </p>
+            <YouTubeEmbed id="Y9v7P3XmJ_4" vertical label="OBERTURA 序曲" />
+          </div>
         </div>
       </div>
     </div>
