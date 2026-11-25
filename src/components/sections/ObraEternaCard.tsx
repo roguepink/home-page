@@ -133,11 +133,19 @@ export default function ObraEternaCard() {
               <i className="h-px flex-1" style={{ background: `linear-gradient(90deg,transparent,${GOLD},transparent)` }} />✦
               <i className="h-px flex-1" style={{ background: `linear-gradient(90deg,transparent,${GOLD},transparent)` }} />
             </div>
+            {/* 2026-11-25 ノブさん「オベルトゥーラは読めないのでカタカナを。題名のところだけ、小さめでかっこよく」 */}
             <p
               className="mt-5"
               style={{ fontFamily: DIDOT, fontStyle: "italic", fontSize: "clamp(30px,8vw,40px)", letterSpacing: "0.08em", color: GOLD, lineHeight: 1.1 }}
             >
-              Obertura
+              <ruby>
+                Obertura
+                <rt
+                  style={{ fontFamily: MINCHO, fontStyle: "normal", fontSize: "11px", letterSpacing: "0.45em", color: SOFT, paddingBottom: "6px" }}
+                >
+                  オベルトゥーラ
+                </rt>
+              </ruby>
             </p>
             <p className="mt-2 text-xs tracking-[0.35em]" style={{ fontFamily: MINCHO, color: SOFT, paddingLeft: "0.35em" }}>
               序曲 ・ 第一楽章
