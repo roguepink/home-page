@@ -90,7 +90,7 @@ export default function ChristmasSpotlight() {
         </div>
 
         {/* 上の帯(赤と白のキャンディ) */}
-        <div className="relative flex items-center justify-center gap-2 whitespace-nowrap bg-[repeating-linear-gradient(135deg,#c4161c_0_14px,#e8323a_14px_28px)] px-4 py-2.5 text-center text-xs font-black tracking-[0.14em] text-white shadow-[inset_0_-2px_0_rgba(255,214,110,0.7)] sm:text-sm sm:tracking-[0.2em]">
+        <div className="relative flex items-center justify-center gap-2 whitespace-nowrap bg-[repeating-linear-gradient(135deg,#c4161c_0_14px,#e8323a_14px_28px)] px-3 py-2.5 text-center text-[11px] font-black tracking-[0.06em] text-white min-[360px]:text-xs min-[360px]:tracking-[0.14em] shadow-[inset_0_-2px_0_rgba(255,214,110,0.7)] sm:text-sm sm:tracking-[0.2em]">
           <span className="rounded-full bg-[#ffcf4a] px-2 py-0.5 text-[10px] tracking-[0.2em] text-[#6a0a0a] sm:text-xs">
             NEW
           </span>
@@ -112,7 +112,7 @@ export default function ChristmasSpotlight() {
           >
             クリスマスですよ。
           </p>
-          <p className="mt-3 text-center text-xs tracking-[0.25em] text-[#ffe3a8] sm:text-sm">
+          <p className="mt-3 whitespace-nowrap text-center text-[11px] tracking-[0.12em] text-[#ffe3a8] min-[360px]:text-xs min-[360px]:tracking-[0.25em] sm:text-sm">
             ✦ おもちゃたちの クリスマス MV ✦
           </p>
 
