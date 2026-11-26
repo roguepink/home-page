@@ -10,8 +10,8 @@ import { Mochiy_Pop_One } from "next/font/google";
 
 const pop = Mochiy_Pop_One({ weight: "400", subsets: ["latin"], display: "swap", preload: false });
 
-// ★ YouTube に上げたら、共有アドレスのうしろの11桁を入れる
-const YOUTUBE_ID = "";
+// YouTube(ROGUE PINK)2026-11-27 公開
+const YOUTUBE_ID = "6_Zv_U4Av5Y";
 const POSTER = "/music/bell-ga-nattara/poster.jpg";
 const TITLE_IMG = "/music/bell-ga-nattara/title.png";
 const MV_PAGE = "/music#2026-11-27-bell-ga-nattara";

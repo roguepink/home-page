@@ -25,8 +25,7 @@ export const MUSIC_ENTRIES: MusicEntry[] = [
     date: "2026-11-27",
     title: "ベルがなったら",
     description: "クリスマスですよ。",
-    // ★ YouTube に上げたら11桁を入れる
-    youtubeId: "",
+    youtubeId: "6_Zv_U4Av5Y",
     // 縦長の枠(居酒屋と同じ)
   },
   {
