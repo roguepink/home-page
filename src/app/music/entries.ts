@@ -21,6 +21,15 @@ export type MusicEntry = {
 // 新しい曲は、どこに足しても大丈夫。画面では日付の新しい順に自動で並ぶ(page.tsx)
 export const MUSIC_ENTRIES: MusicEntry[] = [
   {
+    slug: "2026-11-27-bell-ga-nattara",
+    date: "2026-11-27",
+    title: "ベルがなったら",
+    description: "クリスマスですよ。",
+    // ★ YouTube に上げたら11桁を入れる
+    youtubeId: "",
+    // 縦長の枠(居酒屋と同じ)
+  },
+  {
     slug: "2026-11-25-obra-eterna-obertura",
     date: "2026-11-25",
     title: "終わらない工事",

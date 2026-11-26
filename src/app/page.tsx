@@ -12,6 +12,7 @@ import Reveal from "@/components/Reveal";
 import IzakayaComingSoon from "@/components/sections/IzakayaComingSoon";
 import ObraEternaCard from "@/components/sections/ObraEternaCard";
 import ObraShisou from "@/components/sections/ObraShisou";
+import ChristmasSpotlight from "@/components/sections/ChristmasSpotlight";
 
 export default function Home() {
   return (
@@ -22,9 +23,16 @@ export default function Home() {
       <main>
         {/* 開いた瞬間の入り方は C「一本の糸」(2026-10-22 ノブさんが選んだ) */}
         <HeroIntro scene="thread" />
+        {/* 2026-11-27 ノブさん: 季節もの。一番上にクリスマスのカード(MV「ベルがなったら」)。
+            クリスマスが終わったら、この section を消すだけで下ろせる */}
+        <section id="christmas" className="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
+          <Reveal>
+            <ChristmasSpotlight />
+          </Reveal>
+        </section>
         {/* 2026-11-19 ノブさん: 上のほうに「居酒屋ノブ」のカード。いまは「ただいま準備中・近日公開予定」。
             開店するときは IzakayaCard(news.json を読んで 次の開店日・マスターの回を出す)に差しかえる */}
-        <section id="izakaya" className="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
+        <section id="izakaya" className="mx-auto max-w-3xl px-6 pt-12 sm:pt-16">
           <Reveal>
             <IzakayaComingSoon />
           </Reveal>

@@ -1,7 +1,6 @@
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import NovelSpotlight from "@/components/sections/NovelSpotlight";
-import NewSingleSpotlight from "@/components/sections/NewSingleSpotlight";
 import NewGameSpotlight from "@/components/sections/NewGameSpotlight";
 import NewWritingNote from "@/components/sections/NewWritingNote";
 import BusinessCard, {
@@ -149,10 +148,8 @@ export default function Businesses() {
           <NovelSpotlight />
         </Reveal>
 
-        {/* 2026-11-13 ノブさん: 小説のすぐ下に、待望のニューシングル「心上等」をドーンと */}
-        <Reveal className="sm:col-span-2 mb-6">
-          <NewSingleSpotlight />
-        </Reveal>
+        {/* 2026-11-13〜11-27 ここにニューシングル「心上等」の大きなカード(NewSingleSpotlight)があった。
+            2026-11-27 ノブさん: カードから外して、音楽ページの MV の並びにふつうに入れる(もう入っている) */}
 
         {/* 2026-11-14 ノブさん: ニューシングルの1つ下に、ニューゲーム(新入荷)。2026-11-17 いまは爽快ゾンビ無双の「大型アップデート」のカード */}
         <Reveal className="sm:col-span-2 mb-6">
